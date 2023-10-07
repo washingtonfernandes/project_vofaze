@@ -6,7 +6,7 @@ class SignupPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(),
       body: Container(
-        color: Colors.blue,
+        color: Colors.black,
         child: Center(
           child: Text("Signup"),
         ),

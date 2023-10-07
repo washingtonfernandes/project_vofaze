@@ -7,7 +7,7 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: Colors.black12,
+        color: Colors.orangeAccent,
         padding: EdgeInsets.only(
           top: 80,
           left: 20,
@@ -39,17 +39,16 @@ class LoginPage extends StatelessWidget {
                         Column(
                           children: <Widget>[
                             Text(
-                              "Welcome",
+                              "Bem vindo",
                               style: TextStyle(
                                 fontSize: 30,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
-                            Text("Sign in to continue"),
                           ],
                         ),
                         ElevatedButton(
-                          child: Text("Sign Up"),
+                          child: Text("Admin"),
                           onPressed: () {},
                         )
                       ],
@@ -104,14 +103,15 @@ class LoginPage extends StatelessWidget {
                       height: 10,
                     ),
                     Container(
-                      color: Colors.black26,
+                      color: Colors.black,
                       height: 60,
                       alignment: Alignment.center,
                       child: TextButton(
                         onPressed: () {},
                         child: Text(
-                          "Sign in",
+                          "Entrar",
                           style: TextStyle(
+                            color: Colors.amber,
                             fontSize: 22,
                             fontWeight: FontWeight.bold,
                           ),
