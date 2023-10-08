@@ -30,8 +30,8 @@ class LoginPage extends StatelessWidget {
                 ],
               ),
               child: Padding(
-                padding: EdgeInsets.all(15),
-                child: ListView(
+                padding: EdgeInsets.all(20),
+                child: Column(
                   children: <Widget>[
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -127,11 +127,6 @@ class LoginPage extends StatelessWidget {
                 top: 15,
                 bottom: 15,
               ),
-              child: Text(" -- Ou --",
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w300,
-                  )),
             ),
           ],
         ),
