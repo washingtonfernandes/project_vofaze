@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_vofaze/pages/login/login_admin.page.dart';
+import 'package:project_vofaze/pages/menu/menu_ticket.page.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -14,7 +15,7 @@ class LoginPage extends StatelessWidget {
             top: 80,
             left: 20,
             right: 20,
-            bottom: 40,
+            bottom: 80,
           ),
           child: Column(
             children: <Widget>[
@@ -114,7 +115,12 @@ class LoginPage extends StatelessWidget {
                         height: 60,
                         alignment: Alignment.center,
                         child: TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => MenuTicket()));
+                          },
                           child: Text(
                             "Entrar",
                             style: TextStyle(

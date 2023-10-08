@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project_vofaze/pages/cadastros/cadastro_setor.page.dart';
+import 'package:project_vofaze/pages/login/login.page.dart';
 import 'package:project_vofaze/pages/splashscreen.dart';
 
 class vofaze extends StatelessWidget {
@@ -14,7 +14,7 @@ class vofaze extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const SplashScreen();
           } else {
-            return const CadastroSetor();
+            return const LoginPage();
           }
         },
       ),

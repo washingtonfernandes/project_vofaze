@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:project_vofaze/pages/login/login.page.dart';
+import 'package:project_vofaze/pages/menu/menu_admin.page.dart';
 
-class CadastroSetor extends StatelessWidget {
-  const CadastroSetor({super.key});
+class CadastroAmbiente extends StatelessWidget {
+  const CadastroAmbiente({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +47,7 @@ class CadastroSetor extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "Cadastro de setor",
+                            "Cadastro de ambiente",
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.w500,
@@ -59,7 +59,7 @@ class CadastroSetor extends StatelessWidget {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => LoginPage()));
+                                      builder: (context) => MenuAdmin()));
                             },
                           ),
                         ],
@@ -99,9 +99,6 @@ class CadastroSetor extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 20,
                         ),
-                      ),
-                      SizedBox(
-                        height: 10,
                       ),
                       SizedBox(
                         height: 20,

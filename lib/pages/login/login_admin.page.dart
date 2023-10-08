@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_vofaze/pages/login/login.page.dart';
+import 'package:project_vofaze/pages/menu/menu_admin.page.dart';
 
 class LoginAdminPage extends StatelessWidget {
   const LoginAdminPage({super.key});
@@ -7,6 +8,7 @@ class LoginAdminPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: SingleChildScrollView(
         child: Container(
           color: Colors.black12,
@@ -121,7 +123,12 @@ class LoginAdminPage extends StatelessWidget {
                         height: 60,
                         alignment: Alignment.center,
                         child: TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => MenuAdmin()));
+                          },
                           child: Text(
                             "Entrar",
                             style: TextStyle(

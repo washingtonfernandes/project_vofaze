@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project_vofaze/pages/login/login.page.dart';
+import 'package:project_vofaze/pages/menu/menu_admin.page.dart';
 
 class CadastroUser extends StatelessWidget {
   const CadastroUser({super.key});
@@ -58,7 +58,7 @@ class CadastroUser extends StatelessWidget {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => LoginPage()));
+                                      builder: (context) => MenuAdmin()));
                             },
                           ),
                         ],
