@@ -44,50 +44,58 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    return Scaffold(
-      body: Container(
-        color: Colors.black,
-        padding: EdgeInsets.only(),
-        child: Stack(
-          children: [
-            Positioned(
-              top: size.height * 0.32,
-              left: size.width * 0.015,
-              right: size.width * 0.015,
-              child: SizedBox(
-                width: size.width * 0.40,
-                height: size.height * 0.35,
-                child: Image.asset('assets/splash/vofaze_fundo.png'),
-              ),
+    return MaterialApp(
+      home: Scaffold(
+        body: Container(
+          padding: EdgeInsets.only(),
+          width: double.infinity,
+          height: double.infinity,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/splash/vofaze_fundo2.png"),
+              fit: BoxFit.cover,
             ),
-            // Em seguida, adicione as imagens da splash 1 e 2
-            Positioned(
-              top: size.height * 0.46,
-              left: -290,
-              right: -290,
-              child: AlignTransition(
-                alignment: animationLoading,
+          ),
+          child: Stack(
+            children: [
+              Positioned(
+                top: size.height * 0.32,
+                left: size.width * 0.015,
+                right: size.width * 0.015,
                 child: SizedBox(
-                  width: size.width * 0.50,
-                  height: size.height * 0.23,
-                  child: Image.asset('assets/splash/vofaze_letreiro.png'),
+                  width: size.width * 0.40,
+                  height: size.height * 0.35,
+                  child: Image.asset('assets/splash/vofaze_fundo.png'),
                 ),
               ),
-            ),
-            Positioned(
-              top: size.height * 0.36,
-              left: -295,
-              right: -290,
-              child: AlignTransition(
-                alignment: animationLoading2,
-                child: SizedBox(
-                  width: size.width * 0.35,
-                  height: size.height * 0.20,
-                  child: Image.asset('assets/splash/vofaze_robo.png'),
+              Positioned(
+                top: size.height * 0.46,
+                left: -290,
+                right: -290,
+                child: AlignTransition(
+                  alignment: animationLoading,
+                  child: SizedBox(
+                    width: size.width * 0.50,
+                    height: size.height * 0.23,
+                    child: Image.asset('assets/splash/vofaze_letreiro.png'),
+                  ),
                 ),
               ),
-            ),
-          ],
+              Positioned(
+                top: size.height * 0.36,
+                left: -295,
+                right: -290,
+                child: AlignTransition(
+                  alignment: animationLoading2,
+                  child: SizedBox(
+                    width: size.width * 0.35,
+                    height: size.height * 0.20,
+                    child: Image.asset("assets/splash/vofaze_robo.png"),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
