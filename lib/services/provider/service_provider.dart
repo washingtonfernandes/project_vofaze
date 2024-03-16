@@ -1,35 +1,47 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:project_vofaze/model/ticket_model.dart';
-import 'package:project_vofaze/services/ticket_service.dart';
 
 class TicketProvider with ChangeNotifier {
-  final TicketServiceProvider _ticketServiceProvider = TicketServiceProvider();
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   List<TicketModel> _tickets = [];
   bool _isLoading = true;
   String? _error;
+  late StreamSubscription<QuerySnapshot> _subscription;
 
   TicketProvider() {
-    _fetchTickets();
+    _subscribeToTickets();
   }
 
   List<TicketModel> get tickets => _tickets;
   bool get isLoading => _isLoading;
   String? get error => _error;
 
-  Future<void> _fetchTickets() async {
-    try {
-      final snapshot =
-          await FirebaseFirestore.instance.collection("ticket").get();
-      _tickets =
-          snapshot.docs.map((doc) => TicketModel.fromSnapshot(doc)).toList();
+  void _subscribeToTickets() {
+    _subscription = _firestore.collection("ticket").snapshots().listen((event) {
+      _tickets.clear();
+      _tickets.addAll(event.docs.map((doc) => TicketModel.fromSnapshot(doc)));
+      _tickets.sort(
+          (a, b) => a.data.compareTo(b.data)); // Ordena os tickets por data
       _isLoading = false;
+      notifyListeners();
+    });
+  }
+
+  Future<void> addTicket(TicketModel ticket) async {
+    try {
+      await _firestore.collection("ticket").add(ticket.toMap());
       notifyListeners();
     } catch (error) {
-      _error = "Erro ao buscar tickets: $error";
-      _isLoading = false;
-      print(_error);
-      notifyListeners();
+      print("Erro ao adicionar ticket: $error");
     }
+  }
+
+  @override
+  void dispose() {
+    _subscription.cancel();
+    super.dispose();
   }
 }

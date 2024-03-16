@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:project_vofaze/model/ticket_model.dart';
 import 'package:project_vofaze/services/provider/radio_provider.dart';
-import 'package:project_vofaze/services/ticket_service.dart';
+import 'package:project_vofaze/services/provider/ticket_service_provider.dart';
 import 'package:project_vofaze/widget/date_time_widget.dart';
 import 'package:project_vofaze/widget/radio_widget.dart';
 import 'package:project_vofaze/widget/textField_widget.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_vofaze/services/provider/service_provider.dart';
-import 'package:project_vofaze/services/ticket_service.dart';
+import 'package:project_vofaze/services/provider/ticket_service_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:project_vofaze/services/provider/radio_provider.dart';
 import 'package:project_vofaze/services/provider/date_time_provider.dart';

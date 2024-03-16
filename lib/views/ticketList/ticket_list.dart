@@ -1,20 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:project_vofaze/model/ticket_model.dart';
-import 'package:project_vofaze/services/provider/service_provider.dart';
-import 'package:project_vofaze/widget/card_ticket_list_widget.dart'; // Importe o widget CardTicketListWidget
-import 'package:project_vofaze/common/cores_dia.dart';
 import 'package:project_vofaze/common/show_model.dart';
+import 'package:project_vofaze/services/provider/service_provider.dart';
+import 'package:project_vofaze/widget/card_ticket_list_widget.dart';
+import 'package:project_vofaze/common/cores_dia.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 
 class TicketList extends StatelessWidget {
-  TicketList({Key? key}) : super(key: key); // Corrija a definição do construtor
+  TicketList({Key? key}) : super(key: key);
 
-  final tituloController =
-      TextEditingController(); // Corrija o nome do controller
-  final descricaoController =
-      TextEditingController(); // Corrija o nome do controller
+  final tituloController = TextEditingController();
+  final descricaoController = TextEditingController();
+  final ScrollController _scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -55,70 +53,67 @@ class TicketList extends StatelessWidget {
           )
         ],
       ),
-
-      // Corpo apresentação cards
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30),
-          child: Column(
-            children: [
-              const Gap(12),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Tickets",
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
-                      ),
-                      Text("Ordens abertas"),
-                    ],
-                  ),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
+      body: Column(
+        children: [
+          const Gap(12),
+          Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Tickets",
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
-                    onPressed: () => showModalBottomSheet(
-                      isScrollControlled: true,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(24),
-                      ),
-                      context: context,
-                      builder: (context) =>
-                          AddTicketModel(), // Adicione esta linha
-                    ),
-                    child: Text(
-                      "+ Novo Ticket",
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
+                    Text("Ordens abertas"),
+                  ],
+                ),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
                     ),
                   ),
-                ],
-              ),
-              const Gap(20),
-              Consumer<TicketProvider>(
-                builder: (context, ticketProvider, _) {
-                  final tickets = ticketProvider.tickets;
-                  return ListView.builder(
-                    itemCount: tickets.length,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) => CardTicketListWidget(
-                      getIndex: index,
+                  onPressed: () => showModalBottomSheet(
+                    isScrollControlled: true,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(24),
                     ),
-                  );
-                },
-              ),
-            ],
+                    context: context,
+                    builder: (context) => AddTicketModel(),
+                  ),
+                  child: Text(
+                    "+ Novo Ticket",
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
+          const Gap(20),
+          Expanded(
+            child: Consumer<TicketProvider>(
+              builder: (context, ticketProvider, _) {
+                final tickets = ticketProvider.tickets;
+                return ListView.builder(
+                  controller: _scrollController,
+                  itemCount: tickets.length,
+                  itemBuilder: (context, index) => CardTicketListWidget(
+                    getIndex: index,
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
