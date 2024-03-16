@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:project_vofaze/common/cores_dia.dart';
 import 'package:project_vofaze/services/provider/auth_service_provider.dart';
 import 'package:project_vofaze/views/AdminEdit/admin_edit.dart';
+import 'package:project_vofaze/views/ticketList/ticket_list.dart';
 import 'package:project_vofaze/views/unidades/units.dart';
 
 class DrawerHome extends StatelessWidget {
@@ -41,7 +42,7 @@ class DrawerHome extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Units()));
+                      MaterialPageRoute(builder: (context) => TicketList()));
                 },
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.yellow,

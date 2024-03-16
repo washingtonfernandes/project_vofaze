@@ -1,14 +1,17 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:project_vofaze/model/ticket_model.dart';
 
-class TicketService extends ChangeNotifier {
-  final ticketCollection = FirebaseFirestore.instance.collection("ticket");
+class TicketService with ChangeNotifier {
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  // CRUD
 
-  // CREATE
-  Future<void> addTicket(TicketModel model) async {
-    await ticketCollection.add(model.toMap());
+  Future<void> addTicket(TicketModel ticket) async {
+    try {
+      await _firestore.collection("ticket").add(ticket.toMap());
+    } catch (error) {
+    
+    }
   }
+
 }

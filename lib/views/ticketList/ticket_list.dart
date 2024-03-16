@@ -1,15 +1,20 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:project_vofaze/model/ticket_model.dart';
+import 'package:project_vofaze/services/provider/service_provider.dart';
+import 'package:project_vofaze/widget/card_ticket_list_widget.dart'; // Importe o widget CardTicketListWidget
 import 'package:project_vofaze/common/cores_dia.dart';
 import 'package:project_vofaze/common/show_model.dart';
-import 'package:project_vofaze/widget/card_ticket_list_widget.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:provider/provider.dart';
 
 class TicketList extends StatelessWidget {
-  TicketList({super.key});
+  TicketList({Key? key}) : super(key: key); // Corrija a definição do construtor
 
-  final tituloContoller = TextEditingController();
-  final descricaoContoller = TextEditingController();
+  final tituloController =
+      TextEditingController(); // Corrija o nome do controller
+  final descricaoController =
+      TextEditingController(); // Corrija o nome do controller
 
   @override
   Widget build(BuildContext context) {
@@ -51,8 +56,7 @@ class TicketList extends StatelessWidget {
         ],
       ),
 
-      //Corpo apresentação cards
-
+      // Corpo apresentação cards
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -100,10 +104,17 @@ class TicketList extends StatelessWidget {
                 ],
               ),
               const Gap(20),
-              ListView.builder(
-                itemCount: 1,
-                shrinkWrap: true,
-                itemBuilder: (context, index) => CardTicketListWidget(),
+              Consumer<TicketProvider>(
+                builder: (context, ticketProvider, _) {
+                  final tickets = ticketProvider.tickets;
+                  return ListView.builder(
+                    itemCount: tickets.length,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) => CardTicketListWidget(
+                      getIndex: index,
+                    ),
+                  );
+                },
               ),
             ],
           ),

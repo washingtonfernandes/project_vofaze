@@ -1,22 +1,27 @@
+import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:project_vofaze/model/ticket_model.dart';
 import 'package:project_vofaze/services/ticket_service.dart';
-import 'package:provider/provider.dart';
 
-final ticketServiceProvider = ChangeNotifierProvider<TicketService>(
-  create: (context) => TicketService(), 
-);
-// class TicketServiceProvider extends ChangeNotifier {
-//   TicketService _ticketService = TicketService();
+class TicketProvider with ChangeNotifier {
+  final TicketService _ticketService = TicketService();
+  List<TicketModel> _tickets = [];
 
-//   TicketService get ticketService => _ticketService;
+  TicketProvider() {
+    _fetchTickets();
+  }
 
-//   void newTicketService(TicketModel ticketModel) async {
-//     try {
-//       _ticketService.addTicket(ticketModel);
-//       notifyListeners();
-//       print("Ticket salvo com sucesso no Firebase!");
-//     } catch (e) {
-//       print("Erro ao salvar o ticket: $e");
-//     }
-//   }
-// }
+  List<TicketModel> get tickets => _tickets;
+
+  Future<void> _fetchTickets() async {
+    try {
+      final snapshot =
+          await FirebaseFirestore.instance.collection("ticket").get();
+      _tickets =
+          snapshot.docs.map((doc) => TicketModel.fromSnapshot(doc)).toList();
+      notifyListeners();
+    } catch (error) {
+      print("Error fetching tickets: $error");
+    }
+  }
+}
