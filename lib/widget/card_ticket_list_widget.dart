@@ -69,14 +69,15 @@ class CardTicketListWidget extends StatelessWidget {
                               ticket.descricao,
                               style: TextStyle(fontSize: 14),
                             ),
-                            trailing: Transform.scale(
-                              scale: 1.5,
-                              child: Checkbox(
-                                activeColor: Colors.black,
-                                shape: CircleBorder(),
-                                value: ticket.isDone,
-                                onChanged: (value) => print(value),
-                              ),
+                            trailing: Checkbox(
+                              activeColor: Colors.black,
+                              shape: CircleBorder(),
+                              value: ticket.isDone,
+                              onChanged: (value) {
+                                // Atualiza o estado do ticket
+                                ticketProvider.updateTicketStatus(
+                                    ticket, value ?? false);
+                              },
                             ),
                           ),
                           Transform.translate(

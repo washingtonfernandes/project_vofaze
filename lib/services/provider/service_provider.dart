@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:project_vofaze/model/ticket_model.dart';
@@ -36,6 +35,17 @@ class TicketProvider with ChangeNotifier {
       notifyListeners();
     } catch (error) {
       print("Erro ao adicionar ticket: $error");
+    }
+  }
+
+  void updateTicketStatus(TicketModel ticket, bool newStatus) {
+    try {
+      final docID = ticket.docID;
+      if (docID != null) {
+        _firestore.collection("ticket").doc(docID).update({'isDone': newStatus});
+      }
+    } catch (error) {
+      print("Erro ao atualizar o status do ticket: $error");
     }
   }
 

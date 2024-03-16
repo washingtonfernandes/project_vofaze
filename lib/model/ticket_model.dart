@@ -8,7 +8,7 @@ class TicketModel {
   final String setor;
   final String data;
   final String horario;
-  final bool isDone;
+  bool isDone; // Remover 'final' para permitir a modificação
 
   TicketModel({
     this.docID,
