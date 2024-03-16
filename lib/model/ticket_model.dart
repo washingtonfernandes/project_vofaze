@@ -8,6 +8,7 @@ class TicketModel {
   final String setor;
   final String data;
   final String horario;
+  final bool isDone;
 
   TicketModel({
     this.docID,
@@ -16,6 +17,7 @@ class TicketModel {
     required this.setor,
     required this.data,
     required this.horario,
+    required this.isDone,
   });
 
   Map<String, dynamic> toMap() {
@@ -25,6 +27,7 @@ class TicketModel {
       'setor': setor,
       'data': data,
       'horario': horario,
+      'isDone': isDone,
     };
   }
 
@@ -36,6 +39,7 @@ class TicketModel {
       setor: map['setor'] as String,
       data: map['data'] as String,
       horario: map['horario'] as String,
+      isDone: map['isDone'] as bool,
     );
   }
 
@@ -47,7 +51,7 @@ class TicketModel {
       setor: doc["setor"],
       data: doc["data"],
       horario: doc["horario"],
+      isDone: doc["isDone"],
     );
   }
 }
-

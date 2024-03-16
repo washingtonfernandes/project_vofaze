@@ -187,7 +187,7 @@ class _AddTicketModelState extends State<AddTicketModel> {
                           break;
                       }
 
-                      context.read<TicketService>().addTicket(
+                      context.read<TicketServiceProvider>().addTicket(
                             TicketModel(
                               titulo: tituloController.text,
                               descricao: descricaoController.text,
@@ -198,6 +198,7 @@ class _AddTicketModelState extends State<AddTicketModel> {
                               horario: _formatTime(context
                                   .read<DateTimeProvider>()
                                   .selectedTime),
+                              isDone: false,
                             ),
                           );
                       print("Salvo");
