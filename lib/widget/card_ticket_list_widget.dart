@@ -78,14 +78,52 @@ class CardTicketListWidget extends StatelessWidget {
                       child: Column(
                         children: [
                           ListTile(
-                            title: Text(
-                              ticket.titulo,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w500, fontSize: 18),
+                            title: Stack(
+                              children: [
+                                Text(
+                                  ticket.titulo,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 18,
+                                  ),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                if (ticket
+                                    .isDone) // Adiciona uma linha sobrescrita se o ticket estiver concluído
+                                  Positioned(
+                                    left: 0,
+                                    right: 0,
+                                    top: 12, // Ajuste conforme necessário
+                                    child: Container(
+                                      height: 1,
+                                      color: Colors
+                                          .black26, // Cor da linha sobrescrita
+                                    ),
+                                  ),
+                              ],
                             ),
-                            subtitle: Text(
-                              ticket.descricao,
-                              style: TextStyle(fontSize: 14),
+                            subtitle: Stack(
+                              children: [
+                                Text(
+                                  ticket.descricao,
+                                  style: TextStyle(fontSize: 14),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                if (ticket
+                                    .isDone) // Adiciona uma linha sobrescrita se o ticket estiver concluído
+                                  Positioned(
+                                    left: 0,
+                                    right: 0,
+                                    top: 12, // Ajuste conforme necessário
+                                    child: Container(
+                                      height: 1,
+                                      color: Colors
+                                          .black26, // Cor da linha sobrescrita
+                                    ),
+                                  ),
+                              ],
                             ),
                             trailing: Checkbox(
                               activeColor: Colors.black,
@@ -94,7 +132,9 @@ class CardTicketListWidget extends StatelessWidget {
                               onChanged: (value) {
                                 // Atualiza o estado do ticket
                                 ticketProvider.updateTicketStatus(
-                                    ticket, value ?? false);
+                                  ticket,
+                                  value ?? false,
+                                );
                               },
                             ),
                           ),
@@ -114,7 +154,8 @@ class CardTicketListWidget extends StatelessWidget {
                                         Text(ticket.data), // Exibir a data
                                         Gap(12),
                                         Text(
-                                            ticket.horario), // Exibir o horário
+                                          ticket.horario,
+                                        ), // Exibir o horário
                                       ],
                                     ),
                                   ),

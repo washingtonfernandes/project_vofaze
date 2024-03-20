@@ -54,4 +54,6 @@ class TicketProvider with ChangeNotifier {
     _subscription.cancel();
     super.dispose();
   }
+
+  void updateTicket(TicketModel ticket) {}
 }

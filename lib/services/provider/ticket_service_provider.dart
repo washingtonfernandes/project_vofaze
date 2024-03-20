@@ -13,4 +13,22 @@ class TicketServiceProvider with ChangeNotifier {
       print("Erro ao adicionar ticket: $error");
     }
   }
+
+  Future<void> updateTicket(TicketModel ticket) async {
+    try {
+      final docRef = _firestore.collection("ticket").doc(ticket.docID);
+      await docRef.update(ticket.toMap());
+      notifyListeners();
+    } catch (error) {
+      print("Erro ao atualizar ticket: $error");
+    }
+  }
+
+  Future<void> deleteTicket(String? docId) async {
+    try {
+      await _firestore.collection("ticket").doc(docId).delete();
+    } catch (error) {
+      print("Erro ao deletar ticket: $error");
+    }
+  }
 }
