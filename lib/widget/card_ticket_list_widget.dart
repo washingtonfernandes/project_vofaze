@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:project_vofaze/model/ticket_model.dart';
-import 'package:project_vofaze/services/provider/service_provider.dart';
+import 'package:project_vofaze/services/provider/ticket_provider.dart';
 import 'package:provider/provider.dart';
 
 class CardTicketListWidget extends StatelessWidget {
@@ -18,6 +18,25 @@ class CardTicketListWidget extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 4.0),
       child: Consumer<TicketProvider>(
         builder: (context, ticketProvider, _) {
+          final TicketModel ticket = ticketProvider.tickets[getIndex];
+          final getSetor = ticket.setor;
+          Color setorColor = Colors.white;
+
+          switch (getSetor) {
+            case 'Manut':
+              setorColor = Colors.green;
+              break;
+            case 'Limp':
+              setorColor = Colors.blue;
+              break;
+            case 'Admin':
+              setorColor = Colors.red;
+              break;
+            default:
+              setorColor = Colors.white;
+              break;
+          }
+
           if (ticketProvider.isLoading) {
             return Center(
               child: CircularProgressIndicator(),
@@ -33,7 +52,6 @@ class CardTicketListWidget extends StatelessWidget {
           } else if (ticketProvider.tickets.length <= getIndex) {
             return SizedBox();
           } else {
-            final TicketModel ticket = ticketProvider.tickets[getIndex];
             return Padding(
               // Adicionando padding para espaçamento nas laterais
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -48,7 +66,7 @@ class CardTicketListWidget extends StatelessWidget {
                   children: [
                     Container(
                       decoration: BoxDecoration(
-                        color: Colors.green,
+                        color: setorColor,
                         borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(12),
                           bottomLeft: Radius.circular(12),

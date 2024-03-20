@@ -7,13 +7,13 @@ class RadioWidget extends StatelessWidget {
   const RadioWidget({
     Key? key,
     required this.titleRadio,
-    required this.categColor,
+    required this.setorColor,
     required this.valueInput,
     required void Function() onChangeValue,
   }) : super(key: key);
 
   final String titleRadio;
-  final Color categColor;
+  final Color setorColor;
   final int valueInput;
 
   @override
@@ -23,16 +23,16 @@ class RadioWidget extends StatelessWidget {
         return Material(
           color: MinhasCores.amareloBaixo,
           child: Theme(
-            data: ThemeData(unselectedWidgetColor: categColor),
+            data: ThemeData(unselectedWidgetColor: setorColor),
             child: RadioListTile(
-              activeColor: categColor,
+              activeColor: setorColor,
               contentPadding: EdgeInsets.zero,
               title: Transform.translate(
                 offset: const Offset(-22, 0),
                 child: Text(
                   titleRadio,
                   style: TextStyle(
-                    color: categColor,
+                    color: setorColor,
                     fontWeight: FontWeight.w700,
                   ),
                 ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:project_vofaze/common/show_model.dart';
-import 'package:project_vofaze/services/provider/service_provider.dart';
+import 'package:project_vofaze/services/provider/ticket_provider.dart';
 import 'package:project_vofaze/widget/card_ticket_list_widget.dart';
 import 'package:project_vofaze/common/cores_dia.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -10,8 +10,6 @@ import 'package:provider/provider.dart';
 class TicketList extends StatelessWidget {
   TicketList({Key? key}) : super(key: key);
 
-  final tituloController = TextEditingController();
-  final descricaoController = TextEditingController();
   final ScrollController _scrollController = ScrollController();
 
   @override

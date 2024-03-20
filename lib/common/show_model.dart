@@ -95,7 +95,7 @@ class _AddTicketModelState extends State<AddTicketModel> {
                 Expanded(
                   child: RadioWidget(
                     titleRadio: "Manut",
-                    categColor: Colors.green,
+                    setorColor: Colors.green,
                     valueInput: 1,
                     onChangeValue: () =>
                         context.read<RadioProvider>().setSelectedRadio(1),
@@ -104,7 +104,7 @@ class _AddTicketModelState extends State<AddTicketModel> {
                 Expanded(
                   child: RadioWidget(
                     titleRadio: "Limp",
-                    categColor: Colors.blue,
+                    setorColor: Colors.blue,
                     valueInput: 2,
                     onChangeValue: () =>
                         context.read<RadioProvider>().setSelectedRadio(2),
@@ -113,7 +113,7 @@ class _AddTicketModelState extends State<AddTicketModel> {
                 Expanded(
                   child: RadioWidget(
                     titleRadio: "Admin",
-                    categColor: Colors.red,
+                    setorColor: Colors.red,
                     valueInput: 3,
                     onChangeValue: () =>
                         context.read<RadioProvider>().setSelectedRadio(3),
