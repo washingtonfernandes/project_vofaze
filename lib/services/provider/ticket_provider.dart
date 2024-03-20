@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:project_vofaze/common/cores_dia.dart';
 import 'package:project_vofaze/model/ticket_model.dart';
 
 class TicketProvider with ChangeNotifier {
@@ -59,6 +60,66 @@ class TicketProvider with ChangeNotifier {
     } catch (error) {
       print("Erro ao deletar ticket: $error");
     }
+  }
+
+  void confirmDelete(String? docID, BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => AlertDialog(
+        title: Center(
+          child: Text(
+            "Confirma a exclusão?",
+            style: TextStyle(
+              color: Colors.red,
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Flexible(
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.white,
+                      backgroundColor: Color.fromARGB(255, 0, 0, 0),
+                    ),
+                    child: Text(
+                      "Cancelar",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 18,
+                ),
+                Flexible(
+                  child: TextButton(
+                    onPressed: () async {
+                      await deleteTicket(docID);
+                      Navigator.pop(context);
+                    },
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.black,
+                      backgroundColor: MinhasCores.amarelo,
+                    ),
+                    child: Text("Confirmar"),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   @override
