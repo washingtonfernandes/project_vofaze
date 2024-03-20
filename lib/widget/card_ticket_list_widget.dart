@@ -37,140 +37,125 @@ class CardTicketListWidget extends StatelessWidget {
               break;
           }
 
-          if (ticketProvider.isLoading) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          } else if (ticketProvider.error != null) {
-            return Center(
-              child: Text("Erro ao carregar dados: ${ticketProvider.error}"),
-            );
-          } else if (ticketProvider.tickets.isEmpty) {
-            return Center(
-              child: Text("Sem dados"),
-            );
-          } else if (ticketProvider.tickets.length <= getIndex) {
-            return SizedBox();
-          } else {
-            return Padding(
-              // Adicionando padding para espaçamento nas laterais
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Container(
-                width: double.infinity,
-                height: 130,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Row(
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        color: setorColor,
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(12),
-                          bottomLeft: Radius.circular(12),
-                        ),
-                      ),
-                      width: 40,
-                    ),
-                    Expanded(
-                      child: Column(
-                        children: [
-                          ListTile(
-                            title: Stack(
-                              children: [
-                                Text(
-                                  ticket.titulo,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 18,
-                                  ),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                                if (ticket
-                                    .isDone) // Adiciona uma linha sobrescrita se o ticket estiver concluído
-                                  Positioned(
-                                    left: 0,
-                                    right: 0,
-                                    top: 12, // Ajuste conforme necessário
-                                    child: Container(
-                                      height: 1,
-                                      color: Colors
-                                          .black26, // Cor da linha sobrescrita
-                                    ),
-                                  ),
-                              ],
-                            ),
-                            subtitle: Stack(
-                              children: [
-                                Text(
-                                  ticket.descricao,
-                                  style: TextStyle(fontSize: 14),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                                if (ticket
-                                    .isDone) // Adiciona uma linha sobrescrita se o ticket estiver concluído
-                                  Positioned(
-                                    left: 0,
-                                    right: 0,
-                                    top: 12, // Ajuste conforme necessário
-                                    child: Container(
-                                      height: 1,
-                                      color: Colors
-                                          .black26, // Cor da linha sobrescrita
-                                    ),
-                                  ),
-                              ],
-                            ),
-                            trailing: Checkbox(
-                              activeColor: Colors.black,
-                              shape: CircleBorder(),
-                              value: ticket.isDone,
-                              onChanged: (value) {
-                                // Atualiza o estado do ticket
-                                ticketProvider.updateTicketStatus(
-                                  ticket,
-                                  value ?? false,
-                                );
-                              },
-                            ),
-                          ),
-                          Transform.translate(
-                            offset: Offset(0, -12),
-                            child: Container(
-                              child: Column(
-                                children: [
-                                  Divider(
-                                    thickness: 1.5,
-                                    color: Colors.black38,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Row(
-                                      children: [
-                                        Text(ticket.data), // Exibir a data
-                                        Gap(12),
-                                        Text(
-                                          ticket.horario,
-                                        ), // Exibir o horário
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+          return Padding(
+            // Adicionando padding para espaçamento nas laterais
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Container(
+              width: double.infinity,
+              height: 130,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(12),
               ),
-            );
-          }
+              child: Row(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      color: setorColor,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(12),
+                        bottomLeft: Radius.circular(12),
+                      ),
+                    ),
+                    width: 40,
+                  ),
+                  Expanded(
+                    child: Column(
+                      children: [
+                        ListTile(
+                          leading: IconButton(
+                            icon: Icon(Icons.delete),
+                            onPressed: () {
+                              // Excluir o ticket ao pressionar o ícone de deletar
+                              ticketProvider.deleteTicket(ticket.docID);
+                            },
+                          ),
+                          title: Stack(
+                            children: [
+                              Text(
+                                ticket.titulo,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 18,
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              if (ticket.isDone)
+                                Positioned(
+                                  left: 0,
+                                  right: 0,
+                                  top: 12,
+                                  child: Container(
+                                    height: 1,
+                                    color: Colors.black26,
+                                  ),
+                                ),
+                            ],
+                          ),
+                          subtitle: Stack(
+                            children: [
+                              Text(
+                                ticket.descricao,
+                                style: TextStyle(fontSize: 14),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              if (ticket.isDone)
+                                Positioned(
+                                  left: 0,
+                                  right: 0,
+                                  top: 12,
+                                  child: Container(
+                                    height: 1,
+                                    color: Colors.black26,
+                                  ),
+                                ),
+                            ],
+                          ),
+                          trailing: Checkbox(
+                            activeColor: Colors.black,
+                            shape: CircleBorder(),
+                            value: ticket.isDone,
+                            onChanged: (value) {
+                              // Atualizar o status do ticket
+                              ticketProvider.updateTicketStatus(
+                                  ticket, value ?? false);
+                            },
+                          ),
+                        ),
+                        Transform.translate(
+                          offset: Offset(0, -12),
+                          child: Container(
+                            child: Column(
+                              children: [
+                                Divider(
+                                  thickness: 1.5,
+                                  color: Colors.black38,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                    children: [
+                                      Text(ticket.data),
+                                      Gap(12),
+                                      Text(
+                                        ticket.horario,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
         },
       ),
     );

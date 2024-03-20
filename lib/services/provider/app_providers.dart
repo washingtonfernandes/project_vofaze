@@ -11,7 +11,6 @@ MultiProvider getAppProviders(BuildContext context, Widget child) {
       ChangeNotifierProvider(create: (context) => RadioProvider()),
       ChangeNotifierProvider(create: (context) => DateTimeProvider()),
       ChangeNotifierProvider(create: (context) => TicketProvider()),
-      ChangeNotifierProvider(create: (context) => TicketServiceProvider()),
     ],
     child: child,
   );

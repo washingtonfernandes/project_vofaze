@@ -42,10 +42,22 @@ class TicketProvider with ChangeNotifier {
     try {
       final docID = ticket.docID;
       if (docID != null) {
-        _firestore.collection("ticket").doc(docID).update({'isDone': newStatus});
+        _firestore
+            .collection("ticket")
+            .doc(docID)
+            .update({'isDone': newStatus});
       }
     } catch (error) {
       print("Erro ao atualizar o status do ticket: $error");
+    }
+  }
+
+  Future<void> deleteTicket(String? docId) async {
+    try {
+      await _firestore.collection("ticket").doc(docId).delete();
+      notifyListeners();
+    } catch (error) {
+      print("Erro ao deletar ticket: $error");
     }
   }
 
