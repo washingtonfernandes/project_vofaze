@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:project_vofaze/common/cores_dia.dart';
 
@@ -19,56 +18,35 @@ class _RecuperarSenhaState extends State<RecuperarSenha> {
     super.dispose();
   }
 
-  Future<bool> isEmailPresent(String email) async {
-    QuerySnapshot users = await FirebaseFirestore.instance
-        .collection('users')
-        .where('email', isEqualTo: email)
-        .get();
-
-    return users.docs.isNotEmpty;
-  }
-
   Future redefinirSenha() async {
     final String email = _emailcontroller.text.trim();
-    bool isEmailRegistered = await isEmailPresent(email);
 
-    if (isEmailRegistered) {
-      try {
-        await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+    try {
+      await FirebaseAuth.instance.fetchSignInMethodsForEmail(email);
 
-        showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              backgroundColor: MinhasCores.amarelo,
-              content: Text(
-                "Senha redefinida, verifique seu e-mail!",
-                style: TextStyle(fontWeight: FontWeight.w800),
-              ),
-            );
-          },
-        );
-      } on FirebaseAuthException catch (e) {
-        print(e);
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
 
-        showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              content: Text(
-                e.message.toString(),
-              ),
-            );
-          },
-        );
-      }
-    } else {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            backgroundColor: MinhasCores.amarelo,
+            content: Text(
+              "Senha redefinida, verifique seu e-mail!",
+              style: TextStyle(fontWeight: FontWeight.w800),
+            ),
+          );
+        },
+      );
+    } on FirebaseAuthException catch (e) {
+      print(e);
+
       showDialog(
         context: context,
         builder: (context) {
           return AlertDialog(
             content: Text(
-              "E-mail não registrado. Por favor, verifique o e-mail fornecido.",
+              e.message.toString(),
             ),
           );
         },
