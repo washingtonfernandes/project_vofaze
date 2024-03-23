@@ -3,7 +3,6 @@ import 'package:project_vofaze/common/cores_dia.dart';
 import 'package:project_vofaze/services/provider/auth_service_provider.dart';
 import 'package:project_vofaze/views/AdminEdit/admin_edit.dart';
 import 'package:project_vofaze/views/ticketList/ticket_list.dart';
-import 'package:project_vofaze/views/unidades/units.dart';
 
 class DrawerHome extends StatelessWidget {
   const DrawerHome({super.key});
@@ -39,22 +38,111 @@ class DrawerHome extends StatelessWidget {
               SizedBox(
                 height: 30,
               ),
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.transparent,
+                  borderRadius: BorderRadius.circular(12.0),
+                  border: Border.all(
+                    color: Colors.black,
+                    width: 1.0,
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => TicketList()));
+                        },
+                        style: ElevatedButton.styleFrom(
+                          foregroundColor: Colors.yellow,
+                          backgroundColor: Colors.black,
+                        ),
+                        child: Text(
+                          "Tickets",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.w500,
+                            color: MinhasCores.amarelo,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => AdminEditPage()));
+                        },
+                        style: ElevatedButton.styleFrom(
+                          foregroundColor: Colors.yellow,
+                          primary: Colors.black,
+                        ),
+                        child: Text(
+                          "Cadastros",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => AdminEditPage()));
+                        },
+                        style: ElevatedButton.styleFrom(
+                          foregroundColor: Colors.yellow,
+                          backgroundColor: Colors.black,
+                        ),
+                        child: Text(
+                          "Relatórios",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
               ElevatedButton(
                 onPressed: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => TicketList()));
+                      MaterialPageRoute(builder: (context) => AdminEditPage()));
                 },
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.yellow,
-                  backgroundColor: Colors.black,
+                  primary: Colors.black,
                 ),
                 child: Text(
-                  "Tickets",
+                  "Sobre",
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 24,
+                    fontSize: 18,
                     fontWeight: FontWeight.w500,
-                    color: MinhasCores.amarelo,
+                    color: Colors.white,
                   ),
                 ),
               ),
@@ -72,50 +160,6 @@ class DrawerHome extends StatelessWidget {
                 ),
                 child: Text(
                   "Contato",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => AdminEditPage()));
-                },
-                style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.yellow,
-                  backgroundColor: Colors.black,
-                ),
-                child: Text(
-                  "Relatórios",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => AdminEditPage()));
-                },
-                style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.yellow,
-                  primary: Colors.black,
-                ),
-                child: Text(
-                  "Página Admin",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 18,

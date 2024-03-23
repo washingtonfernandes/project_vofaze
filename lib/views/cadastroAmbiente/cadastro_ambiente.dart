@@ -2,6 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:project_vofaze/common/cores_dia.dart';
 import 'package:project_vofaze/services/firestore_services.dart';
+import 'package:project_vofaze/views/cadastroAmbiente/ambiente_item.dart';
+import 'package:project_vofaze/views/cadastroAmbiente/confirm_delete_ambiente.dart';
+import 'package:project_vofaze/views/cadastroUsuario/confirm_delete_user.dart';
 
 class CadastroAmbiente extends StatefulWidget {
   const CadastroAmbiente({Key? key}) : super(key: key);
@@ -45,7 +48,7 @@ class _CadastroAmbienteState extends State<CadastroAmbiente> {
                   child: Text("Cancelar"),
                 ),
               ),
-              SizedBox(width: 8), // Adiciona um espaçamento entre os botões
+              SizedBox(width: 8),
               Flexible(
                 child: ElevatedButton(
                   onPressed: () {
@@ -72,63 +75,15 @@ class _CadastroAmbienteState extends State<CadastroAmbiente> {
     );
   }
 
-  void confirmDelete({required String docID}) {
+  void confirmDelete({required String docID, required BuildContext context}) {
     showDialog(
       context: context,
-      barrierDismissible:
-          false, // Impede o fechamento ao tocar fora da caixa de diálogo
-      builder: (context) => AlertDialog(
-        title: Center(
-          child: Text(
-            "Confirma a exclusão?",
-            style: TextStyle(
-              color: Colors.red,
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Flexible(
-                  child: TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    style: ElevatedButton.styleFrom(
-                      foregroundColor: Colors.white,
-                      backgroundColor: Color.fromARGB(255, 0, 0, 0),
-                    ),
-                    child: Text(
-                      "Cancelar",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: 18,
-                ),
-                Flexible(
-                  child: TextButton(
-                    onPressed: () {
-                      firestoreService.deleteAmbiente(docID);
-                      Navigator.pop(context);
-                    },
-                    style: ElevatedButton.styleFrom(
-                      foregroundColor: Colors.black,
-                      backgroundColor: MinhasCores.amarelo,
-                    ),
-                    child: Text("Confirmar"),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
+      barrierDismissible: false,
+      builder: (context) => ConfirmDeleteDialogAmbiente(
+        onDelete: () {
+          firestoreService.deleteAmbiente(docID);
+          Navigator.pop(context);
+        },
       ),
     );
   }
@@ -137,6 +92,7 @@ class _CadastroAmbienteState extends State<CadastroAmbiente> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: MinhasCores.amarelo,
         elevation: 0,
         centerTitle: true,
@@ -170,38 +126,12 @@ class _CadastroAmbienteState extends State<CadastroAmbiente> {
                       Map<String, dynamic> data =
                           document.data() as Map<String, dynamic>;
                       String ambienteText = data["ambiente"];
-                      return SingleChildScrollView(
-                        child: Padding(
-                          padding: const EdgeInsets.all(12.0),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
-                            child: ListTile(
-                              title: Text(
-                                ambienteText,
-                                style: TextStyle(fontSize: 18),
-                              ),
-                              trailing: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  IconButton(
-                                    onPressed: () => openboxAmbiente(
-                                        docID: docID,
-                                        ambienteText: ambienteText),
-                                    icon: const Icon(Icons.settings),
-                                  ),
-                                  IconButton(
-                                    onPressed: () =>
-                                        confirmDelete(docID: docID),
-                                    icon: const Icon(Icons.delete),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
+                      return AmbienteItem(
+                        ambienteText: ambienteText,
+                        onEdit: () => openboxAmbiente(
+                            docID: docID, ambienteText: ambienteText),
+                        onDelete: () =>
+                            confirmDelete(docID: docID, context: context),
                       );
                     },
                   );

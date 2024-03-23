@@ -28,13 +28,13 @@ class CardTicketListWidget extends StatelessWidget {
 
             switch (getSetor) {
               case 'Manut':
-                setorColor = Colors.green;
+                setorColor = Colors.red;
                 break;
               case 'Limp':
                 setorColor = Colors.blue;
                 break;
               case 'Admin':
-                setorColor = Colors.red;
+                setorColor = Colors.green;
                 break;
               default:
                 setorColor = Colors.white;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:dots_indicator/dots_indicator.dart';
+import 'package:project_vofaze/common/cores_dia.dart';
 import 'package:project_vofaze/views/cadastroAmbiente/cadastro_ambiente.dart';
-import 'package:project_vofaze/views/cadastroSetor/cadastro_setor.dart';
 import 'package:project_vofaze/views/cadastroUsuario/cadastro_usuario.dart';
 
 class AdminEditPage extends StatefulWidget {
@@ -16,8 +16,11 @@ class _AdminEditPageState extends State<AdminEditPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: MinhasCores.amareloTopo,
       appBar: AppBar(
-        title: Text('Administração'),
+        backgroundColor: MinhasCores.amarelo,
+        title: Text('Cadastros', textAlign: TextAlign.center),
+        centerTitle: true,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
@@ -37,8 +40,7 @@ class _AdminEditPageState extends State<AdminEditPage> {
               },
               children: [
                 buildCard(CadastroUsuario()),
-                buildCard(CadastroAmbiente()),
-                buildCard(CadastroSetor()),
+                buildCard(CadastroAmbiente())
               ],
             ),
           ),
@@ -65,9 +67,9 @@ class _AdminEditPageState extends State<AdminEditPage> {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Card(
+        color: MinhasCores.amarelo,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(
-              35.0), // Ajuste o valor para tornar os cantos mais arredondados
+          borderRadius: BorderRadius.circular(10.0),
         ),
         elevation: 5.0,
         child: Container(
