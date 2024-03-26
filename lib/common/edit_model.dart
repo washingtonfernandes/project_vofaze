@@ -1,24 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:project_vofaze/common/cores_dia.dart';
 import 'package:project_vofaze/model/ticket_model.dart';
+import 'package:project_vofaze/services/provider/date_time_provider.dart';
 import 'package:project_vofaze/services/provider/radio_provider.dart';
 import 'package:project_vofaze/services/provider/ticket_provider.dart';
 import 'package:project_vofaze/widget/date_time_widget.dart';
 import 'package:project_vofaze/widget/radio_widget.dart';
 import 'package:project_vofaze/widget/textField_widget.dart';
 import 'package:provider/provider.dart';
-import '../services/provider/date_time_provider.dart';
-import 'cores_dia.dart';
 
-class AddTicketModel extends StatefulWidget {
+class EditTicketScreen extends StatefulWidget {
+  final TicketModel? ticket;
+
+  const EditTicketScreen({Key? key, this.ticket}) : super(key: key);
 
   @override
-  State<AddTicketModel> createState() => _AddTicketModelState();
+  State<EditTicketScreen> createState() => _EditTicketScreenState();
 }
 
-class _AddTicketModelState extends State<AddTicketModel> {
-  final tituloController = TextEditingController();
-  final descricaoController = TextEditingController();
+class _EditTicketScreenState extends State<EditTicketScreen> {
+  late TextEditingController _tituloController;
+  late TextEditingController _descricaoController;
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.ticket != null) {
+      _tituloController =
+          TextEditingController(text: widget.ticket!.titulo ?? '');
+      _descricaoController =
+          TextEditingController(text: widget.ticket!.descricao ?? '');
+    } else {
+      _tituloController = TextEditingController();
+      _descricaoController = TextEditingController();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +72,7 @@ class _AddTicketModelState extends State<AddTicketModel> {
                   borderRadius: BorderRadius.circular(60),
                 ),
                 child: Text(
-                  "Novo Ticket",
+                  "Editar Ticket",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 22,
@@ -66,30 +83,42 @@ class _AddTicketModelState extends State<AddTicketModel> {
               ),
             ),
             Gap(12),
-            const Text(
+            Text(
               "Título do ticket",
-              style: TextStyle(fontSize: 16),
+              style: TextStyle(fontSize: 16, color: Colors.black87),
             ),
             Gap(6),
-            TextFildWidget(
-              hintText: 'Adicione um nome ao ticket.',
-              maxLine: 1,
-              txtController: tituloController,
+            Card(
+              elevation: 0,
+              child: TextField(
+                controller: _tituloController,
+                decoration: InputDecoration(
+                  hintText: 'Adicione um nome ao ticket.',
+                  focusedBorder: InputBorder.none,
+                  enabledBorder: InputBorder.none,
+                ),
+              ),
             ),
             Gap(6),
-            const Text(
+            Text(
               "Descrição",
-              style: TextStyle(fontSize: 16),
+              style: TextStyle(fontSize: 16, color: Colors.black87),
             ),
-            TextFildWidget(
-              hintText: 'Descreva o serviço.',
-              maxLine: 3,
-              txtController: descricaoController,
+            Card(
+              elevation: 0,
+              child: TextField(
+                controller: _descricaoController,
+                decoration: InputDecoration(
+                  hintText: 'Descreva o serviço.',
+                  focusedBorder: InputBorder.none,
+                  enabledBorder: InputBorder.none,
+                ),
+              ),
             ),
             Gap(12),
-            const Text(
+            Text(
               "Setor",
-              style: TextStyle(fontSize: 16),
+              style: TextStyle(fontSize: 16, color: Colors.black87),
             ),
             Row(
               children: [
@@ -142,7 +171,7 @@ class _AddTicketModelState extends State<AddTicketModel> {
                 ),
               ],
             ),
-            Gap(12),
+            SizedBox(height: 12),
             Row(
               children: [
                 Expanded(
@@ -155,7 +184,7 @@ class _AddTicketModelState extends State<AddTicketModel> {
                       ),
                     ),
                     onPressed: () {},
-                    child: const Text(
+                    child: Text(
                       "CANCELAR",
                       style: TextStyle(color: Colors.black),
                     ),
@@ -188,29 +217,30 @@ class _AddTicketModelState extends State<AddTicketModel> {
                           break;
                       }
 
-                      context.read<TicketProvider>().addTicket(
-                            TicketModel(
-                              titulo: tituloController.text,
-                              descricao: descricaoController.text,
-                              setor: setor,
-                              data: _formatDate(context
-                                  .read<DateTimeProvider>()
-                                  .selectedDate),
-                              horario: _formatTime(context
-                                  .read<DateTimeProvider>()
-                                  .selectedTime),
-                              isDone: false,
-                            ),
-                          );
+                      final updatedTicket = TicketModel(
+                        docID: widget.ticket!.docID,
+                        titulo: _tituloController.text,
+                        descricao: _descricaoController.text,
+                        setor: setor,
+                        data: _formatDate(
+                            context.read<DateTimeProvider>().selectedDate),
+                        horario: _formatTime(
+                            context.read<DateTimeProvider>().selectedTime),
+                        isDone: widget.ticket!.isDone,
+                      );
+
+                      context
+                          .read<TicketProvider>()
+                          .updateTicket(updatedTicket);
                       print("Salvo");
 
-                      tituloController.clear();
-                      descricaoController.clear();
+                      _tituloController.clear();
+                      _descricaoController.clear();
                       context.read<RadioProvider>().setSelectedRadio(0);
                       Navigator.pop(context);
                     },
-                    child: const Text(
-                      "CRIAR",
+                    child: Text(
+                      "SALVAR",
                       style: TextStyle(color: Colors.white),
                     ),
                   ),

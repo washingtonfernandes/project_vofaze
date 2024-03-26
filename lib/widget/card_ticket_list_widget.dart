@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:project_vofaze/common/edit_model.dart';
 import 'package:project_vofaze/model/ticket_model.dart';
 import 'package:project_vofaze/services/provider/ticket_provider.dart';
 import 'package:provider/provider.dart';
@@ -42,11 +43,11 @@ class CardTicketListWidget extends StatelessWidget {
             }
 
             return Padding(
-              // Adicionando padding para espaçamento nas laterais
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Container(
+                //Tamanho do card
                 width: double.infinity,
-                height: 130,
+                height: 150,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(12),
@@ -67,15 +68,6 @@ class CardTicketListWidget extends StatelessWidget {
                       child: Column(
                         children: [
                           ListTile(
-                            leading: IconButton(
-                              icon: Icon(Icons.delete),
-                              onPressed: () {
-                                // Excluir o ticket ao pressionar o ícone de deletar
-                                if (docID != null) {
-                                  ticketProvider.confirmDelete(docID, context);
-                                }
-                              },
-                            ),
                             title: Stack(
                               children: [
                                 Text(
@@ -124,12 +116,12 @@ class CardTicketListWidget extends StatelessWidget {
                               shape: CircleBorder(),
                               value: ticket.isDone,
                               onChanged: (value) {
-                                // Atualizar o status do ticket
                                 ticketProvider.updateTicketStatus(
                                     ticket, value ?? false);
                               },
                             ),
                           ),
+                          //Divisão parte de baixo---------------------
                           Transform.translate(
                             offset: Offset(0, -12),
                             child: Container(
@@ -139,17 +131,39 @@ class CardTicketListWidget extends StatelessWidget {
                                     thickness: 1.5,
                                     color: Colors.black38,
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Row(
-                                      children: [
-                                        Text(ticket.data),
-                                        Gap(12),
-                                        Text(
-                                          ticket.horario,
-                                        ),
-                                      ],
-                                    ),
+                                  Row(
+                                    children: [
+                                      Gap(16),
+                                      Text(ticket.data),
+                                      Gap(12),
+                                      Text(
+                                        ticket.horario,
+                                      ),
+                                      Gap(36),
+                                      IconButton(
+                                        icon: Icon(Icons.delete),
+                                        onPressed: () {
+                                          if (docID != null) {
+                                            ticketProvider.confirmDelete(
+                                                docID, context);
+                                          }
+                                        },
+                                      ),
+                                      Gap(12),
+                                      IconButton(
+                                        icon: Icon(Icons.edit),
+                                        onPressed: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  EditTicketScreen(
+                                                      ticket: ticket),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    ],
                                   ),
                                 ],
                               ),
@@ -163,7 +177,7 @@ class CardTicketListWidget extends StatelessWidget {
               ),
             );
           } else {
-            return SizedBox(); // Retorna um widget vazio se o ticket for nulo
+            return SizedBox();
           }
         },
       ),

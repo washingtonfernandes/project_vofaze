@@ -62,6 +62,18 @@ class TicketProvider with ChangeNotifier {
     }
   }
 
+  void updateTicket(TicketModel ticket) {
+    try {
+      final docID = ticket.docID;
+      if (docID != null) {
+        _firestore.collection("ticket").doc(docID).update(ticket.toMap());
+        notifyListeners();
+      }
+    } catch (error) {
+      print("Erro ao atualizar o ticket: $error");
+    }
+  }
+
   void confirmDelete(String? docID, BuildContext context) {
     showDialog(
       context: context,
@@ -127,6 +139,4 @@ class TicketProvider with ChangeNotifier {
     _subscription.cancel();
     super.dispose();
   }
-
-  void updateTicket(TicketModel ticket) {}
 }
