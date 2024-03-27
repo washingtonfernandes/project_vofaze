@@ -1,16 +1,23 @@
 import 'package:flutter/material.dart';
 
+
 import 'package:gap/gap.dart';
+
 
 import 'package:project_vofaze/common/show_model.dart';
 
+
 import 'package:project_vofaze/services/provider/ticket_provider.dart';
+
 
 import 'package:project_vofaze/widget/card_ticket_list_widget.dart';
 
+
 import 'package:project_vofaze/common/cores_dia.dart';
 
+
 import 'package:firebase_auth/firebase_auth.dart';
+
 
 import 'package:provider/provider.dart';
 
@@ -112,29 +119,25 @@ class TicketList extends StatelessWidget {
 
             child: Row(
 
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.center,
 
               children: [
 
-                Column(
+                Text(
 
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  "Tickets Abertos",
 
-                  children: [
+                  style: TextStyle(
 
-                    Text(
+                    fontSize: 20,
 
-                      "Tickets Abertos",
+                    fontWeight: FontWeight.bold,
 
-                      style:
-
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-
-                    ),
-
-                  ],
+                  ),
 
                 ),
+
+                Gap(16),
 
                 ElevatedButton(
 
@@ -197,6 +200,7 @@ class TicketList extends StatelessWidget {
               builder: (context, ticketProvider, _) {
 
                 final tickets = ticketProvider.tickets;
+
 
                 return ListView.builder(
 
