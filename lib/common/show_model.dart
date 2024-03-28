@@ -1,3 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+
 import 'package:flutter/material.dart';
 
 
@@ -177,6 +180,260 @@ class _AddTicketModelState extends State<AddTicketModel> {
               maxLine: 3,
 
               txtController: descricaoController,
+
+            ),
+
+            Gap(12),
+
+            Row(
+
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+              children: [
+
+                Column(
+
+                  crossAxisAlignment: CrossAxisAlignment.start,
+
+                  children: [
+
+                    const Text(
+
+                      "Usuário",
+
+                      style: TextStyle(fontSize: 16),
+
+                    ),
+
+                    Container(
+
+                      decoration: BoxDecoration(
+
+                        color: MinhasCores.amareloBaixo,
+
+                        borderRadius: BorderRadius.circular(10),
+
+                      ),
+
+                      child: Padding(
+
+                        padding: const EdgeInsets.all(8.0),
+
+                        child: Row(
+
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+
+                          children: [
+
+                            StreamBuilder<QuerySnapshot>(
+
+                              stream: FirebaseFirestore.instance
+
+                                  .collection("users")
+
+                                  .snapshots(),
+
+                              builder: (context, snapshot) {
+
+                                List<DropdownMenuItem> userItems = [];
+
+
+                                if (!snapshot.hasData) {
+
+                                  return CircularProgressIndicator();
+
+                                } else {
+
+                                  final users =
+
+                                      snapshot.data?.docs.reversed.toList();
+
+
+                                  for (var user in users!) {
+
+                                    userItems.add(
+
+                                      DropdownMenuItem(
+
+                                        value: user.id,
+
+                                        child: Text(user['nome']),
+
+                                      ),
+
+                                    );
+
+                                  }
+
+
+                                  return DropdownButton(
+
+                                    icon: const Icon(Icons.arrow_downward),
+
+                                    elevation: 16,
+
+                                    style:
+
+                                        const TextStyle(color: Colors.black38),
+
+                                    underline: Container(
+
+                                      height: 2,
+
+                                      color: Colors.black12,
+
+                                    ),
+
+                                    items: userItems,
+
+                                    onChanged: (userValue) {
+
+                                      print(userValue);
+
+                                    },
+
+                                  );
+
+                                }
+
+                              },
+
+                            ),
+
+                          ],
+
+                        ),
+
+                      ),
+
+                    ),
+
+                  ],
+
+                ),
+
+                Gap(16),
+
+                Column(
+
+                  crossAxisAlignment: CrossAxisAlignment.start,
+
+                  children: [
+
+                    const Text(
+
+                      "Ambientes",
+
+                      style: TextStyle(fontSize: 16),
+
+                    ),
+
+                    Container(
+
+                      decoration: BoxDecoration(
+
+                        color: MinhasCores.amareloBaixo,
+
+                        borderRadius: BorderRadius.circular(10),
+
+                      ),
+
+                      child: Padding(
+
+                        padding: const EdgeInsets.all(8.0),
+
+                        child: Row(
+
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+
+                          children: [
+
+                            StreamBuilder<QuerySnapshot>(
+
+                              stream: FirebaseFirestore.instance
+
+                                  .collection("ambientes")
+
+                                  .snapshots(),
+
+                              builder: (context, snapshot) {
+
+                                List<DropdownMenuItem> ambienteItems = [];
+
+
+                                if (!snapshot.hasData) {
+
+                                  CircularProgressIndicator();
+
+                                } else {
+
+                                  final ambientes =
+
+                                      snapshot.data?.docs.reversed.toList();
+
+
+                                  for (var ambiente in ambientes!) {
+
+                                    ambienteItems.add(
+
+                                      DropdownMenuItem(
+
+                                        value: ambiente.id,
+
+                                        child: Text(ambiente['ambiente']),
+
+                                      ),
+
+                                    );
+
+                                  }
+
+                                }
+
+
+                                return DropdownButton(
+
+                                  icon: const Icon(Icons.arrow_downward),
+
+                                  elevation: 16,
+
+                                  style: const TextStyle(color: Colors.black38),
+
+                                  underline: Container(
+
+                                    height: 2,
+
+                                    color: Colors.black12,
+
+                                  ),
+
+                                  items: ambienteItems,
+
+                                  onChanged: (ambienteValue) {
+
+                                    print(ambienteValue);
+
+                                  },
+
+                                );
+
+                              },
+
+                            ),
+
+                          ],
+
+                        ),
+
+                      ),
+
+                    ),
+
+                  ],
+
+                ),
+
+              ],
 
             ),
 
