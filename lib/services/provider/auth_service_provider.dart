@@ -32,6 +32,7 @@ class AutenticacaoServico with ChangeNotifier {
   }) async {
     try {
       // Criação do usuário no Firebase Auth
+
       UserCredential userCredential =
           await _firebaseAuth.createUserWithEmailAndPassword(
         email: email,
@@ -39,22 +40,24 @@ class AutenticacaoServico with ChangeNotifier {
       );
 
       // Atualização do nome do usuário no Firebase Auth
+
       await userCredential.user!.updateDisplayName(nome);
 
-      // Obtém o ID do usuário gerado pelo Firebase Auth
-      String userId = userCredential.user!.uid;
-
       // Criação do documento na coleção "users" no Firestore
-      await _firestore.collection('users').doc(userId).set({
-        'userId': userId, // Adiciona o ID do usuário como campo no Firestore
+
+      await _firestore.collection('users').doc(userCredential.user!.uid).set({
+        'uid': userCredential.user!.uid,
         'nome': nome,
         'email': email,
       });
 
-      return null; // Sucesso
-    } catch (e) {
-      print("Erro ao criar usuário e documento no Firestore: $e");
-      return "Erro ao criar usuário.";
+      return null;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == "email-already-in-use") {
+        return "O usuário já está cadastrado";
+      }
+
+      return "Cadastre uma senha com mais de 6 caracteres!";
     }
   }
 
@@ -79,33 +82,39 @@ class AutenticacaoServico with ChangeNotifier {
   }
 
   //----------------------------------------
-  Future<String?> updateUserProfile({
-    required String nome,
-    required String email,
-    required String senha,
+
+  Future<User?> getCurrentUser() async {
+    return _firebaseAuth.currentUser;
+  }
+
+  Future<String?> atualizarPerfil({
+    required String novoNome,
+    required String novoEmail,
+    required String novaSenha,
   }) async {
     try {
-      if (_usuario != null) {
-        // Atualiza o nome do usuário no Firebase Auth
-        await _usuario!.updateDisplayName(nome);
+      User? user = _firebaseAuth.currentUser;
 
-        // Atualiza o email do usuário no Firebase Auth (se diferente)
-        if (_usuario!.email != email) {
-          await _usuario!.updateEmail(email);
+      if (user != null) {
+        // Atualizar nome e email no Firebase Auth
+        await user.updateDisplayName(novoNome);
+        await user.updateEmail(novoEmail);
+
+        // Atualizar senha apenas se uma nova senha for fornecida
+        if (novaSenha.isNotEmpty) {
+          await user.updatePassword(novaSenha);
         }
 
-        // Atualiza a senha do usuário no Firebase Auth (se diferente)
-        await _usuario!.updatePassword(senha);
-
-        // Atualiza os dados no Firestore
-        await _firestore.collection('users').doc(_usuario!.uid).update({
-          'nome': nome,
-          'email': email,
+        // Atualizar dados no Firestore
+        String userId = user.uid;
+        await _firestore.collection('users').doc(userId).update({
+          'nome': novoNome,
+          'email': novoEmail,
         });
 
         return null; // Sucesso
       } else {
-        return "Usuário não autenticado.";
+        return "Usuário não encontrado.";
       }
     } catch (e) {
       print("Erro ao atualizar perfil: $e");
@@ -113,18 +122,24 @@ class AutenticacaoServico with ChangeNotifier {
     }
   }
 
-  Future<String?> deleteAccount() async {
+  Future<String?> excluirConta() async {
     try {
-      if (_usuario != null) {
-        // Exclui o usuário do Firebase Auth
-        await _usuario!.delete();
+      User? user = _firebaseAuth.currentUser;
 
-        // Exclui os dados do usuário do Firestore
-        await _firestore.collection('users').doc(_usuario!.uid).delete();
+      if (user != null) {
+        // Excluir usuário do Firebase Auth
+        await user.delete();
+
+        // Excluir documento do Firestore
+        String userId = user.uid;
+        await _firestore.collection('users').doc(userId).delete();
+
+        // Deslogar o usuário
+        await deslogar(); // Utiliza a função deslogar já existente
 
         return null; // Sucesso
       } else {
-        return "Usuário não autenticado.";
+        return "Usuário não encontrado.";
       }
     } catch (e) {
       print("Erro ao excluir conta: $e");

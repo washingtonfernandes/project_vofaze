@@ -8,14 +8,13 @@ import 'package:project_vofaze/model/addTicket_model.dart';
 import 'package:gap/gap.dart';
 
 class TicketList extends StatefulWidget {
-  TicketList({Key? key}) : super(key: key);
+  const TicketList({Key? key}) : super(key: key);
 
   @override
   _TicketListState createState() => _TicketListState();
 }
 
 class _TicketListState extends State<TicketList> {
-  final TextEditingController _searchController = TextEditingController();
   late String _searchText;
 
   @override

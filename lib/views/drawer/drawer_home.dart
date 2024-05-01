@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
+
 import 'package:gap/gap.dart';
+
 import 'package:project_vofaze/common/cores_dia.dart';
+
 import 'package:project_vofaze/services/provider/auth_service_provider.dart';
+
 import 'package:project_vofaze/views/AdminEdit/admin_edit.dart';
+import 'package:project_vofaze/views/Pdf/pdf_screen.dart';
+
 import 'package:project_vofaze/views/ticketList/ticket_list.dart';
+
+import 'package:project_vofaze/views/updateUser/update_user.dart';
 
 class DrawerHome extends StatelessWidget {
   const DrawerHome({super.key});
@@ -84,8 +92,7 @@ class DrawerHome extends StatelessWidget {
                                   builder: (context) => AdminEditPage()));
                         },
                         style: ElevatedButton.styleFrom(
-                          foregroundColor: Colors.yellow,
-                          primary: Colors.black,
+                          foregroundColor: Colors.yellow, backgroundColor: Colors.black,
                         ),
                         child: Text(
                           "Cadastros",
@@ -105,11 +112,10 @@ class DrawerHome extends StatelessWidget {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => AdminEditPage()));
+                                  builder: (context) => PDFScreen()));
                         },
                         style: ElevatedButton.styleFrom(
-                          foregroundColor: Colors.yellow,
-                          backgroundColor: Colors.black,
+                          foregroundColor: Colors.yellow, backgroundColor: Colors.black,
                         ),
                         child: Text(
                           "Relatórios",
@@ -128,22 +134,24 @@ class DrawerHome extends StatelessWidget {
               Gap(30),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => AdminEditPage()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => UpdateProfileScreen()));
                 },
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white,
                   backgroundColor: Colors.black,
                 ),
                 child: Container(
-                  width: 160,
+                  width: 120,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.settings),
+                      Icon(Icons.person),
                       Gap(8),
                       Text(
-                        "Configurações",
+                        "Meu perfil",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 18,

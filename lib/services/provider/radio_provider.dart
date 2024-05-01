@@ -9,7 +9,7 @@ class RadioProvider extends ChangeNotifier {
   int getSelectedRadio() => _selectedRadio;
 
   void setSelectedRadio(int value) {
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       _selectedRadio = value;
       notifyListeners();
     });

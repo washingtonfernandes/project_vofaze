@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:project_vofaze/common/cores_dia.dart';
-import 'package:project_vofaze/model/editTicket_model.dart';
 import 'package:project_vofaze/model/ticket_model.dart';
 import 'package:project_vofaze/services/provider/ticket_provider.dart';
 import 'package:provider/provider.dart';

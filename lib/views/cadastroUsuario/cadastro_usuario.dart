@@ -3,7 +3,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:project_vofaze/common/cores_dia.dart';
 import 'package:project_vofaze/services/firestore_services.dart';
 import 'package:project_vofaze/views/cadastroUsuario/confirm_delete_user.dart';
-import 'package:project_vofaze/views/cadastroUsuario/usuario_dialog.dart';
 import 'package:project_vofaze/views/cadastroUsuario/usuario_item.dart';
 
 class CadastroUsuario extends StatefulWidget {

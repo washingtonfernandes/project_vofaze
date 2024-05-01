@@ -39,7 +39,7 @@ class _EditTicketScreenState extends State<EditTicketScreen> {
     selectedAmbiente = widget.ticket?.ambienteId ?? "0";
 
     // Delay a chamada da função de inicialização
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       _initializeDateTimeProviderValues();
     });
   }
@@ -61,12 +61,12 @@ class _EditTicketScreenState extends State<EditTicketScreen> {
 
     // Parse da data e horário
     if (widget.ticket?.data != null) {
-      DateTime parsedDate = _parseDateString(widget.ticket!.data!);
+      DateTime parsedDate = _parseDateString(widget.ticket!.data);
       context.read<DateTimeProvider>().setSelectedDate(parsedDate);
     }
 
     if (widget.ticket?.horario != null) {
-      List<String> timeComponents = widget.ticket!.horario!.split(':');
+      List<String> timeComponents = widget.ticket!.horario.split(':');
       TimeOfDay selectedTime = TimeOfDay(
           hour: int.parse(timeComponents[0]),
           minute: int.parse(timeComponents[1]));

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 import 'package:project_vofaze/common/cores_dia.dart';
 
@@ -142,25 +141,21 @@ class _AutenticacaoTelaState extends State<AutenticacaoTela> {
                           },
                         ),
                         SizedBox(
-                          height: 12,
+                          height: 16,
                         ),
                         Visibility(
                           visible: !queroEntrar,
                           child: Column(
                             children: [
                               SizedBox(
-                                height: 12,
+                                height: 16,
                               ),
                               TextFormField(
                                 controller: _nomeController,
                                 decoration:
                                     getAuthenticationInputDecoration("Nome"),
-                                maxLength:
-                                    10, // Define o limite máximo de caracteres
-                                maxLengthEnforcement: MaxLengthEnforcement
-                                    .enforced, // Força o limite máximo
                                 validator: (String? value) {
-                                  if (value == null || value.isEmpty) {
+                                  if (value == null) {
                                     return "O nome não pode ser vazio!";
                                   }
 

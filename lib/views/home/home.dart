@@ -2,20 +2,29 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:project_vofaze/common/cores_dia.dart';
 import 'package:project_vofaze/services/provider/auth_service_provider.dart';
+import 'package:project_vofaze/services/provider/radio_provider.dart';
 import 'package:project_vofaze/services/provider/ticket_provider.dart';
 import 'package:project_vofaze/views/drawer/drawer_home.dart';
-import 'package:project_vofaze/widget/card_mylist/card_mylist_widget%20copy.dart';
+import 'package:project_vofaze/widget/card_mylist/card_mylist_widget.dart';
+import 'package:project_vofaze/widget/radio_widget.dart';
 import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
-  Home({Key? key}) : super(key: key);
+  const Home({Key? key}) : super(key: key);
 
   @override
   _HomeState createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
-  final TextEditingController _searchController = TextEditingController();
+
+  late String _searchText;
+
+  @override
+  void initState() {
+    super.initState();
+    _searchText = '';
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,34 +79,77 @@ class _HomeState extends State<Home> {
           ),
           Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.all(12),
-                child: Container(
+              Column(children: [
+                Container(
                   color: Colors.transparent,
                   child: Center(
                     child: Text(
                       "Meus tickets",
                       style: TextStyle(
-                        fontSize: 20,
+                        fontSize: 16,
                         fontWeight: FontWeight.bold,
                         color: Colors.black,
                       ),
                     ),
                   ),
                 ),
-              ),
+                Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: RadioWidget(
+                          titleRadio: "Manut",
+                          setorColor: Colors.red,
+                          valueInput: 1,
+                          onChangeValue: () =>
+                              context.read<RadioProvider>().setSelectedRadio(1),
+                        ),
+                      ),
+                      Expanded(
+                        child: RadioWidget(
+                          titleRadio: "Limp",
+                          setorColor: Colors.blue,
+                          valueInput: 2,
+                          onChangeValue: () =>
+                              context.read<RadioProvider>().setSelectedRadio(2),
+                        ),
+                      ),
+                      Expanded(
+                        child: RadioWidget(
+                          titleRadio: "Admin",
+                          setorColor: Colors.green,
+                          valueInput: 3,
+                          onChangeValue: () =>
+                              context.read<RadioProvider>().setSelectedRadio(3),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ]),
               Expanded(
                 child: Consumer<TicketProvider>(
                   builder: (context, ticketProvider, _) {
-                    final searchText = _searchController.text.toLowerCase();
-                    final filteredTickets =
-                        ticketProvider.tickets.where((ticket) {
-                      final ticketTitle = ticket.titulo.toLowerCase();
-                      return ticketTitle.contains(searchText);
+                    final tickets = ticketProvider.tickets.where((ticket) {
+                      final lowerCaseSearchText = _searchText.toLowerCase();
+
+                      return ticket.titulo
+                              .toLowerCase()
+                              .contains(lowerCaseSearchText) ||
+                          ticket.descricao
+                              .toLowerCase()
+                              .contains(lowerCaseSearchText) ||
+                          ticket.horario
+                              .toLowerCase()
+                              .contains(lowerCaseSearchText) ||
+                          ticket.data
+                              .toLowerCase()
+                              .contains(lowerCaseSearchText);
                     }).toList();
 
                     return ListView.builder(
-                      itemCount: filteredTickets.length,
+                      itemCount: tickets.length,
                       itemBuilder: (context, index) => CardMyListWidget(
                         getIndex: index,
                       ),
