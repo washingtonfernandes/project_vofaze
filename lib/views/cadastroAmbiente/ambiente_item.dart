@@ -6,11 +6,11 @@ class AmbienteItem extends StatelessWidget {
   final VoidCallback onDelete;
 
   const AmbienteItem({
-    Key? key,
+    super.key,
     required this.ambienteText,
     required this.onEdit,
     required this.onDelete,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class AmbienteItem extends StatelessWidget {
           child: ListTile(
             title: Text(
               ambienteText,
-              style: TextStyle(fontSize: 18),
+              style: const TextStyle(fontSize: 18),
             ),
             trailing: Row(
               mainAxisSize: MainAxisSize.min,

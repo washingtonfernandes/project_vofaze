@@ -14,9 +14,9 @@ class AlertDialogTicket extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
         child: Container(
           color: Colors.black,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: const Text(
+          child: const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(
               "ERRO",
               textAlign: TextAlign.center,
               style: TextStyle(
@@ -40,9 +40,9 @@ class AlertDialogTicket extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
               child: Container(
                 color: Colors.black,
-                child: Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: const Text(
+                child: const Padding(
+                  padding: EdgeInsets.all(12.0),
+                  child: Text(
                     "OK",
                     textAlign: TextAlign.center,
                     style: TextStyle(

@@ -6,17 +6,17 @@ class UsuarioDialog extends StatelessWidget {
   final VoidCallback onSave;
 
   const UsuarioDialog({
-    Key? key,
+    super.key,
     required this.textController,
     required this.onSave,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
       content: TextField(
         controller: textController,
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.black),
           ),
@@ -29,11 +29,11 @@ class UsuarioDialog extends StatelessWidget {
           },
           style: ElevatedButton.styleFrom(
             foregroundColor: Colors.white,
-            backgroundColor: Color.fromARGB(255, 0, 0, 0),
+            backgroundColor: const Color.fromARGB(255, 0, 0, 0),
           ),
-          child: Text("Cancelar"),
+          child: const Text("Cancelar"),
         ),
-        SizedBox(width: 8),
+        const SizedBox(width: 8),
         ElevatedButton(
           onPressed: () {
             String userInput = textController.text;
@@ -46,7 +46,7 @@ class UsuarioDialog extends StatelessWidget {
             foregroundColor: Colors.black,
             backgroundColor: MinhasCores.amarelo,
           ),
-          child: Text("Salvar"),
+          child: const Text("Salvar"),
         ),
       ],
     );

@@ -6,7 +6,7 @@ class UserSelectionWidget extends StatelessWidget {
   final String selectedUser;
   final ValueChanged<String?>? onChanged;
 
-  const UserSelectionWidget({
+  const UserSelectionWidget({super.key, 
     required this.selectedUser,
     required this.onChanged,
   });
@@ -32,19 +32,19 @@ class UserSelectionWidget extends StatelessWidget {
                   FirebaseFirestore.instance.collection("users").snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return CircularProgressIndicator(
+                  return const CircularProgressIndicator(
                     value: null,
                     strokeWidth: 2,
                     color: Colors.black,
                   );
                 } else if (snapshot.hasError) {
-                  return Text("Erro ao carregar dados do usuário");
+                  return const Text("Erro ao carregar dados do usuário");
                 } else {
                   List<DropdownMenuItem<String>> userItems = [];
 
                   // Adicione "Todos" como o primeiro item
                   userItems.add(
-                    DropdownMenuItem(
+                    const DropdownMenuItem(
                       value: "Todos",
                       child: Text("Todos"),
                     ),

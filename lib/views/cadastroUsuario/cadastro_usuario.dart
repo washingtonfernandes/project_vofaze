@@ -6,7 +6,7 @@ import 'package:project_vofaze/views/cadastroUsuario/confirm_delete_user.dart';
 import 'package:project_vofaze/views/cadastroUsuario/usuario_item.dart';
 
 class CadastroUsuario extends StatefulWidget {
-  const CadastroUsuario({Key? key}) : super(key: key);
+  const CadastroUsuario({super.key});
 
   @override
   State<CadastroUsuario> createState() => _CadastroUsuarioState();
@@ -24,7 +24,7 @@ class _CadastroUsuarioState extends State<CadastroUsuario> {
         backgroundColor: MinhasCores.amarelo,
         elevation: 0,
         centerTitle: true,
-        title: Row(
+        title: const Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text("Usuários"),
@@ -34,7 +34,7 @@ class _CadastroUsuarioState extends State<CadastroUsuario> {
       body: Stack(
         children: [
           Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage("assets/images/fundo_app.png"),
                 fit: BoxFit.cover,

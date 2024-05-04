@@ -6,7 +6,7 @@ import 'package:project_vofaze/services/provider/auth_service_provider.dart';
 import 'package:project_vofaze/vofaze.dart';
 
 class UpdateProfileScreen extends StatefulWidget {
-  const UpdateProfileScreen({Key? key}) : super(key: key);
+  const UpdateProfileScreen({super.key});
 
   @override
   State<UpdateProfileScreen> createState() => _UpdateProfileScreenState();
@@ -39,11 +39,11 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Atualizar Perfil'),
+        title: const Text('Atualizar Perfil'),
         backgroundColor: MinhasCores.amarelo,
       ),
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage("assets/images/fundoa_app.png"),
             fit: BoxFit.cover,
@@ -55,26 +55,26 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
             key: _formKey,
             child: ListView(
               children: [
-                Container(
+                SizedBox(
                   width: 100,
                   height: 100,
                   child: Image.asset("assets/images/vofaze3.png"),
                 ),
-                Gap(24),
+                const Gap(24),
                 TextFormField(
                   controller: _nomeController,
                   decoration: InputDecoration(
                     labelText: 'Nome',
-                    labelStyle: TextStyle(color: Colors.black),
+                    labelStyle: const TextStyle(color: Colors.black),
                     filled: true,
                     fillColor: Colors.white,
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide(color: Colors.black),
+                      borderSide: const BorderSide(color: Colors.black),
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide(color: Colors.black),
+                      borderSide: const BorderSide(color: Colors.black),
                     ),
                   ),
                   validator: (value) {
@@ -87,21 +87,21 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                     return null;
                   },
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 TextFormField(
                   controller: _emailController,
                   decoration: InputDecoration(
                     labelText: 'Email',
-                    labelStyle: TextStyle(color: Colors.black),
+                    labelStyle: const TextStyle(color: Colors.black),
                     filled: true,
                     fillColor: Colors.white,
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide(color: Colors.black),
+                      borderSide: const BorderSide(color: Colors.black),
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide(color: Colors.black),
+                      borderSide: const BorderSide(color: Colors.black),
                     ),
                   ),
                   validator: (value) {
@@ -114,21 +114,23 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                     return null;
                   },
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
+                Center(
+                    child: const Text('Digite sua senha ou uma nova senha!')),
                 TextFormField(
                   controller: _senhaController,
                   decoration: InputDecoration(
-                    labelText: 'Nova Senha',
-                    labelStyle: TextStyle(color: Colors.black),
+                    labelText: 'Digite sua senha ou uma nova senha!',
+                    labelStyle: const TextStyle(color: Colors.black45),
                     filled: true,
                     fillColor: Colors.white,
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide(color: Colors.black),
+                      borderSide: const BorderSide(color: Colors.black),
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide(color: Colors.black),
+                      borderSide: const BorderSide(color: Colors.black),
                     ),
                     suffixIcon: IconButton(
                       icon: Icon(
@@ -153,30 +155,30 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                     return null;
                   },
                 ),
-                SizedBox(height: 24),
+                const SizedBox(height: 24),
                 ElevatedButton(
                   onPressed: () {
-                    _showUpdateConfirmationDialog(); // Mostrar diálogo de confirmação de alteração
+                    _showUpdateConfirmationDialog();
                   },
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.black,
                     backgroundColor: MinhasCores.amarelo,
                   ),
-                  child: Text(
+                  child: const Text(
                     'Alterar',
                     style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
                   ),
                 ),
-                SizedBox(height: 24),
+                const SizedBox(height: 24),
                 ElevatedButton(
                   onPressed: () {
-                    _showDeleteConfirmationDialog(); // Mostrar diálogo de confirmação de exclusão
+                    _showDeleteConfirmationDialog();
                   },
                   style: ElevatedButton.styleFrom(
                     foregroundColor: MinhasCores.amarelo,
                     backgroundColor: Colors.black,
                   ),
-                  child: Text(
+                  child: const Text(
                     'Excluir Conta',
                     style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
                   ),
@@ -215,7 +217,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
     if (result == null) {
       Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (context) => Vofaze()),
+        MaterialPageRoute(builder: (context) => const Vofaze()),
         (route) => false,
       );
     } else {
@@ -228,7 +230,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
       SnackBar(
         content: Text(texto),
         backgroundColor: isErro ? Colors.red : Colors.green,
-        duration: Duration(seconds: 5),
+        duration: const Duration(seconds: 5),
         action: SnackBarAction(
           label: 'Ok',
           textColor: Colors.white,
@@ -245,10 +247,10 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Center(
+          title: const Center(
             child: Text("Confirmar Exclusão"),
           ),
-          content: Text(
+          content: const Text(
               "Tem certeza de que deseja excluir sua conta? Esta ação é irreversível."),
           actions: [
             Row(
@@ -256,26 +258,25 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.pop(
-                        context); // Fechar o diálogo ao clicar em "Cancelar"
+                    Navigator.pop(context);
                   },
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.white,
                     backgroundColor: Colors.black,
                   ),
-                  child: Text("Cancelar"),
+                  child: const Text("Cancelar"),
                 ),
-                SizedBox(width: 8),
+                const SizedBox(width: 8),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.pop(context); // Fechar o diálogo de confirmação
-                    _excluirConta(); // Excluir conta após confirmação
+                    Navigator.pop(context);
+                    _excluirConta();
                   },
                   style: ElevatedButton.styleFrom(
                     foregroundColor: MinhasCores.amarelo,
                     backgroundColor: Colors.black,
                   ),
-                  child: Text("Excluir"),
+                  child: const Text("Excluir"),
                 ),
               ],
             ),
@@ -290,32 +291,34 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Center(child: Text("Confirmar Alteração")),
-          content: Text("Tem certeza de que deseja salvar as alterações?"),
+          title: const Center(child: Text("Confirmar Alteração")),
+          content:
+              const Text("Tem certeza de que deseja salvar as alterações?"),
           actions: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.pop(
-                        context); // Fechar o diálogo ao clicar em "Cancelar"
+                    Navigator.pop(context);
                   },
                   style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.white, backgroundColor: Colors.black,
+                    foregroundColor: Colors.white,
+                    backgroundColor: Colors.black,
                   ),
-                  child: Text("Cancelar"),
+                  child: const Text("Cancelar"),
                 ),
-                SizedBox(width: 8),
+                const SizedBox(width: 8),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.pop(context); // Fechar o diálogo de confirmação
-                    _atualizarPerfil(); // Atualizar perfil após confirmação
+                    Navigator.pop(context);
+                    _atualizarPerfil();
                   },
                   style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.black, backgroundColor: MinhasCores.amarelo,
+                    foregroundColor: Colors.black,
+                    backgroundColor: MinhasCores.amarelo,
                   ),
-                  child: Text("Salvar"),
+                  child: const Text("Salvar"),
                 ),
               ],
             ),

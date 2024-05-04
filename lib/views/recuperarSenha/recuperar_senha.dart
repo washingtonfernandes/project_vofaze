@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:project_vofaze/common/cores_dia.dart';
 
 class RecuperarSenha extends StatefulWidget {
-  const RecuperarSenha({Key? key}) : super(key: key);
+  const RecuperarSenha({super.key});
 
   @override
   State<RecuperarSenha> createState() => _RecuperarSenhaState();
@@ -22,6 +22,7 @@ class _RecuperarSenhaState extends State<RecuperarSenha> {
     final String email = _emailcontroller.text.trim();
 
     try {
+      // ignore: deprecated_member_use
       await FirebaseAuth.instance.fetchSignInMethodsForEmail(email);
 
       await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
@@ -29,7 +30,7 @@ class _RecuperarSenhaState extends State<RecuperarSenha> {
       showDialog(
         context: context,
         builder: (context) {
-          return AlertDialog(
+          return const AlertDialog(
             backgroundColor: MinhasCores.amarelo,
             content: Text(
               "Senha redefinida, verifique seu e-mail!",
@@ -64,7 +65,7 @@ class _RecuperarSenhaState extends State<RecuperarSenha> {
       body: Stack(
         children: [
           Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage("assets/images/fundo_app.png"),
                 fit: BoxFit.cover,
@@ -72,18 +73,18 @@ class _RecuperarSenhaState extends State<RecuperarSenha> {
             ),
             child: Column(
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 48,
                 ),
                 Image.asset(
                   "assets/images/vofaze3.png",
                   height: 100,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 12,
                 ),
-                Text("Entre com o email para resetar a senha!"),
-                SizedBox(
+                const Text("Entre com o email para resetar a senha!"),
+                const SizedBox(
                   height: 12,
                 ),
                 Padding(
@@ -92,12 +93,12 @@ class _RecuperarSenhaState extends State<RecuperarSenha> {
                     controller: _emailcontroller,
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: MinhasCores.amarelo),
+                        borderSide: const BorderSide(color: MinhasCores.amarelo),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: const Color.fromARGB(255, 0, 0, 0)),
+                        borderSide: const BorderSide(
+                            color: Color.fromARGB(255, 0, 0, 0)),
                         borderRadius: BorderRadius.circular(16),
                       ),
                       hintText: "Email",
@@ -120,14 +121,14 @@ class _RecuperarSenhaState extends State<RecuperarSenha> {
                 ),
                 ElevatedButton(
                   onPressed: redefinirSenha,
-                  child: Text(
-                    "Redefinir Senha",
-                    style: TextStyle(color: Colors.white),
-                  ),
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.yellow,
                     backgroundColor:
-                        Colors.black, // Text Color (Foreground color)
+                        Colors.black, 
+                  ),
+                  child: const Text(
+                    "Redefinir Senha",
+                    style: TextStyle(color: Colors.white),
                   ),
                 )
               ],

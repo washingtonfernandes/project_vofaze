@@ -25,6 +25,8 @@ import '../services/provider/radio_provider.dart';
 import '../common/cores_dia.dart';
 
 class AddTicketModel extends StatefulWidget {
+  const AddTicketModel({super.key});
+
   @override
   State<AddTicketModel> createState() => _AddTicketModelState();
 }
@@ -42,7 +44,7 @@ class _AddTicketModelState extends State<AddTicketModel> {
   Widget build(BuildContext context) {
     // Função para formatar a data
 
-    String _formatDate(DateTime? date) {
+    String formatDate(DateTime? date) {
       return date != null
           ? "${date.day}/${date.month}/${date.year}"
           : "dd/mm/yy";
@@ -50,7 +52,7 @@ class _AddTicketModelState extends State<AddTicketModel> {
 
     // Função para formatar a hora
 
-    String _formatTime(TimeOfDay? time) {
+    String formatTime(TimeOfDay? time) {
       if (time != null) {
         String twoDigits(int n) => n.toString().padLeft(2, '0');
 
@@ -89,7 +91,7 @@ class _AddTicketModelState extends State<AddTicketModel> {
                   color: MinhasCores.amarelo,
                   borderRadius: BorderRadius.circular(60),
                 ),
-                child: Text(
+                child: const Text(
                   "Novo Ticket",
                   textAlign: TextAlign.center,
                   style: TextStyle(
@@ -100,18 +102,18 @@ class _AddTicketModelState extends State<AddTicketModel> {
                 ),
               ),
             ),
-            Gap(12),
+            const Gap(12),
             const Text(
               "Título do ticket",
               style: TextStyle(fontSize: 16),
             ),
-            Gap(6),
+            const Gap(6),
             TextFildWidget(
               hintText: 'Adicione um nome ao ticket.',
               maxLine: 1,
               txtController: tituloController,
             ),
-            Gap(6),
+            const Gap(6),
             const Text(
               "Descrição",
               style: TextStyle(fontSize: 16),
@@ -121,7 +123,7 @@ class _AddTicketModelState extends State<AddTicketModel> {
               maxLine: 3,
               txtController: descricaoController,
             ),
-            Gap(12),
+            const Gap(12),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -138,7 +140,7 @@ class _AddTicketModelState extends State<AddTicketModel> {
                     ),
                   ],
                 ),
-                Gap(16),
+                const Gap(16),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -154,7 +156,7 @@ class _AddTicketModelState extends State<AddTicketModel> {
                 ),
               ],
             ),
-            Gap(12),
+            const Gap(12),
             const Text(
               "Setor",
               style: TextStyle(fontSize: 16),
@@ -190,27 +192,27 @@ class _AddTicketModelState extends State<AddTicketModel> {
                 ),
               ],
             ),
-            Gap(12),
+            const Gap(12),
             Row(
               children: [
                 DateTimeWidget(
                   titleText: "Data",
-                  valueText: _formatDate(
+                  valueText: formatDate(
                       context.read<DateTimeProvider>().selectedDate),
                   iconSection: Icons.calendar_month,
                   onTap: () => _selectDate(context),
                 ),
-                Gap(12),
+                const Gap(12),
                 DateTimeWidget(
                   titleText: "Horário",
-                  valueText: _formatTime(
+                  valueText: formatTime(
                       context.read<DateTimeProvider>().selectedTime),
                   iconSection: Icons.punch_clock_sharp,
                   onTap: () => _selectTime(context),
                 ),
               ],
             ),
-            Gap(12),
+            const Gap(12),
             Row(
               children: [
                 Expanded(
@@ -229,7 +231,7 @@ class _AddTicketModelState extends State<AddTicketModel> {
                     ),
                   ),
                 ),
-                Gap(12),
+                const Gap(12),
                 Expanded(
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
@@ -258,7 +260,7 @@ class _AddTicketModelState extends State<AddTicketModel> {
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {
-                            return AlertDialogTicket();
+                            return const AlertDialogTicket();
                           },
                         );
                       } else {
@@ -290,9 +292,9 @@ class _AddTicketModelState extends State<AddTicketModel> {
                           "titulo": formattedTitle,
                           "descricao": formattedDescription,
                           "setor": setor,
-                          "data": _formatDate(
+                          "data": formatDate(
                               context.read<DateTimeProvider>().selectedDate),
-                          "horario": _formatTime(
+                          "horario": formatTime(
                               context.read<DateTimeProvider>().selectedTime),
                           "isDone": false,
                           "userId": selectedUser,
@@ -335,8 +337,8 @@ class _AddTicketModelState extends State<AddTicketModel> {
           data: ThemeData.light().copyWith(
             primaryColor: Colors.yellow,
             hintColor: Colors.yellowAccent,
-            colorScheme: ColorScheme.light(primary: Colors.black),
-            buttonTheme: ButtonThemeData(textTheme: ButtonTextTheme.primary),
+            colorScheme: const ColorScheme.light(primary: Colors.black),
+            buttonTheme: const ButtonThemeData(textTheme: ButtonTextTheme.primary),
           ),
           child: child!,
         );
@@ -368,8 +370,8 @@ class _AddTicketModelState extends State<AddTicketModel> {
           data: ThemeData.light().copyWith(
             primaryColor: Colors.yellow,
             hintColor: Colors.yellowAccent,
-            colorScheme: ColorScheme.light(primary: Colors.black),
-            buttonTheme: ButtonThemeData(textTheme: ButtonTextTheme.primary),
+            colorScheme: const ColorScheme.light(primary: Colors.black),
+            buttonTheme: const ButtonThemeData(textTheme: ButtonTextTheme.primary),
           ),
           child: child!,
         );

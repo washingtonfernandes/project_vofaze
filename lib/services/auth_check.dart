@@ -22,7 +22,7 @@ class _AuthCheckState extends State<AuthCheck> {
     } else if (auth.usuario == null) {
       return const Vofaze();
     } else {
-      return Home();
+      return const Home();
     }
   }
 

@@ -10,6 +10,8 @@ import 'package:project_vofaze/views/cadastroUsuario/cadastro_usuario.dart';
 
 
 class AdminEditPage extends StatefulWidget {
+  const AdminEditPage({super.key});
+
 
   @override
 
@@ -20,7 +22,7 @@ class AdminEditPage extends StatefulWidget {
 
 class _AdminEditPageState extends State<AdminEditPage> {
 
-  PageController _pageController = PageController();
+  final PageController _pageController = PageController();
 
   int _currentPage = 0;
 
@@ -37,7 +39,7 @@ class _AdminEditPageState extends State<AdminEditPage> {
 
       appBar: PreferredSize(
 
-        preferredSize: Size.fromHeight(70.0),
+        preferredSize: const Size.fromHeight(70.0),
 
         child: AppBar(
 
@@ -69,7 +71,7 @@ class _AdminEditPageState extends State<AdminEditPage> {
 
           leading: IconButton(
 
-            icon: Icon(Icons.arrow_back),
+            icon: const Icon(Icons.arrow_back),
 
             onPressed: () {
 
@@ -91,53 +93,9 @@ class _AdminEditPageState extends State<AdminEditPage> {
 
           Container(
 
-            padding: EdgeInsets.symmetric(vertical: 10),
+            padding: const EdgeInsets.symmetric(vertical: 10),
 
             child: ToggleButtons(
-
-              children: [
-
-                Container(
-
-                  padding: EdgeInsets.symmetric(horizontal: 20),
-
-                  child: Text(
-
-                    'Usuários',
-
-                    style: TextStyle(
-
-                      fontWeight: FontWeight.w700,
-
-                      color: _isUserSelected ? Colors.black : Colors.black26,
-
-                    ),
-
-                  ),
-
-                ),
-
-                Container(
-
-                  padding: EdgeInsets.symmetric(horizontal: 20),
-
-                  child: Text(
-
-                    'Ambientes',
-
-                    style: TextStyle(
-
-                      fontWeight: FontWeight.w700,
-
-                      color: !_isUserSelected ? Colors.black : Colors.black26,
-
-                    ),
-
-                  ),
-
-                ),
-
-              ],
 
               onPressed: (int index) {
 
@@ -149,7 +107,7 @@ class _AdminEditPageState extends State<AdminEditPage> {
 
                     _isUserSelected ? 0 : 1,
 
-                    duration: Duration(milliseconds: 500),
+                    duration: const Duration(milliseconds: 500),
 
                     curve: Curves.ease,
 
@@ -174,6 +132,50 @@ class _AdminEditPageState extends State<AdminEditPage> {
               borderWidth: 1,
 
               selectedBorderColor: Colors.black,
+
+              children: [
+
+                Container(
+
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+
+                  child: Text(
+
+                    'Usuários',
+
+                    style: TextStyle(
+
+                      fontWeight: FontWeight.w700,
+
+                      color: _isUserSelected ? Colors.black : Colors.black26,
+
+                    ),
+
+                  ),
+
+                ),
+
+                Container(
+
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+
+                  child: Text(
+
+                    'Ambientes',
+
+                    style: TextStyle(
+
+                      fontWeight: FontWeight.w700,
+
+                      color: !_isUserSelected ? Colors.black : Colors.black26,
+
+                    ),
+
+                  ),
+
+                ),
+
+              ],
 
             ),
 
@@ -201,9 +203,9 @@ class _AdminEditPageState extends State<AdminEditPage> {
 
               children: [
 
-                buildCard(CadastroUsuario()),
+                buildCard(const CadastroUsuario()),
 
-                buildCard(CadastroAmbiente())
+                buildCard(const CadastroAmbiente())
 
               ],
 
@@ -276,7 +278,7 @@ class _AdminEditPageState extends State<AdminEditPage> {
 
         elevation: 5.0,
 
-        child: Container(
+        child: SizedBox(
 
           width: MediaQuery.of(context).size.width * 0.6,
 

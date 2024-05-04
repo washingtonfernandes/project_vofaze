@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:project_vofaze/common/backImage.dart';
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({Key? key}) : super(key: key);
+  const SplashScreen({super.key});
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -50,7 +50,7 @@ class _SplashScreenState extends State<SplashScreen>
     var size = MediaQuery.of(context).size;
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage("assets/images/fundo_app.png"),
             fit: BoxFit.cover,
@@ -58,7 +58,7 @@ class _SplashScreenState extends State<SplashScreen>
         ),
         child: Stack(
           children: [
-            BackImage(),
+            const BackImage(),
             Positioned(
               top: size.height * 0.32,
               left: size.width * 0.015,

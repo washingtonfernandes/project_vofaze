@@ -8,7 +8,7 @@ class MyCircle extends StatelessWidget {
   final String child;
 
 
-  MyCircle({required this.child});
+  const MyCircle({super.key, required this.child});
 
 
   @override
@@ -25,7 +25,7 @@ class MyCircle extends StatelessWidget {
 
         width: 100,
 
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
 
           shape: BoxShape.circle,
 

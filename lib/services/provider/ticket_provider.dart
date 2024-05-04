@@ -6,7 +6,7 @@ import 'package:project_vofaze/model/ticket_model.dart';
 
 class TicketProvider with ChangeNotifier {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  List<TicketModel> _tickets = [];
+  final List<TicketModel> _tickets = [];
   bool _isLoading = true;
   String? _error;
   late StreamSubscription<QuerySnapshot> _subscription;
@@ -79,7 +79,7 @@ class TicketProvider with ChangeNotifier {
       context: context,
       barrierDismissible: false,
       builder: (context) => AlertDialog(
-        title: Center(
+        title: const Center(
           child: Text(
             "Confirma a exclusão?",
             style: TextStyle(
@@ -102,15 +102,15 @@ class TicketProvider with ChangeNotifier {
                     },
                     style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.white,
-                      backgroundColor: Color.fromARGB(255, 0, 0, 0),
+                      backgroundColor: const Color.fromARGB(255, 0, 0, 0),
                     ),
-                    child: Text(
+                    child: const Text(
                       "Cancelar",
                       style: TextStyle(color: Colors.white),
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 18,
                 ),
                 Flexible(
@@ -123,7 +123,7 @@ class TicketProvider with ChangeNotifier {
                       foregroundColor: Colors.black,
                       backgroundColor: MinhasCores.amarelo,
                     ),
-                    child: Text("Confirmar"),
+                    child: const Text("Confirmar"),
                   ),
                 ),
               ],
@@ -139,7 +139,7 @@ class TicketProvider with ChangeNotifier {
       context: context,
       barrierDismissible: false,
       builder: (context) => AlertDialog(
-        title: Center(
+        title: const Center(
           child: Text(
             "Confirma a atualização?",
             style: TextStyle(
@@ -162,15 +162,15 @@ class TicketProvider with ChangeNotifier {
                     },
                     style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.white,
-                      backgroundColor: Color.fromARGB(255, 0, 0, 0),
+                      backgroundColor: const Color.fromARGB(255, 0, 0, 0),
                     ),
-                    child: Text(
+                    child: const Text(
                       "Cancelar",
                       style: TextStyle(color: Colors.white),
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 18,
                 ),
                 Flexible(
@@ -183,7 +183,7 @@ class TicketProvider with ChangeNotifier {
                       foregroundColor: Colors.black,
                       backgroundColor: MinhasCores.amarelo,
                     ),
-                    child: Text("Confirmar"),
+                    child: const Text("Confirmar"),
                   ),
                 ),
               ],

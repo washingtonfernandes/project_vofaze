@@ -22,33 +22,33 @@ class _AutenticacaoTelaState extends State<AutenticacaoTela> {
 
   final _formKey = GlobalKey<FormState>();
 
-  TextEditingController _emailController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
 
-  TextEditingController _senhaController = TextEditingController();
+  final TextEditingController _senhaController = TextEditingController();
 
-  TextEditingController _nomeController = TextEditingController();
+  final TextEditingController _nomeController = TextEditingController();
 
-  AutenticacaoServico _autenticaServico = AutenticacaoServico();
+  final AutenticacaoServico _autenticaServico = AutenticacaoServico();
 
   bool _obscureText = true;
 
   InputDecoration getAuthenticationInputDecoration(String label) {
     return InputDecoration(
       labelText: label,
-      labelStyle: TextStyle(color: Colors.black),
+      labelStyle: const TextStyle(color: Colors.black),
       filled: true,
       fillColor: MinhasCores.amareloBaixo,
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
-        borderSide: BorderSide(
-          color: Colors.black, // Cor do contorno quando o campo está em foco
+        borderSide: const BorderSide(
+          color: Colors.black, 
         ),
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
-        borderSide: BorderSide(
+        borderSide: const BorderSide(
           color:
-              Colors.black, // Cor do contorno quando o campo não está em foco
+              Colors.black, 
         ),
       ),
     );
@@ -60,7 +60,7 @@ class _AutenticacaoTelaState extends State<AutenticacaoTela> {
       body: Stack(
         children: [
           Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage("assets/images/fundo_app.png"),
                 fit: BoxFit.cover,
@@ -83,7 +83,7 @@ class _AutenticacaoTelaState extends State<AutenticacaoTela> {
                           "assets/images/vofaze3.png",
                           height: 120,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 60,
                         ),
                         TextFormField(
@@ -106,7 +106,7 @@ class _AutenticacaoTelaState extends State<AutenticacaoTela> {
                             return null;
                           },
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 32,
                         ),
                         TextFormField(
@@ -140,14 +140,14 @@ class _AutenticacaoTelaState extends State<AutenticacaoTela> {
                             return null;
                           },
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 16,
                         ),
                         Visibility(
                           visible: !queroEntrar,
                           child: Column(
                             children: [
-                              SizedBox(
+                              const SizedBox(
                                 height: 16,
                               ),
                               TextFormField(
@@ -169,7 +169,7 @@ class _AutenticacaoTelaState extends State<AutenticacaoTela> {
                             ],
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 24,
                         ),
                         ElevatedButton(
@@ -180,7 +180,7 @@ class _AutenticacaoTelaState extends State<AutenticacaoTela> {
                             foregroundColor: Colors.yellow,
 
                             backgroundColor:
-                                Colors.black, // Text Color (Foreground color)
+                                Colors.black, 
                           ),
                           child: Text(
                             //boleano para entrar ou cadastrar
@@ -189,7 +189,7 @@ class _AutenticacaoTelaState extends State<AutenticacaoTela> {
 
                             textAlign: TextAlign.center,
 
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
@@ -215,24 +215,24 @@ class _AutenticacaoTelaState extends State<AutenticacaoTela> {
 
                             textAlign: TextAlign.center,
 
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
                               color: Color.fromARGB(255, 0, 0, 0),
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 12,
                         ),
                         TextButton(
                           onPressed: () {
                             Navigator.push(context,
                                 MaterialPageRoute(builder: (context) {
-                              return RecuperarSenha();
+                              return const RecuperarSenha();
                             }));
                           },
-                          child: Text(
+                          child: const Text(
                             "Esqueci a senha",
                             textAlign: TextAlign.center,
                             style: TextStyle(

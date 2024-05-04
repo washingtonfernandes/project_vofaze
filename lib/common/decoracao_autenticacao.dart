@@ -5,7 +5,7 @@ InputDecoration getAuthenticationInputDecoration(String label) {
     hintText: label,
     fillColor: Colors.white,
     filled: true,
-    contentPadding: EdgeInsets.fromLTRB(16, 8, 16, 8),
+    contentPadding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
     border: OutlineInputBorder(
       borderRadius: BorderRadius.circular(10),
     ),

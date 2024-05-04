@@ -3,7 +3,7 @@ import 'package:project_vofaze/services/roteador_tela.dart';
 import 'package:project_vofaze/views/splash-screen/splash-screen.dart';
 
 class Vofaze extends StatelessWidget {
-  const Vofaze({Key? key}) : super(key: key);
+  const Vofaze({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class Vofaze extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const SplashScreen();
           } else {
-            return RoteadorTela();
+            return const RoteadorTela();
           }
         },
       ),

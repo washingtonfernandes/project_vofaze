@@ -10,7 +10,7 @@ import 'package:project_vofaze/widget/radio_widget.dart';
 import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+  const Home({super.key});
 
   @override
   _HomeState createState() => _HomeState();
@@ -31,7 +31,7 @@ class _HomeState extends State<Home> {
     User? user = FirebaseAuth.instance.currentUser;
 
     return Scaffold(
-      drawer: DrawerHome(),
+      drawer: const DrawerHome(),
       appBar: AppBar(
         backgroundColor: MinhasCores.amareloBaixo,
         foregroundColor: Colors.black,
@@ -53,16 +53,16 @@ class _HomeState extends State<Home> {
                 user != null
                     ? user.displayName ?? "Nome do Usuário"
                     : "Nome do Usuário",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
               Text(
                 user != null ? user.email ?? "Email" : "Email",
-                style: TextStyle(fontSize: 6),
+                style: const TextStyle(fontSize: 6),
               ),
             ],
           ),
           trailing: IconButton(
-            icon: Icon(Icons.exit_to_app_sharp),
+            icon: const Icon(Icons.exit_to_app_sharp),
             onPressed: () {
               AutenticacaoServico().deslogar();
             },
@@ -82,7 +82,7 @@ class _HomeState extends State<Home> {
               Column(children: [
                 Container(
                   color: Colors.transparent,
-                  child: Center(
+                  child: const Center(
                     child: Text(
                       "Meus tickets",
                       style: TextStyle(

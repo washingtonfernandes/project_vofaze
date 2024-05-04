@@ -5,12 +5,12 @@ import 'package:provider/provider.dart';
 
 class RadioWidget extends StatelessWidget {
   const RadioWidget({
-    Key? key,
+    super.key,
     required this.titleRadio,
     required this.setorColor,
     required this.valueInput,
     required void Function() onChangeValue,
-  }) : super(key: key);
+  });
 
   final String titleRadio;
   final Color setorColor;

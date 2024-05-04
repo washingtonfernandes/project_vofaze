@@ -3,6 +3,7 @@ import 'package:project_vofaze/common/cores_dia.dart';
 
 class TextFildWidget extends StatelessWidget {
   const TextFildWidget({
+    super.key,
     required this.hintText,
     required this.maxLine,
     required this.txtController,
@@ -26,7 +27,7 @@ class TextFildWidget extends StatelessWidget {
             enabledBorder: InputBorder.none,
             focusedBorder: InputBorder.none,
             hintText: hintText,
-            hintStyle: TextStyle(
+            hintStyle: const TextStyle(
               color: Colors.black12,
             )),
         maxLines: maxLine,

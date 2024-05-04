@@ -135,9 +135,9 @@ class AutenticacaoServico with ChangeNotifier {
         await _firestore.collection('users').doc(userId).delete();
 
         // Deslogar o usuário
-        await deslogar(); // Utiliza a função deslogar já existente
+        await deslogar();
 
-        return null; // Sucesso
+        return null; 
       } else {
         return "Usuário não encontrado.";
       }

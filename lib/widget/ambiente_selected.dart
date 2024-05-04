@@ -6,7 +6,7 @@ class AmbienteSelectionWidget extends StatelessWidget {
   final String selectedAmbiente;
   final ValueChanged<String?>? onChanged;
 
-  const AmbienteSelectionWidget({
+  const AmbienteSelectionWidget({super.key, 
     required this.selectedAmbiente,
     required this.onChanged,
   });
@@ -31,19 +31,19 @@ class AmbienteSelectionWidget extends StatelessWidget {
               stream: FirebaseFirestore.instance.collection("ambientes").snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return CircularProgressIndicator(
+                  return const CircularProgressIndicator(
                     value: null,
                     strokeWidth: 2,
                     color: Colors.black,
                   );
                 } else if (snapshot.hasError) {
-                  return Text("Erro ao carregar dados do ambiente");
+                  return const Text("Erro ao carregar dados do ambiente");
                 } else {
                   List<DropdownMenuItem<String>> ambienteItems = [];
                   final ambientes = snapshot.data?.docs.reversed.toList();
 
                   ambienteItems.add(
-                    DropdownMenuItem(
+                    const DropdownMenuItem(
                       value: "0",
                       child: Text("Ambiente"),
                     ),

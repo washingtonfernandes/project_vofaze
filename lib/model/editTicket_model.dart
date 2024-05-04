@@ -15,8 +15,7 @@ class EditTicketScreen extends StatefulWidget {
   final TicketModel? ticket;
   final String userId;
 
-  const EditTicketScreen({Key? key, this.ticket, required this.userId})
-      : super(key: key);
+  const EditTicketScreen({super.key, this.ticket, required this.userId});
 
   @override
   State<EditTicketScreen> createState() => _EditTicketScreenState();
@@ -86,13 +85,13 @@ class _EditTicketScreenState extends State<EditTicketScreen> {
 
   @override
   Widget build(BuildContext context) {
-    String _formatDate(DateTime? date) {
+    String formatDate(DateTime? date) {
       return date != null
           ? "${date.day}/${date.month}/${date.year}"
           : "dd/mm/yy";
     }
 
-    String _formatTime(TimeOfDay? time) {
+    String formatTime(TimeOfDay? time) {
       if (time != null) {
         String twoDigits(int n) => n.toString().padLeft(2, '0');
         return '${twoDigits(time.hour)}:${twoDigits(time.minute)}';
@@ -105,7 +104,7 @@ class _EditTicketScreenState extends State<EditTicketScreen> {
         children: [
           Positioned.fill(
             child: Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage("assets/images/fundo_app.png"),
                   fit: BoxFit.cover,
@@ -122,7 +121,7 @@ class _EditTicketScreenState extends State<EditTicketScreen> {
                       color: Colors.black.withOpacity(0.3),
                       spreadRadius: 2,
                       blurRadius: 5,
-                      offset: Offset(0, 3),
+                      offset: const Offset(0, 3),
                     ),
                   ],
                   color: MinhasCores.amareloTopo,
@@ -140,7 +139,7 @@ class _EditTicketScreenState extends State<EditTicketScreen> {
                             color: MinhasCores.amarelo,
                             borderRadius: BorderRadius.circular(60),
                           ),
-                          child: Text(
+                          child: const Text(
                             "Editar Ticket",
                             textAlign: TextAlign.center,
                             style: TextStyle(
@@ -151,19 +150,19 @@ class _EditTicketScreenState extends State<EditTicketScreen> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 12),
-                      Text(
+                      const SizedBox(height: 12),
+                      const Text(
                         "Título do ticket",
                         style: TextStyle(fontSize: 16),
                       ),
-                      SizedBox(height: 6),
+                      const SizedBox(height: 6),
                       Card(
                         elevation: 0,
                         child: Padding(
-                          padding: EdgeInsets.only(left: 12.0),
+                          padding: const EdgeInsets.only(left: 12.0),
                           child: TextField(
                             controller: _tituloController,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               hintText: 'Adicione um nome ao ticket.',
                               focusedBorder: InputBorder.none,
                               enabledBorder: InputBorder.none,
@@ -171,18 +170,18 @@ class _EditTicketScreenState extends State<EditTicketScreen> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 6),
-                      Text(
+                      const SizedBox(height: 6),
+                      const Text(
                         "Descrição",
                         style: TextStyle(fontSize: 16),
                       ),
                       Card(
                         elevation: 0,
                         child: Padding(
-                          padding: EdgeInsets.only(left: 12.0),
+                          padding: const EdgeInsets.only(left: 12.0),
                           child: TextField(
                             controller: _descricaoController,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               hintText: 'Descreva o serviço.',
                               focusedBorder: InputBorder.none,
                               enabledBorder: InputBorder.none,
@@ -190,7 +189,7 @@ class _EditTicketScreenState extends State<EditTicketScreen> {
                           ),
                         ),
                       ),
-                      Gap(12),
+                      const Gap(12),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -207,7 +206,7 @@ class _EditTicketScreenState extends State<EditTicketScreen> {
                               ),
                             ],
                           ),
-                          Gap(16),
+                          const Gap(16),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -223,8 +222,8 @@ class _EditTicketScreenState extends State<EditTicketScreen> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 12),
-                      Text(
+                      const SizedBox(height: 12),
+                      const Text(
                         "Setor",
                         style: TextStyle(fontSize: 16, color: Colors.black87),
                       ),
@@ -262,27 +261,27 @@ class _EditTicketScreenState extends State<EditTicketScreen> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 12),
+                      const SizedBox(height: 12),
                       Row(
                         children: [
                           DateTimeWidget(
                             titleText: "Data",
-                            valueText: _formatDate(
+                            valueText: formatDate(
                                 context.read<DateTimeProvider>().selectedDate),
                             iconSection: Icons.calendar_month,
                             onTap: () => _selectDate(context),
                           ),
-                          SizedBox(width: 12),
+                          const SizedBox(width: 12),
                           DateTimeWidget(
                             titleText: "Horário",
-                            valueText: _formatTime(
+                            valueText: formatTime(
                                 context.read<DateTimeProvider>().selectedTime),
                             iconSection: Icons.punch_clock_sharp,
                             onTap: () => _selectTime(context),
                           ),
                         ],
                       ),
-                      SizedBox(height: 12),
+                      const SizedBox(height: 12),
                       Row(
                         children: [
                           Expanded(
@@ -297,13 +296,13 @@ class _EditTicketScreenState extends State<EditTicketScreen> {
                               onPressed: () {
                                 Navigator.pop(context);
                               },
-                              child: Text(
+                              child: const Text(
                                 "SAIR",
                                 style: TextStyle(color: Colors.black),
                               ),
                             ),
                           ),
-                          SizedBox(width: 12),
+                          const SizedBox(width: 12),
                           Expanded(
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
@@ -336,10 +335,10 @@ class _EditTicketScreenState extends State<EditTicketScreen> {
                                   titulo: _tituloController.text,
                                   descricao: _descricaoController.text,
                                   setor: setor,
-                                  data: _formatDate(context
+                                  data: formatDate(context
                                       .read<DateTimeProvider>()
                                       .selectedDate),
-                                  horario: _formatTime(context
+                                  horario: formatTime(context
                                       .read<DateTimeProvider>()
                                       .selectedTime),
                                   isDone: widget.ticket!.isDone,
@@ -350,7 +349,7 @@ class _EditTicketScreenState extends State<EditTicketScreen> {
                                     .read<TicketProvider>()
                                     .confirmUpdate(updatedTicket, context);
                               },
-                              child: Text(
+                              child: const Text(
                                 "SALVAR",
                                 style: TextStyle(color: Colors.white),
                               ),
@@ -378,8 +377,8 @@ class _EditTicketScreenState extends State<EditTicketScreen> {
           data: ThemeData.light().copyWith(
             primaryColor: Colors.yellow,
             hintColor: Colors.yellowAccent,
-            colorScheme: ColorScheme.light(primary: Colors.black),
-            buttonTheme: ButtonThemeData(textTheme: ButtonTextTheme.primary),
+            colorScheme: const ColorScheme.light(primary: Colors.black),
+            buttonTheme: const ButtonThemeData(textTheme: ButtonTextTheme.primary),
           ),
           child: child!,
         );
@@ -404,8 +403,8 @@ class _EditTicketScreenState extends State<EditTicketScreen> {
           data: ThemeData.light().copyWith(
             primaryColor: Colors.yellow,
             hintColor: Colors.yellowAccent,
-            colorScheme: ColorScheme.light(primary: Colors.black),
-            buttonTheme: ButtonThemeData(textTheme: ButtonTextTheme.primary),
+            colorScheme: const ColorScheme.light(primary: Colors.black),
+            buttonTheme: const ButtonThemeData(textTheme: ButtonTextTheme.primary),
           ),
           child: child!,
         );

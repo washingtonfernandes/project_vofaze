@@ -20,7 +20,7 @@ class DrawerHome extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
       child: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage("assets/images/fundoa_app.png"),
             fit: BoxFit.cover,
@@ -29,7 +29,7 @@ class DrawerHome extends StatelessWidget {
         child: ListView(
           children: [
             Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-              SizedBox(
+              const SizedBox(
                 height: 100,
               ),
               Container(
@@ -44,7 +44,7 @@ class DrawerHome extends StatelessWidget {
                   child: Image.asset("assets/images/vofaze3.png"),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               Container(
@@ -65,13 +65,13 @@ class DrawerHome extends StatelessWidget {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => TicketList()));
+                                  builder: (context) => const TicketList()));
                         },
                         style: ElevatedButton.styleFrom(
                           foregroundColor: Colors.yellow,
                           backgroundColor: Colors.black,
                         ),
-                        child: Text(
+                        child: const Text(
                           "Tickets",
                           textAlign: TextAlign.center,
                           style: TextStyle(
@@ -81,7 +81,7 @@ class DrawerHome extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       ElevatedButton(
@@ -89,12 +89,13 @@ class DrawerHome extends StatelessWidget {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => AdminEditPage()));
+                                  builder: (context) => const AdminEditPage()));
                         },
                         style: ElevatedButton.styleFrom(
-                          foregroundColor: Colors.yellow, backgroundColor: Colors.black,
+                          foregroundColor: Colors.yellow,
+                          backgroundColor: Colors.black,
                         ),
-                        child: Text(
+                        child: const Text(
                           "Cadastros",
                           textAlign: TextAlign.center,
                           style: TextStyle(
@@ -104,7 +105,7 @@ class DrawerHome extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       ElevatedButton(
@@ -112,12 +113,13 @@ class DrawerHome extends StatelessWidget {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => PDFScreen()));
+                                  builder: (context) => PdfScreen()));
                         },
                         style: ElevatedButton.styleFrom(
-                          foregroundColor: Colors.yellow, backgroundColor: Colors.black,
+                          foregroundColor: Colors.yellow,
+                          backgroundColor: Colors.black,
                         ),
-                        child: Text(
+                        child: const Text(
                           "Relatórios",
                           textAlign: TextAlign.center,
                           style: TextStyle(
@@ -131,19 +133,19 @@ class DrawerHome extends StatelessWidget {
                   ),
                 ),
               ),
-              Gap(30),
+              const Gap(30),
               ElevatedButton(
                 onPressed: () {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => UpdateProfileScreen()));
+                          builder: (context) => const UpdateProfileScreen()));
                 },
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white,
                   backgroundColor: Colors.black,
                 ),
-                child: Container(
+                child: const SizedBox(
                   width: 120,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -163,17 +165,19 @@ class DrawerHome extends StatelessWidget {
                   ),
                 ),
               ),
-              Gap(30),
+              const Gap(30),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => AdminEditPage()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const AdminEditPage()));
                 },
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.yellow,
                   backgroundColor: Colors.black,
                 ),
-                child: Text(
+                child: const Text(
                   "Sobre",
                   textAlign: TextAlign.center,
                   style: TextStyle(
@@ -183,7 +187,7 @@ class DrawerHome extends StatelessWidget {
                   ),
                 ),
               ),
-              Gap(30),
+              const Gap(30),
               Container(
                 width: 60,
                 decoration: BoxDecoration(
@@ -192,7 +196,7 @@ class DrawerHome extends StatelessWidget {
                 ),
                 child: Center(
                   child: ListTile(
-                    title: Icon(
+                    title: const Icon(
                       Icons.exit_to_app,
                       color: MinhasCores.amarelo,
                     ),

@@ -15,9 +15,9 @@ void main() async {
     Builder(
       builder: (context) => getAppProviders(
         context,
-        MaterialApp(
+        const MaterialApp(
           debugShowCheckedModeBanner: false,
-          home: const Vofaze(),
+          home: Vofaze(),
         ),
       ),
     ),

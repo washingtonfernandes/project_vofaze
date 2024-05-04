@@ -4,13 +4,12 @@ import 'package:project_vofaze/common/cores_dia.dart';
 class ConfirmDeleteDialogUser extends StatelessWidget {
   final VoidCallback onDelete;
 
-  const ConfirmDeleteDialogUser({required this.onDelete, Key? key})
-      : super(key: key);
+  const ConfirmDeleteDialogUser({required this.onDelete, super.key});
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Center(
+      title: const Center(
         child: Text(
           "Confirma a exclusão?",
           style: TextStyle(
@@ -29,14 +28,14 @@ class ConfirmDeleteDialogUser extends StatelessWidget {
             },
             style: ElevatedButton.styleFrom(
               foregroundColor: Colors.white,
-              backgroundColor: Color.fromARGB(255, 0, 0, 0),
+              backgroundColor: const Color.fromARGB(255, 0, 0, 0),
             ),
-            child: Text(
+            child: const Text(
               "Cancelar",
               style: TextStyle(color: Colors.white),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             width: 18,
           ),
           TextButton(
@@ -45,7 +44,7 @@ class ConfirmDeleteDialogUser extends StatelessWidget {
               foregroundColor: Colors.black,
               backgroundColor: MinhasCores.amarelo,
             ),
-            child: Text("Confirmar"),
+            child: const Text("Confirmar"),
           ),
         ],
       ),

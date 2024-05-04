@@ -4,15 +4,15 @@ class UsuarioItem extends StatelessWidget {
   final String usuarioText;
   final String emailText;
   final VoidCallback? onDelete;
-  final bool isDeletable; // Adiciona o parâmetro isDeletable
+  final bool isDeletable;
 
   const UsuarioItem({
-    Key? key,
+    super.key,
     required this.usuarioText,
     required this.emailText,
     this.onDelete,
-    this.isDeletable = true, // Define isDeletable como true por padrão
-  }) : super(key: key);
+    this.isDeletable = true, 
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -27,11 +27,11 @@ class UsuarioItem extends StatelessWidget {
           child: ListTile(
             title: Text(
               usuarioText,
-              style: TextStyle(fontSize: 18),
+              style: const TextStyle(fontSize: 18),
             ),
             subtitle: Text(
               emailText,
-              style: TextStyle(fontSize: 10),
+              style: const TextStyle(fontSize: 10),
             ),
             trailing: isDeletable
                 ? Row(
@@ -44,7 +44,7 @@ class UsuarioItem extends StatelessWidget {
                         ),
                     ],
                   )
-                : null, // Retorna null se isDeletable for false
+                : null, 
           ),
         ),
       ),

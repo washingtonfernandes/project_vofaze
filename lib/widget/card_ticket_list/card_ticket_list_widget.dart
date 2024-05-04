@@ -9,9 +9,9 @@ import 'package:provider/provider.dart';
 
 class CardTicketListWidget extends StatelessWidget {
   const CardTicketListWidget({
-    Key? key,
+    super.key,
     required this.getIndex,
-  }) : super(key: key);
+  });
 
   final int getIndex;
 
@@ -43,14 +43,14 @@ class CardTicketListWidget extends StatelessWidget {
               future: _fetchUserData(ticket.userId),
               builder: (context, userSnapshot) {
                 if (userSnapshot.connectionState == ConnectionState.waiting) {
-                  return CircularProgressIndicator(
+                  return const CircularProgressIndicator(
                     value: null,
                     strokeWidth: 2,
                     color: Colors.black,
                   );
                 }
                 if (userSnapshot.hasError) {
-                  return Text('Erro ao carregar dados do usuário');
+                  return const Text('Erro ao carregar dados do usuário');
                 }
 
                 final userData =
@@ -70,14 +70,14 @@ class CardTicketListWidget extends StatelessWidget {
                   builder: (context, ambienteSnapshot) {
                     if (ambienteSnapshot.connectionState ==
                         ConnectionState.waiting) {
-                      return CircularProgressIndicator(
+                      return const CircularProgressIndicator(
                         value: null,
                         strokeWidth: 2,
                         color: Colors.black,
                       );
                     }
                     if (ambienteSnapshot.hasError) {
-                      return Text('Erro ao carregar dados do ambiente');
+                      return const Text('Erro ao carregar dados do ambiente');
                     }
 
                     final ambienteData =
@@ -101,7 +101,7 @@ class CardTicketListWidget extends StatelessWidget {
               },
             );
           } else {
-            return SizedBox();
+            return const SizedBox();
           }
         },
       ),
@@ -140,7 +140,7 @@ class CardTicketListWidget extends StatelessWidget {
             Container(
               decoration: BoxDecoration(
                 color: setorColor,
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(12),
                   bottomLeft: Radius.circular(12),
                 ),
@@ -159,17 +159,17 @@ class CardTicketListWidget extends StatelessWidget {
                             padding: const EdgeInsets.all(12.0),
                             child: Column(
                               children: [
-                                Text("Usuário",
+                                const Text("Usuário",
                                     style: TextStyle(
                                       fontSize: 14,
                                     )),
                                 Container(
                                   child: Column(
                                     children: [
-                                      Gap(12),
+                                      const Gap(12),
                                       Text(
                                         userName,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             fontSize: 16,
                                             fontWeight: FontWeight.w800),
                                       ),
@@ -186,17 +186,17 @@ class CardTicketListWidget extends StatelessWidget {
                             padding: const EdgeInsets.all(12.0),
                             child: Column(
                               children: [
-                                Text("Ambiente",
+                                const Text("Ambiente",
                                     style: TextStyle(
                                       fontSize: 14,
                                     )),
                                 Container(
                                   child: Column(
                                     children: [
-                                      Gap(12),
+                                      const Gap(12),
                                       Text(
                                         ambienteName,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             fontSize: 16,
                                             fontWeight: FontWeight.w800),
                                       ),
@@ -210,13 +210,13 @@ class CardTicketListWidget extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Divider(),
+                  const Divider(),
                   ListTile(
                     title: Stack(
                       children: [
                         Text(
                           ticket.titulo,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize: 18,
                           ),
@@ -239,7 +239,7 @@ class CardTicketListWidget extends StatelessWidget {
                       children: [
                         Text(
                           ticket.descricao,
-                          style: TextStyle(fontSize: 14),
+                          style: const TextStyle(fontSize: 14),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -265,7 +265,7 @@ class CardTicketListWidget extends StatelessWidget {
                     ),
                   ),
                   Transform.translate(
-                    offset: Offset(0, -12),
+                    offset: const Offset(0, -12),
                     child: Container(
                       child: Column(
                         children: [
@@ -278,13 +278,13 @@ class CardTicketListWidget extends StatelessWidget {
                               ),
                               child: Row(
                                 children: [
-                                  Gap(12),
+                                  const Gap(12),
                                   Text(ticket.data),
-                                  Gap(12),
+                                  const Gap(12),
                                   Text(ticket.horario),
-                                  Gap(12),
+                                  const Gap(12),
                                   IconButton(
-                                    icon: Icon(Icons.delete),
+                                    icon: const Icon(Icons.delete),
                                     onPressed: () {
                                       if (ticket.docID != null) {
                                         ticketProvider.confirmDelete(
@@ -293,7 +293,7 @@ class CardTicketListWidget extends StatelessWidget {
                                     },
                                   ),
                                   IconButton(
-                                    icon: Icon(Icons.edit),
+                                    icon: const Icon(Icons.edit),
                                     onPressed: () {
                                       Navigator.push(
                                         context,
@@ -308,7 +308,7 @@ class CardTicketListWidget extends StatelessWidget {
                                     },
                                   ),
                                   IconButton(
-                                    icon: Icon(Icons.image),
+                                    icon: const Icon(Icons.image),
                                     onPressed: () {},
                                   ),
                                 ],

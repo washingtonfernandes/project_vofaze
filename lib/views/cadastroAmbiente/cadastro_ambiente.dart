@@ -7,7 +7,7 @@ import 'package:project_vofaze/views/cadastroAmbiente/ambiente_item.dart';
 import 'package:project_vofaze/views/cadastroAmbiente/confirm_delete_ambiente.dart';
 
 class CadastroAmbiente extends StatefulWidget {
-  const CadastroAmbiente({Key? key}) : super(key: key);
+  const CadastroAmbiente({super.key});
 
   @override
   State<CadastroAmbiente> createState() => _CadastroAmbienteState();
@@ -28,7 +28,7 @@ class _CadastroAmbienteState extends State<CadastroAmbiente> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text("Ambientes"),
+            const Text("Ambientes"),
             FloatingActionButton(
               mini: true, // Define o botão como mini
               backgroundColor: Colors.black,
@@ -42,7 +42,7 @@ class _CadastroAmbienteState extends State<CadastroAmbiente> {
       body: Stack(
         children: [
           Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage("assets/images/fundo_app.png"),
                 fit: BoxFit.cover,

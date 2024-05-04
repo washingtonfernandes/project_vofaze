@@ -6,12 +6,12 @@ import 'package:provider/provider.dart';
 
 class DateTimeWidget extends StatelessWidget {
   const DateTimeWidget({
-    Key? key,
+    super.key,
     required this.titleText,
     required this.iconSection,
     required this.onTap,
     required String valueText,
-  }) : super(key: key);
+  });
 
   final String titleText;
   final IconData iconSection;
@@ -27,7 +27,7 @@ class DateTimeWidget extends StatelessWidget {
           Material(
             color: Colors.transparent,
             child: Ink(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: MinhasCores.amareloBaixo,
                 borderRadius: BorderRadius.all(
                   Radius.circular(12),
@@ -48,7 +48,7 @@ class DateTimeWidget extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(iconSection),
-                      Gap(6),
+                      const Gap(6),
                       Consumer<DateTimeProvider>(
                         builder: (context, dateTimeProvider, child) {
                           return Text(

@@ -8,7 +8,7 @@ import 'package:project_vofaze/model/addTicket_model.dart';
 import 'package:gap/gap.dart';
 
 class TicketList extends StatefulWidget {
-  const TicketList({Key? key}) : super(key: key);
+  const TicketList({super.key});
 
   @override
   _TicketListState createState() => _TicketListState();
@@ -28,7 +28,7 @@ class _TicketListState extends State<TicketList> {
     return Scaffold(
       backgroundColor: MinhasCores.amarelo,
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(75.0),
+        preferredSize: const Size.fromHeight(75.0),
         child: AppBar(
           backgroundColor: MinhasCores.amareloBaixo,
           foregroundColor: Colors.black,
@@ -50,7 +50,7 @@ class _TicketListState extends State<TicketList> {
                   future: FirebaseAuth.instance.currentUser!.reload(),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Text(
+                      return const Text(
                         "Carregando...",
                         style: TextStyle(
                           fontSize: 16,
@@ -64,7 +64,7 @@ class _TicketListState extends State<TicketList> {
 
                       return Text(
                         displayName,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
                         ),
@@ -76,7 +76,7 @@ class _TicketListState extends State<TicketList> {
                   future: FirebaseAuth.instance.currentUser!.reload(),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Text(
+                      return const Text(
                         "Carregando...",
                         style: TextStyle(
                           fontSize: 8,
@@ -89,7 +89,7 @@ class _TicketListState extends State<TicketList> {
 
                       return Text(
                         email,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 8,
                           fontWeight: FontWeight.bold,
                         ),
@@ -110,10 +110,10 @@ class _TicketListState extends State<TicketList> {
                     borderRadius: BorderRadius.circular(24),
                   ),
                   context: context,
-                  builder: (context) => AddTicketModel(),
+                  builder: (context) => const AddTicketModel(),
                 );
               },
-              child: Icon(Icons.add),
+              child: const Icon(Icons.add),
             ),
           ),
         ),

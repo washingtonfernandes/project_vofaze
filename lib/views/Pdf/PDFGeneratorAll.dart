@@ -1,0 +1,151 @@
+import 'dart:typed_data';
+import 'dart:io';
+import 'package:flutter/services.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:intl/intl.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:pdf/widgets.dart' as pw;
+
+class PDFGeneratorAll {
+  static Future<String> generateReport() async {
+    final pdf = pw.Document();
+    final ticketsData =
+        await FirebaseFirestore.instance.collection('tickets').get();
+
+    // Carregar imagem de avatar
+    final ByteData imageData =
+        await rootBundle.load('assets/images/vofaze3.png');
+    final Uint8List avatarImageBytes = imageData.buffer.asUint8List();
+
+    // Obter informações do usuário atual
+    final User? user = FirebaseAuth.instance.currentUser;
+    final String userName = user?.displayName ?? "Nome do Usuário";
+    final String currentDate = DateFormat('dd/MM/yyyy').format(DateTime.now());
+
+    // Construir os dados da tabela
+    List<List<dynamic>> tableData = [];
+
+    for (var ticket in ticketsData.docs) {
+      String ambienteNome = await _getAmbienteNome(ticket['ambienteId']);
+      String userName = await _getUserName(ticket['userId']);
+
+      tableData.add([
+        ticket['data'] as String,
+        ticket['setor'] as String,
+        userName,
+        ambienteNome,
+        ticket['descricao'] as String,
+        ticket['titulo'] as String,
+        ticket['isDone'] ? 'Sim' : 'Não', // Concluído
+      ]);
+    }
+
+    // Ordenar a lista pela primeira coluna (data)
+    tableData.sort((a, b) => DateFormat('dd/MM/yyyy')
+        .parse(a[0])
+        .compareTo(DateFormat('dd/MM/yyyy').parse(b[0])));
+
+    // Contagem de concluídos e não concluídos
+    int concluidosTrue = tableData.where((row) => row[6] == 'Sim').length;
+    int concluidosFalse = tableData.where((row) => row[6] == 'Não').length;
+
+    // Construir o conteúdo do PDF
+    pdf.addPage(
+      pw.Page(
+        build: (pw.Context context) => pw.Container(
+          padding: const pw.EdgeInsets.all(20),
+          child: pw.Column(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            children: [
+              // Cabeçalho com imagem, nome e data
+              pw.Row(
+                crossAxisAlignment: pw.CrossAxisAlignment.start,
+                children: [
+                  pw.Image(pw.MemoryImage(avatarImageBytes), width: 50),
+                  pw.SizedBox(width: 10),
+                  pw.Column(
+                    crossAxisAlignment: pw.CrossAxisAlignment.start,
+                    children: [
+                      pw.Text(userName,
+                          style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+                      pw.Text(currentDate),
+                    ],
+                  ),
+                ],
+              ),
+              pw.SizedBox(height: 10),
+
+              // Tabela com os dados ordenados
+              pw.Container(
+                padding: const pw.EdgeInsets.symmetric(vertical: 20),
+                child: pw.Table(
+                  border: pw.TableBorder.all(),
+                  children: [
+                    // Títulos das colunas
+                    pw.TableRow(
+                      children: [
+                        for (var header in [
+                          'Data',
+                          'Setor',
+                          'Usuário',
+                          'Ambiente',
+                          'Descrição',
+                          'Título',
+                          'Concluído'
+                        ])
+                          pw.Text(header,
+                              style:
+                                  pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+                      ],
+                    ),
+                    // Linhas da tabela
+                    for (var row in tableData)
+                      pw.TableRow(
+                        children: [
+                          for (var cell in row)
+                            pw.Container(
+                              padding: const pw.EdgeInsets.all(5),
+                              child: pw.Text('$cell',
+                                  style: const pw.TextStyle(fontSize: 10),
+                                  softWrap: true),
+                            ),
+                        ],
+                      ),
+                  ],
+                ),
+              ),
+
+              pw.SizedBox(height: 10),
+
+              // Total de concluídos e não concluídos
+              pw.Text('Total de Concluídos: $concluidosTrue'),
+              pw.Text('Total de Não Concluídos: $concluidosFalse'),
+            ],
+          ),
+        ),
+      ),
+    );
+
+    // Salvar o PDF localmente
+    final outputDir = await getExternalStorageDirectory();
+    final file = File('${outputDir?.path}/tickets_report.pdf');
+    await file.writeAsBytes(await pdf.save());
+
+    return file.path;
+  }
+
+  static Future<String> _getAmbienteNome(String ambienteId) async {
+    var snapshot = await FirebaseFirestore.instance
+        .collection('ambientes')
+        .doc(ambienteId)
+        .get();
+    return snapshot.exists ? snapshot['ambiente'] : 'Nome não encontrado';
+  }
+
+  static Future<String> _getUserName(String userId) async {
+    var snapshot =
+        await FirebaseFirestore.instance.collection('users').doc(userId).get();
+    return snapshot.exists ? snapshot['nome'] : 'Nome não encontrado';
+  }
+}
