@@ -106,7 +106,7 @@ class _PdfScreenState extends State<PdfScreen> {
                     ? null
                     : () {
                         _generateReportAndNavigate(
-                            context, PDFGeneratorNot.generateReport);
+                            context, PDFGeneratorIsDoneNot.generateReport);
                       },
                 child: const Text(
                   'Tickets não concluídos',

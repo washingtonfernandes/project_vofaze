@@ -307,10 +307,7 @@ class CardTicketListWidget extends StatelessWidget {
                                       );
                                     },
                                   ),
-                                  IconButton(
-                                    icon: const Icon(Icons.image),
-                                    onPressed: () {},
-                                  ),
+                                  
                                 ],
                               ),
                             ),

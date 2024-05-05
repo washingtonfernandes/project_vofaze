@@ -17,7 +17,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-
   late String _searchText;
 
   @override
@@ -53,7 +52,8 @@ class _HomeState extends State<Home> {
                 user != null
                     ? user.displayName ?? "Nome do Usuário"
                     : "Nome do Usuário",
-                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                style:
+                    const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
               Text(
                 user != null ? user.email ?? "Email" : "Email",
@@ -80,52 +80,56 @@ class _HomeState extends State<Home> {
           Column(
             children: [
               Column(children: [
-                Container(
-                  color: Colors.transparent,
-                  child: const Center(
-                    child: Text(
-                      "Meus tickets",
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 12),
+                  child: Container(
+                    color: Colors.transparent,
+                    child: const Center(
+                      child: Text(
+                        "Meus tickets",
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
                       ),
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: RadioWidget(
-                          titleRadio: "Manut",
-                          setorColor: Colors.red,
-                          valueInput: 1,
-                          onChangeValue: () =>
-                              context.read<RadioProvider>().setSelectedRadio(1),
-                        ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {},
+                      style: ButtonStyle(
+                        backgroundColor:
+                            WidgetStateProperty.all<Color>(Colors.red),
+                        foregroundColor:
+                            WidgetStateProperty.all<Color>(Colors.white),
                       ),
-                      Expanded(
-                        child: RadioWidget(
-                          titleRadio: "Limp",
-                          setorColor: Colors.blue,
-                          valueInput: 2,
-                          onChangeValue: () =>
-                              context.read<RadioProvider>().setSelectedRadio(2),
-                        ),
+                      child: Text("Manut"),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {},
+                      style: ButtonStyle(
+                        backgroundColor:
+                            WidgetStateProperty.all<Color>(Colors.blue),
+                        foregroundColor:
+                            WidgetStateProperty.all<Color>(Colors.white),
                       ),
-                      Expanded(
-                        child: RadioWidget(
-                          titleRadio: "Admin",
-                          setorColor: Colors.green,
-                          valueInput: 3,
-                          onChangeValue: () =>
-                              context.read<RadioProvider>().setSelectedRadio(3),
-                        ),
+                      child: Text("limp"),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {},
+                      style: ButtonStyle(
+                        backgroundColor:
+                            WidgetStateProperty.all<Color>(Colors.green),
+                        foregroundColor:
+                            WidgetStateProperty.all<Color>(Colors.white),
                       ),
-                    ],
-                  ),
+                      child: Text("Admin"),
+                    ),
+                  ],
                 ),
               ]),
               Expanded(

@@ -1,23 +1,21 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
 import 'package:project_vofaze/common/cores_dia.dart';
 import 'package:project_vofaze/services/provider/auth_service_provider.dart';
 import 'package:project_vofaze/vofaze.dart';
 
 class UpdateProfileScreen extends StatefulWidget {
-  const UpdateProfileScreen({super.key});
+  const UpdateProfileScreen({Key? key}) : super(key: key);
 
   @override
-  State<UpdateProfileScreen> createState() => _UpdateProfileScreenState();
+  _UpdateProfileScreenState createState() => _UpdateProfileScreenState();
 }
 
 class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
   final AutenticacaoServico _authService = AutenticacaoServico();
-  final _nomeController = TextEditingController();
-  final _emailController = TextEditingController();
-  final _senhaController = TextEditingController();
-  final _formKey = GlobalKey<FormState>();
+  final TextEditingController _nomeController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _senhaController = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _obscureText = true;
 
   @override
@@ -27,11 +25,18 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
   }
 
   Future<void> _loadUserData() async {
-    User? user = await _authService.getCurrentUser();
+    try {
+      final user = await _authService.getCurrentUser();
 
-    if (user != null) {
-      _nomeController.text = user.displayName ?? '';
-      _emailController.text = user.email ?? '';
+      if (user != null) {
+        setState(() {
+          _nomeController.text = user.displayName ?? '';
+          _emailController.text = user.email ?? '';
+        });
+      }
+    } catch (e) {
+      print('Erro ao carregar dados do usuário: $e');
+      // Tratar erro, exibir mensagem, etc.
     }
   }
 
@@ -60,7 +65,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                   height: 100,
                   child: Image.asset("assets/images/vofaze3.png"),
                 ),
-                const Gap(24),
+                const SizedBox(height: 24),
                 TextFormField(
                   controller: _nomeController,
                   decoration: InputDecoration(
@@ -115,8 +120,6 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                   },
                 ),
                 const SizedBox(height: 16),
-                Center(
-                    child: const Text('Digite sua senha ou uma nova senha!')),
                 TextFormField(
                   controller: _senhaController,
                   decoration: InputDecoration(
@@ -191,37 +194,47 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
     );
   }
 
-  void _atualizarPerfil() async {
+  Future<void> _atualizarPerfil() async {
     if (_formKey.currentState!.validate()) {
-      String nome = _nomeController.text.trim();
-      String email = _emailController.text.trim();
-      String senha = _senhaController.text.trim();
+      final nome = _nomeController.text.trim();
+      final email = _emailController.text.trim();
+      final senha = _senhaController.text.trim();
 
-      String? result = await _authService.atualizarPerfil(
-        novoNome: nome,
-        novoEmail: email,
-        novaSenha: senha,
-      );
+      try {
+        final result = await _authService.atualizarPerfil(
+          novoNome: nome,
+          novoEmail: email,
+          novaSenha: senha,
+        );
 
-      if (result == null) {
-        _showSnackbar("Perfil atualizado com sucesso!", isErro: false);
-      } else {
-        _showSnackbar(result);
+        if (result == null) {
+          _showSnackbar("Perfil atualizado com sucesso!", isErro: false);
+        } else {
+          _showSnackbar(result);
+        }
+      } catch (e) {
+        print('Erro ao atualizar perfil: $e');
+        _showSnackbar('Erro ao atualizar perfil. Por favor, tente novamente.');
       }
     }
   }
 
-  void _excluirConta() async {
-    String? result = await _authService.excluirConta();
+  Future<void> _excluirConta() async {
+    try {
+      final result = await _authService.excluirConta();
 
-    if (result == null) {
-      Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(builder: (context) => const Vofaze()),
-        (route) => false,
-      );
-    } else {
-      _showSnackbar(result);
+      if (result == null) {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => const Vofaze()),
+          (route) => false,
+        );
+      } else {
+        _showSnackbar(result);
+      }
+    } catch (e) {
+      print('Erro ao excluir conta: $e');
+      _showSnackbar('Erro ao excluir conta. Por favor, tente novamente.');
     }
   }
 

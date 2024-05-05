@@ -21,7 +21,7 @@ class RadioWidget extends StatelessWidget {
     return Consumer<RadioProvider>(
       builder: (context, radioProvider, _) {
         return Material(
-          color: MinhasCores.amareloBaixo,
+          color: Colors.transparent,
           child: Theme(
             data: ThemeData(unselectedWidgetColor: setorColor),
             child: RadioListTile(

@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
-
 import 'package:gap/gap.dart';
-
 import 'package:project_vofaze/common/cores_dia.dart';
-
 import 'package:project_vofaze/services/provider/auth_service_provider.dart';
-
 import 'package:project_vofaze/views/AdminEdit/admin_edit.dart';
 import 'package:project_vofaze/views/Pdf/pdf_screen.dart';
-
+import 'package:project_vofaze/views/Sobre/sobre.dart';
+import 'package:project_vofaze/views/chat/chat.dart';
 import 'package:project_vofaze/views/ticketList/ticket_list.dart';
-
 import 'package:project_vofaze/views/updateUser/update_user.dart';
 
 class DrawerHome extends StatelessWidget {
@@ -168,22 +164,59 @@ class DrawerHome extends StatelessWidget {
               const Gap(30),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const AdminEditPage()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => ChatMsg()));
                 },
                 style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.yellow,
+                  foregroundColor: Colors.white,
                   backgroundColor: Colors.black,
                 ),
-                child: const Text(
-                  "Sobre",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.white,
+                child: const SizedBox(
+                  width: 120,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.chat),
+                      Gap(8),
+                      Text(
+                        "Chat",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const Gap(30),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => SobrePage()));
+                },
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.white,
+                  backgroundColor: Colors.black,
+                ),
+                child: const SizedBox(
+                  width: 120,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Gap(8),
+                      Text(
+                        "Sobre",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),

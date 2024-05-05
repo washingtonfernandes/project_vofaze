@@ -129,7 +129,7 @@ class CardMyListWidget extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Container(
         width: double.infinity,
-        height: 240,
+        height: 220,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(12),
@@ -284,10 +284,6 @@ class CardMyListWidget extends StatelessWidget {
                                   const Gap(12),
                                   Text(ticket.horario),
                                   const Gap(12),
-                                  IconButton(
-                                    icon: const Icon(Icons.image),
-                                    onPressed: () {},
-                                  ),
                                 ],
                               ),
                             ),
