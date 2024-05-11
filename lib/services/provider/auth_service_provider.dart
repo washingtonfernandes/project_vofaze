@@ -31,8 +31,9 @@ class AutenticacaoServico with ChangeNotifier {
     required String email,
   }) async {
     try {
-      // Criação do usuário no Firebase Auth
 
+      // Criação do usuário no Firebase Auth
+      
       UserCredential userCredential =
           await _firebaseAuth.createUserWithEmailAndPassword(
         email: email,

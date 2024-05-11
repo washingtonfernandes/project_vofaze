@@ -1,29 +1,47 @@
-import 'dart:typed_data';
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:flutter/services.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:intl/intl.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:pdf/pdf.dart';
+import 'package:pdf/widgets.dart' as pw;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:pdf/widgets.dart' as pw;
+import 'package:printing/printing.dart';
 
 class PDFGeneratorAll {
+  static Future<String> generateReportAndPrint() async {
+    final pdfPath = await generateReport();
+
+    if (pdfPath.isNotEmpty) {
+      // Imprimir o PDF
+      await Printing.layoutPdf(onLayout: (PdfPageFormat format) async {
+        final pdfBytes = File(pdfPath).readAsBytesSync();
+        return pdfBytes;
+      });
+
+      return pdfPath;
+    } else {
+      throw Exception('Falha ao gerar o relatório PDF');
+    }
+  }
+
   static Future<String> generateReport() async {
     final pdf = pw.Document();
     final ticketsData =
         await FirebaseFirestore.instance.collection('tickets').get();
 
-    // Carregar imagem de avatar
+    // Carregar imagem da logo
     final ByteData imageData =
         await rootBundle.load('assets/images/vofaze3.png');
     final Uint8List avatarImageBytes = imageData.buffer.asUint8List();
 
-    // Obter informações do usuário atual
+    // Informações do usuário
     final User? user = FirebaseAuth.instance.currentUser;
     final String userName = user?.displayName ?? "Nome do Usuário";
     final String currentDate = DateFormat('dd/MM/yyyy').format(DateTime.now());
 
-    // Construir os dados da tabela
+    // Dados da tabela
     List<List<dynamic>> tableData = [];
 
     for (var ticket in ticketsData.docs) {
@@ -41,7 +59,7 @@ class PDFGeneratorAll {
       ]);
     }
 
-    // Ordenar a lista pela primeira coluna (data)
+    // Ordenar a lista pela coluna Data
     tableData.sort((a, b) => DateFormat('dd/MM/yyyy')
         .parse(a[0])
         .compareTo(DateFormat('dd/MM/yyyy').parse(b[0])));
@@ -127,7 +145,7 @@ class PDFGeneratorAll {
       ),
     );
 
-    // Salvar o PDF localmente
+    // Salvar o PDF
     final outputDir = await getExternalStorageDirectory();
     final file = File('${outputDir?.path}/tickets_report.pdf');
     await file.writeAsBytes(await pdf.save());

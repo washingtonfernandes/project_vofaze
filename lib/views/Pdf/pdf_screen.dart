@@ -19,44 +19,7 @@ class _PdfScreenState extends State<PdfScreen> {
   @override
   void initState() {
     super.initState();
-
     _currentFuture = Future.value('');
-  }
-
-  Future<void> _generateReportAndNavigate(
-      BuildContext context, Future<String> Function() generator) async {
-    try {
-      setState(() {
-        _isGenerating = true;
-        _currentFuture = generator();
-      });
-
-      String filePath = await _currentFuture;
-
-      if (filePath.isNotEmpty) {
-        // Aguardar a conclusão do PDF
-        await Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => PDFView(
-              filePath: filePath,
-            ),
-          ),
-        );
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Arquivo PDF não encontrado')),
-        );
-      }
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Erro ao gerar o relatório')),
-      );
-      print('Erro ao gerar o relatório: $e');
-    } finally {
-      setState(() {
-        _isGenerating = false;
-      });
-    }
   }
 
   @override
@@ -87,8 +50,8 @@ class _PdfScreenState extends State<PdfScreen> {
                 onPressed: _isGenerating
                     ? null
                     : () {
-                        _generateReportAndNavigate(
-                            context, PDFGeneratorAll.generateReport);
+                        _generateReportAndNavigate(context,
+                            () => PDFGeneratorAll.generateReportAndPrint());
                       },
                 child: const Text(
                   'Relatório Geral',
@@ -106,7 +69,9 @@ class _PdfScreenState extends State<PdfScreen> {
                     ? null
                     : () {
                         _generateReportAndNavigate(
-                            context, PDFGeneratorIsDoneNot.generateReport);
+                            context,
+                            () =>
+                                PDFGeneratorIsDoneNot.generateReportAndPrint());
                       },
                 child: const Text(
                   'Tickets não concluídos',
@@ -123,8 +88,8 @@ class _PdfScreenState extends State<PdfScreen> {
                 onPressed: _isGenerating
                     ? null
                     : () {
-                        _generateReportAndNavigate(
-                            context, PDFGeneratorIsDone.generateReport);
+                        _generateReportAndNavigate(context,
+                            () => PDFGeneratorIsDone.generateReportAndPrint());
                       },
                 child: const Text(
                   'Tickets concluídos',
@@ -145,5 +110,41 @@ class _PdfScreenState extends State<PdfScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> _generateReportAndNavigate(
+      BuildContext context, Future<String> Function() generator) async {
+    try {
+      setState(() {
+        _isGenerating = true;
+        _currentFuture = generator();
+      });
+
+      String filePath = await _currentFuture;
+
+      if (filePath.isNotEmpty) {
+        // Aguardar a conclusão do PDF para poder abrir
+        await Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => PDFView(
+              filePath: filePath,
+            ),
+          ),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Arquivo PDF não encontrado')),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Erro ao gerar o relatório')),
+      );
+      print('Erro ao gerar o relatório: $e');
+    } finally {
+      setState(() {
+        _isGenerating = false;
+      });
+    }
   }
 }

@@ -117,7 +117,7 @@ class _HomeState extends State<Home> {
                         foregroundColor:
                             WidgetStateProperty.all<Color>(Colors.white),
                       ),
-                      child: Text("limp"),
+                      child: Text("Limp"),
                     ),
                     ElevatedButton(
                       onPressed: () {},

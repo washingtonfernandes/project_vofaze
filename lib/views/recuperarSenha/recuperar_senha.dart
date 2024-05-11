@@ -59,6 +59,7 @@ class _RecuperarSenhaState extends State<RecuperarSenha> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: const Text("Recuperar senha"),
         backgroundColor: MinhasCores.amarelo,
         elevation: 0,
       ),
@@ -93,7 +94,8 @@ class _RecuperarSenhaState extends State<RecuperarSenha> {
                     controller: _emailcontroller,
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(color: MinhasCores.amarelo),
+                        borderSide:
+                            const BorderSide(color: MinhasCores.amarelo),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       focusedBorder: OutlineInputBorder(
@@ -123,8 +125,7 @@ class _RecuperarSenhaState extends State<RecuperarSenha> {
                   onPressed: redefinirSenha,
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.yellow,
-                    backgroundColor:
-                        Colors.black, 
+                    backgroundColor: Colors.black,
                   ),
                   child: const Text(
                     "Redefinir Senha",
