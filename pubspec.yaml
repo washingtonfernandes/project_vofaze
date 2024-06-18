@@ -36,9 +36,9 @@ dependencies:
   animations: ^2.0.0
   keyboard_actions: ^4.2.0
   cupertino_icons: ^1.0.2
-  firebase_core: ^2.21.0
-  firebase_auth: ^4.12.1
-  cloud_firestore: ^4.12.2
+  firebase_core: ^3.1.0
+  firebase_auth: ^5.1.0
+  cloud_firestore: ^5.0.1
   flutter_launcher_icons: ^0.13.1
   dots_indicator: ^3.0.0
   gap: ^3.0.1

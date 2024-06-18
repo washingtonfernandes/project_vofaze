@@ -1,12 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-
 import 'package:flutter/foundation.dart';
 
 class AutenticacaoServico with ChangeNotifier {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   User? _usuario;
@@ -18,9 +15,7 @@ class AutenticacaoServico with ChangeNotifier {
   AutenticacaoServico() {
     _firebaseAuth.authStateChanges().listen((user) {
       _usuario = user;
-
       isLoading = false;
-
       notifyListeners();
     });
   }
@@ -29,11 +24,13 @@ class AutenticacaoServico with ChangeNotifier {
     required String nome,
     required String senha,
     required String email,
+    required String codigoAcesso,
   }) async {
     try {
+      // Verificação do código de acesso
+      bool isAdmin = await _checkAdminCode(codigoAcesso);
 
       // Criação do usuário no Firebase Auth
-      
       UserCredential userCredential =
           await _firebaseAuth.createUserWithEmailAndPassword(
         email: email,
@@ -41,15 +38,14 @@ class AutenticacaoServico with ChangeNotifier {
       );
 
       // Atualização do nome do usuário no Firebase Auth
-
       await userCredential.user!.updateDisplayName(nome);
 
       // Criação do documento na coleção "users" no Firestore
-
       await _firestore.collection('users').doc(userCredential.user!.uid).set({
         'uid': userCredential.user!.uid,
         'nome': nome,
         'email': email,
+        'isAdmin': isAdmin,
       });
 
       return null;
@@ -57,9 +53,34 @@ class AutenticacaoServico with ChangeNotifier {
       if (e.code == "email-already-in-use") {
         return "O usuário já está cadastrado";
       }
-
       return "Cadastre uma senha com mais de 6 caracteres!";
+    } catch (e) {
+      return "Erro no cadastro: $e";
     }
+  }
+
+  Future<bool> _checkAdminCode(String code) async {
+    try {
+      QuerySnapshot<Map<String, dynamic>> senhaSnapshot =
+          await _firestore.collection('senhas').limit(1).get();
+
+      if (senhaSnapshot.docs.isNotEmpty) {
+        var senhaDoc = senhaSnapshot.docs.first.data();
+
+        String userCode = senhaDoc['cod_user'];
+        String adminCode = senhaDoc['cod_adm'];
+
+        if (code == userCode) {
+          return false;
+        } else if (code == adminCode) {
+          return true;
+        }
+      }
+    } catch (e) {
+      print('Erro ao verificar o código de acesso: $e');
+    }
+
+    throw Exception('Código de acesso inválido');
   }
 
   Future<String?> logarUsuarios(
@@ -73,7 +94,6 @@ class AutenticacaoServico with ChangeNotifier {
       if (e.code == "INVALID_LOGIN_CREDENTIALS") {
         return "Verifique seu email ou sua senha!";
       }
-
       return "Usuário não cadastrado ou senha incorreta!";
     }
   }
@@ -81,8 +101,6 @@ class AutenticacaoServico with ChangeNotifier {
   Future<void> deslogar() async {
     return _firebaseAuth.signOut();
   }
-
-  //----------------------------------------
 
   Future<User?> getCurrentUser() async {
     return _firebaseAuth.currentUser;
@@ -138,7 +156,7 @@ class AutenticacaoServico with ChangeNotifier {
         // Deslogar o usuário
         await deslogar();
 
-        return null; 
+        return null;
       } else {
         return "Usuário não encontrado.";
       }

@@ -27,8 +27,6 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    User? user = FirebaseAuth.instance.currentUser;
-
     return Scaffold(
       drawer: const DrawerHome(),
       appBar: AppBar(
@@ -48,16 +46,55 @@ class _HomeState extends State<Home> {
           subtitle: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                user != null
-                    ? user.displayName ?? "Nome do Usuário"
-                    : "Nome do Usuário",
-                style:
-                    const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              FutureBuilder(
+                future: FirebaseAuth.instance.currentUser!.reload(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Text(
+                      "Carregando...",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    );
+                  } else {
+                    User? user = FirebaseAuth.instance.currentUser;
+                    String displayName = user?.displayName ?? "Nome do Usuário";
+
+                    return Text(
+                      displayName,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    );
+                  }
+                },
               ),
-              Text(
-                user != null ? user.email ?? "Email" : "Email",
-                style: const TextStyle(fontSize: 6),
+              FutureBuilder(
+                future: FirebaseAuth.instance.currentUser!.reload(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Text(
+                      "Carregando...",
+                      style: TextStyle(
+                        fontSize: 8,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    );
+                  } else {
+                    User? user = FirebaseAuth.instance.currentUser;
+                    String email = user?.email ?? "Email";
+
+                    return Text(
+                      email,
+                      style: const TextStyle(
+                        fontSize: 8,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    );
+                  }
+                },
               ),
             ],
           ),

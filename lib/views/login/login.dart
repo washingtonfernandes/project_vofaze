@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-
 import 'package:project_vofaze/common/cores_dia.dart';
-
 import 'package:project_vofaze/common/snackbar_login.dart';
-
 import 'package:project_vofaze/services/provider/auth_service_provider.dart';
-
 import 'package:project_vofaze/views/recuperarSenha/recuperar_senha.dart';
 
 class AutenticacaoTela extends StatefulWidget {
@@ -16,17 +12,13 @@ class AutenticacaoTela extends StatefulWidget {
 }
 
 class _AutenticacaoTelaState extends State<AutenticacaoTela> {
-  //false = cadastrar
-
   bool queroEntrar = true;
 
   final _formKey = GlobalKey<FormState>();
-
   final TextEditingController _emailController = TextEditingController();
-
   final TextEditingController _senhaController = TextEditingController();
-
   final TextEditingController _nomeController = TextEditingController();
+  final TextEditingController _codigoAcessoController = TextEditingController();
 
   final AutenticacaoServico _autenticaServico = AutenticacaoServico();
 
@@ -41,14 +33,13 @@ class _AutenticacaoTelaState extends State<AutenticacaoTela> {
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
         borderSide: const BorderSide(
-          color: Colors.black, 
+          color: Colors.black,
         ),
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
         borderSide: const BorderSide(
-          color:
-              Colors.black, 
+          color: Colors.black,
         ),
       ),
     );
@@ -91,15 +82,11 @@ class _AutenticacaoTelaState extends State<AutenticacaoTela> {
                           decoration: getAuthenticationInputDecoration("Email"),
                           cursorColor: Colors.black,
                           validator: (String? value) {
-                            if (value == null) {
+                            if (value == null || value.isEmpty) {
                               return "O email não pode ser vazio!";
                             }
 
-                            if (value.length < 5) {
-                              return "Email não válido!";
-                            }
-
-                            if (!value.contains("@")) {
+                            if (value.length < 5 || !value.contains("@")) {
                               return "Email não válido!";
                             }
 
@@ -129,7 +116,7 @@ class _AutenticacaoTelaState extends State<AutenticacaoTela> {
                           ),
                           obscureText: _obscureText,
                           validator: (String? value) {
-                            if (value == null) {
+                            if (value == null || value.isEmpty) {
                               return "A senha não pode ser vazia!";
                             }
 
@@ -155,7 +142,7 @@ class _AutenticacaoTelaState extends State<AutenticacaoTela> {
                                 decoration:
                                     getAuthenticationInputDecoration("Nome"),
                                 validator: (String? value) {
-                                  if (value == null) {
+                                  if (value == null || value.isEmpty) {
                                     return "O nome não pode ser vazio!";
                                   }
 
@@ -166,6 +153,20 @@ class _AutenticacaoTelaState extends State<AutenticacaoTela> {
                                   return null;
                                 },
                               ),
+                              const SizedBox(
+                                height: 32,
+                              ),
+                              TextFormField(
+                                controller: _codigoAcessoController,
+                                decoration: getAuthenticationInputDecoration(
+                                    "Código de Acesso"),
+                                validator: (String? value) {
+                                  if (value == null || value.isEmpty) {
+                                    return "O código de acesso não pode ser vazio!";
+                                  }
+                                  return null;
+                                },
+                              ),
                             ],
                           ),
                         ),
@@ -173,22 +174,14 @@ class _AutenticacaoTelaState extends State<AutenticacaoTela> {
                           height: 24,
                         ),
                         ElevatedButton(
-                          onPressed: () {
-                            botaoPrincipalClicado();
-                          },
+                          onPressed: botaoPrincipalClicado,
                           style: ElevatedButton.styleFrom(
                             foregroundColor: Colors.yellow,
-
-                            backgroundColor:
-                                Colors.black, 
+                            backgroundColor: Colors.black,
                           ),
                           child: Text(
-                            //boleano para entrar ou cadastrar
-
-                            (queroEntrar) ? "Entrar" : "Cadastrar",
-
+                            queroEntrar ? "Entrar" : "Cadastrar",
                             textAlign: TextAlign.center,
-
                             style: const TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.bold,
@@ -207,14 +200,10 @@ class _AutenticacaoTelaState extends State<AutenticacaoTela> {
                             });
                           },
                           child: Text(
-                            //boleano para entrar ou cadastrar
-
-                            (queroEntrar)
+                            queroEntrar
                                 ? "Ainda não é cadastrado? Cadastre-se!"
                                 : "Já tem uma conta? Entre!",
-
                             textAlign: TextAlign.center,
-
                             style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
@@ -253,17 +242,14 @@ class _AutenticacaoTelaState extends State<AutenticacaoTela> {
     );
   }
 
-  botaoPrincipalClicado() {
+  void botaoPrincipalClicado() {
     String nome = _nomeController.text;
-
     String senha = _senhaController.text;
-
     String email = _emailController.text;
+    String codigoAcesso = _codigoAcessoController.text;
 
     if (_formKey.currentState!.validate()) {
       if (queroEntrar) {
-        print("Entrada validada");
-
         _autenticaServico
             .logarUsuarios(email: email, senha: senha)
             .then((String? erro) {
@@ -272,16 +258,12 @@ class _AutenticacaoTelaState extends State<AutenticacaoTela> {
           }
         });
       } else {
-        print("Cadastro validado");
-
-        print(
-            "${_emailController.text}, ${_senhaController.text}, ${_nomeController.text}");
-
         _autenticaServico
             .addUserAuth(
           nome: nome,
           senha: senha,
           email: email,
+          codigoAcesso: codigoAcesso,
         )
             .then(
           (String? erro) {
