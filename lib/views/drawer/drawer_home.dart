@@ -8,9 +8,24 @@ import 'package:project_vofaze/views/Sobre/sobre.dart';
 import 'package:project_vofaze/views/chat/chat.dart';
 import 'package:project_vofaze/views/ticketList/ticket_list.dart';
 import 'package:project_vofaze/views/updateUser/update_user.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-class DrawerHome extends StatelessWidget {
+class DrawerHome extends StatefulWidget {
   const DrawerHome({super.key});
+
+  @override
+  _DrawerHomeState createState() => _DrawerHomeState();
+}
+
+class _DrawerHomeState extends State<DrawerHome> {
+  bool isAdmin = false;
+
+  @override
+  void initState() {
+    super.initState();
+    checkAdminStatus();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,15 +72,19 @@ class DrawerHome extends StatelessWidget {
                   child: Column(
                     children: [
                       ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const TicketList()));
-                        },
+                        onPressed: isAdmin
+                            ? () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const TicketList()));
+                              }
+                            : showNoPermissionMessage,
                         style: ElevatedButton.styleFrom(
-                          foregroundColor: Colors.yellow,
-                          backgroundColor: Colors.black,
+                          foregroundColor:
+                              isAdmin ? Colors.yellow : Colors.white,
+                          backgroundColor: isAdmin ? Colors.black : Colors.grey,
                         ),
                         child: const Text(
                           "Tickets",
@@ -73,7 +92,7 @@ class DrawerHome extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.w500,
-                            color: MinhasCores.amarelo,
+                            color: Colors.white,
                           ),
                         ),
                       ),
@@ -81,15 +100,19 @@ class DrawerHome extends StatelessWidget {
                         height: 10,
                       ),
                       ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const AdminEditPage()));
-                        },
+                        onPressed: isAdmin
+                            ? () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const AdminEditPage()));
+                              }
+                            : showNoPermissionMessage,
                         style: ElevatedButton.styleFrom(
-                          foregroundColor: Colors.yellow,
-                          backgroundColor: Colors.black,
+                          foregroundColor:
+                              isAdmin ? Colors.yellow : Colors.white,
+                          backgroundColor: isAdmin ? Colors.black : Colors.grey,
                         ),
                         child: const Text(
                           "Cadastros",
@@ -105,15 +128,18 @@ class DrawerHome extends StatelessWidget {
                         height: 10,
                       ),
                       ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => PdfScreen()));
-                        },
+                        onPressed: isAdmin
+                            ? () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => PdfScreen()));
+                              }
+                            : showNoPermissionMessage,
                         style: ElevatedButton.styleFrom(
-                          foregroundColor: Colors.yellow,
-                          backgroundColor: Colors.black,
+                          foregroundColor:
+                              isAdmin ? Colors.yellow : Colors.white,
+                          backgroundColor: isAdmin ? Colors.black : Colors.grey,
                         ),
                         child: const Text(
                           "Relatórios",
@@ -243,6 +269,76 @@ class DrawerHome extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  Future<void> checkAdminStatus() async {
+    bool adminStatus = await checkIsAdmin();
+    setState(() {
+      isAdmin = adminStatus;
+    });
+  }
+
+  Future<bool> checkIsAdmin() async {
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      DocumentSnapshot doc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(user.uid)
+          .get();
+      if (doc.exists && doc.data() != null) {
+        var data = doc.data() as Map<String, dynamic>;
+        return data.containsKey('isAdmin') ? data['isAdmin'] : false;
+      }
+    }
+    return false;
+  }
+
+  void showNoPermissionMessage() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: MinhasCores.amarelo,
+          title: const Center(
+            child: Text(
+              'Acesso Negado',
+              style: TextStyle(fontWeight: FontWeight.w500),
+            ),
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              Column(
+                children: [
+                  Text('Sem permissão!'),
+                  Text('Acesso Administrador.'),
+                ],
+              ),
+            ],
+          ),
+          actions: [
+            Center(
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: TextButton(
+                  child: const Text(
+                    'OK',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }
