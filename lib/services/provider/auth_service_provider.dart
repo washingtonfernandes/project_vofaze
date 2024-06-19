@@ -131,7 +131,7 @@ class AutenticacaoServico with ChangeNotifier {
           'email': novoEmail,
         });
 
-        return null; // Sucesso
+        return null; 
       } else {
         return "Usuário não encontrado.";
       }

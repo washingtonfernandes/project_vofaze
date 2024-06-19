@@ -63,7 +63,7 @@ class _CadastroUsuarioState extends State<CadastroUsuario> {
                         usuarioText: usuarioText,
                         emailText: emailText,
                         isDeletable:
-                            !isTodos, // Se for "Todos", isDeletable é false
+                            !isTodos, 
                         onDelete: isTodos
                             ? null
                             : () =>

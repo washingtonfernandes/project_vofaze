@@ -54,7 +54,7 @@ class _SobrePageState extends State<SobrePage> {
               children: [
                 IconButton(
                   icon: Icon(Icons.arrow_back,
-                      size: 40), // Define o tamanho da seta
+                      size: 40), 
                   onPressed: () {
                     if (_pageController.page != 0) {
                       _pageController.previousPage(
@@ -66,7 +66,7 @@ class _SobrePageState extends State<SobrePage> {
                 ),
                 IconButton(
                   icon: Icon(Icons.arrow_forward,
-                      size: 40), // Define o tamanho da seta
+                      size: 40), 
                   onPressed: () {
                     if (_pageController.page != images.length - 1) {
                       _pageController.nextPage(

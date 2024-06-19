@@ -30,7 +30,7 @@ class _CadastroAmbienteState extends State<CadastroAmbiente> {
           children: [
             const Text("Ambientes"),
             FloatingActionButton(
-              mini: true, // Define o botão como mini
+              mini: true, 
               backgroundColor: Colors.black,
               foregroundColor: MinhasCores.amarelo,
               onPressed: openboxAmbiente,

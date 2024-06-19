@@ -25,7 +25,7 @@ class AmbienteDialog extends StatelessWidget {
       actions: [
         ElevatedButton(
           onPressed: () {
-            Navigator.pop(context); // Fechar o diálogo ao clicar em "Cancelar"
+            Navigator.pop(context); 
           },
           style: ElevatedButton.styleFrom(
             foregroundColor: Colors.white,

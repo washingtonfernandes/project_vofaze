@@ -107,13 +107,13 @@ class PDFGeneratorIsDone {
                   child: pw.Table(
                     border: pw.TableBorder.all(),
                     columnWidths: {
-                      0: pw.FixedColumnWidth(70), // Data
-                      1: pw.FixedColumnWidth(100), // Setor
-                      2: pw.FixedColumnWidth(120), // Usuário
-                      3: pw.FixedColumnWidth(120), // Ambiente
-                      4: pw.FixedColumnWidth(150), // Descrição
-                      5: pw.FixedColumnWidth(100), // Título
-                      6: pw.FixedColumnWidth(70), // Concluído
+                      0: pw.FixedColumnWidth(70), 
+                      1: pw.FixedColumnWidth(100), 
+                      2: pw.FixedColumnWidth(120), 
+                      3: pw.FixedColumnWidth(120), 
+                      4: pw.FixedColumnWidth(150), 
+                      5: pw.FixedColumnWidth(100), 
+                      6: pw.FixedColumnWidth(70), 
                     },
                     children: [
                       // Títulos das colunas

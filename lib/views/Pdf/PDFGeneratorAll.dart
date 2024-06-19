@@ -55,7 +55,7 @@ class PDFGeneratorAll {
         ambienteNome,
         ticket['descricao'] as String,
         ticket['titulo'] as String,
-        ticket['isDone'] ? 'Sim' : 'Não', // Concluído
+        ticket['isDone'] ? 'Sim' : 'Não', 
       ]);
     }
 

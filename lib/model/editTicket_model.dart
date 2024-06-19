@@ -73,7 +73,7 @@ class _EditTicketScreenState extends State<EditTicketScreen> {
     }
   }
 
-  // extração e tratamento dados data e time
+  // Tratamento dados data e time
   DateTime _parseDateString(String dateString) {
     List<String> dateComponents = dateString.split('/');
     int day = int.parse(dateComponents[0]);

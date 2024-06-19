@@ -59,7 +59,7 @@ class CardTicketListWidget extends StatelessWidget {
                 final userName = userData != null
                     ? userData['nome'] != null
                         ? (userData['nome'] as String).length >
-                                10 // Verifica o comprimento antes de obter a substring
+                                10 
                             ? userData['nome'].toString().substring(0, 10)
                             : userData['nome'].toString()
                         : 'Todos'
@@ -86,7 +86,7 @@ class CardTicketListWidget extends StatelessWidget {
                     final ambienteName = ambienteData != null
                         ? ambienteData['ambiente'] != null
                             ? (ambienteData['ambiente'] as String).length >
-                                    10 // Verifica o comprimento antes de obter a substring
+                                    10 
                                 ? ambienteData['ambiente']
                                     .toString()
                                     .substring(0, 10)

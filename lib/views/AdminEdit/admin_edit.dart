@@ -75,7 +75,7 @@ class _AdminEditPageState extends State<AdminEditPage> {
 
             onPressed: () {
 
-              Navigator.of(context).pop(); // Fecha a página atual
+              Navigator.of(context).pop(); 
 
             },
 
@@ -225,7 +225,7 @@ class _AdminEditPageState extends State<AdminEditPage> {
 
               position: _currentPage
                   .toDouble()
-                  .round(), // Arredonda para o inteiro mais próximo
+                  .round(), 
 
               decorator: DotsDecorator(
 

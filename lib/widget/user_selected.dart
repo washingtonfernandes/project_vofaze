@@ -75,7 +75,7 @@ class UserSelectionWidget extends StatelessWidget {
                     onChanged: onChanged,
                     value: userItems.any((item) => item.value == selectedUser)
                         ? selectedUser
-                        : "Todos", // Defina "Todos" como o valor padrão
+                        : "Todos", 
                     isExpanded: false,
                   );
                 }
