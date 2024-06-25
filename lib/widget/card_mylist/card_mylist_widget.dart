@@ -1,5 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:gap/gap.dart';
 import 'package:project_vofaze/common/cores_dia.dart';
 import 'package:project_vofaze/model/ticket_model.dart';
@@ -9,10 +9,10 @@ import 'package:provider/provider.dart';
 class CardMyListWidget extends StatelessWidget {
   const CardMyListWidget({
     super.key,
-    required this.getIndex,
+    required this.ticket,
   });
 
-  final int getIndex;
+  final TicketModel ticket;
 
   Color _getSetorColor(String setor) {
     switch (setor) {
@@ -31,77 +31,65 @@ class CardMyListWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4.0),
-      child: Consumer<TicketProvider>(
-        builder: (context, ticketProvider, _) {
-          final TicketModel? ticket = ticketProvider.tickets.length > getIndex
-              ? ticketProvider.tickets[getIndex]
-              : null;
-
-          if (ticket != null) {
-            return FutureBuilder<DocumentSnapshot>(
-              future: _fetchUserData(ticket.userId),
-              builder: (context, userSnapshot) {
-                if (userSnapshot.connectionState == ConnectionState.waiting) {
-                  return const CircularProgressIndicator(
-                    value: null,
-                    strokeWidth: 2,
-                    color: Colors.black,
-                  );
-                }
-                if (userSnapshot.hasError) {
-                  return const Text('Erro ao carregar dados do usuário');
-                }
-
-                final userData =
-                    userSnapshot.data?.data() as Map<String, dynamic>?;
-
-                final userName = userData != null
-                    ? userData['nome'] != null
-                        ? (userData['nome'] as String).length >
-                                10 
-                            ? userData['nome'].toString().substring(0, 10)
-                            : userData['nome'].toString()
-                        : 'Todos'
-                    : 'Todos';
-
-                return FutureBuilder<DocumentSnapshot>(
-                  future: _fetchAmbienteData(ticket.ambienteId),
-                  builder: (context, ambienteSnapshot) {
-                    if (ambienteSnapshot.connectionState ==
-                        ConnectionState.waiting) {
-                      return const CircularProgressIndicator(
-                        value: null,
-                        strokeWidth: 2,
-                        color: Colors.black,
-                      );
-                    }
-                    if (ambienteSnapshot.hasError) {
-                      return const Text('Erro ao carregar dados do ambiente');
-                    }
-
-                    final ambienteData =
-                        ambienteSnapshot.data?.data() as Map<String, dynamic>?;
-
-                    final ambienteName = ambienteData != null
-                        ? ambienteData['ambiente'] != null
-                            ? (ambienteData['ambiente'] as String).length >
-                                    10 
-                                ? ambienteData['ambiente']
-                                    .toString()
-                                    .substring(0, 10)
-                                : ambienteData['ambiente'].toString()
-                            : 'Todos'
-                        : 'Todos';
-
-                    return _buildMyTicketCard(context, ticket, userName,
-                        ambienteName, ticketProvider);
-                  },
-                );
-              },
+      child: FutureBuilder<DocumentSnapshot>(
+        future: _fetchUserData(ticket.userId),
+        builder: (context, userSnapshot) {
+          if (userSnapshot.connectionState == ConnectionState.waiting) {
+            return const CircularProgressIndicator(
+              value: null,
+              strokeWidth: 2,
+              color: Colors.black,
             );
-          } else {
-            return const SizedBox();
           }
+          if (userSnapshot.hasError) {
+            return const Text('Erro ao carregar dados do usuário');
+          }
+
+          final userData =
+              userSnapshot.data?.data() as Map<String, dynamic>?;
+
+          final userName = userData != null
+              ? userData['nome'] != null
+                  ? (userData['nome'] as String).length >
+                          10 
+                      ? userData['nome'].toString().substring(0, 10)
+                      : userData['nome'].toString()
+                  : 'Todos'
+              : 'Todos';
+
+          return FutureBuilder<DocumentSnapshot>(
+            future: _fetchAmbienteData(ticket.ambienteId),
+            builder: (context, ambienteSnapshot) {
+              if (ambienteSnapshot.connectionState ==
+                  ConnectionState.waiting) {
+                return const CircularProgressIndicator(
+                  value: null,
+                  strokeWidth: 2,
+                  color: Colors.black,
+                );
+              }
+              if (ambienteSnapshot.hasError) {
+                return const Text('Erro ao carregar dados do ambiente');
+              }
+
+              final ambienteData =
+                  ambienteSnapshot.data?.data() as Map<String, dynamic>?;
+
+              final ambienteName = ambienteData != null
+                  ? ambienteData['ambiente'] != null
+                      ? (ambienteData['ambiente'] as String).length >
+                              10 
+                          ? ambienteData['ambiente']
+                              .toString()
+                              .substring(0, 10)
+                          : ambienteData['ambiente'].toString()
+                      : 'Todos'
+                  : 'Todos';
+
+              return _buildMyTicketCard(context, userName,
+                  ambienteName, ticket);
+            },
+          );
         },
       ),
     );
@@ -121,8 +109,8 @@ class CardMyListWidget extends StatelessWidget {
         .get();
   }
 
-  Widget _buildMyTicketCard(BuildContext context, TicketModel ticket,
-      String userName, String ambienteName, TicketProvider ticketProvider) {
+  Widget _buildMyTicketCard(BuildContext context,
+      String userName, String ambienteName, TicketModel ticket) {
     Color setorColor = _getSetorColor(ticket.setor);
 
     return Padding(
@@ -257,7 +245,7 @@ class CardMyListWidget extends StatelessWidget {
                     trailing: Switch(
                       value: ticket.isDone,
                       onChanged: (value) {
-                        ticketProvider.updateTicketStatus(ticket, value);
+                        Provider.of<TicketProvider>(context, listen: false).updateTicketStatus(ticket, value);
                       },
                       activeColor: Colors.black,
                       inactiveTrackColor: MinhasCores.amarelo,

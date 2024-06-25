@@ -2,15 +2,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:project_vofaze/common/cores_dia.dart';
 import 'package:project_vofaze/services/provider/auth_service_provider.dart';
-import 'package:project_vofaze/services/provider/radio_provider.dart';
-import 'package:project_vofaze/services/provider/ticket_provider.dart';
 import 'package:project_vofaze/views/drawer/drawer_home.dart';
-import 'package:project_vofaze/widget/card_mylist/card_mylist_widget.dart';
-import 'package:project_vofaze/widget/radio_widget.dart';
-import 'package:provider/provider.dart';
+import 'package:project_vofaze/views/home/completed_ticket_home.dart';
+import 'package:project_vofaze/views/home/pending_ticket_home.dart';
 
 class Home extends StatefulWidget {
-  const Home({super.key});
+  const Home({Key? key}) : super(key: key);
 
   @override
   _HomeState createState() => _HomeState();
@@ -18,11 +15,20 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   late String _searchText;
+  late PageController _pageController;
+  int _currentPageIndex = 0;
 
   @override
   void initState() {
     super.initState();
     _searchText = '';
+    _pageController = PageController(initialPage: _currentPageIndex);
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
   }
 
   @override
@@ -71,31 +77,6 @@ class _HomeState extends State<Home> {
                   }
                 },
               ),
-              FutureBuilder(
-                future: FirebaseAuth.instance.currentUser!.reload(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Text(
-                      "Carregando...",
-                      style: TextStyle(
-                        fontSize: 8,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    );
-                  } else {
-                    User? user = FirebaseAuth.instance.currentUser;
-                    String email = user?.email ?? "Email";
-
-                    return Text(
-                      email,
-                      style: const TextStyle(
-                        fontSize: 8,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    );
-                  }
-                },
-              ),
             ],
           ),
           trailing: IconButton(
@@ -116,86 +97,57 @@ class _HomeState extends State<Home> {
           ),
           Column(
             children: [
-              Column(children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 12),
-                  child: Container(
-                    color: Colors.transparent,
-                    child: const Center(
-                      child: Text(
-                        "Meus tickets",
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Row(
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        _pageController.animateToPage(0,
+                            duration: const Duration(milliseconds: 500),
+                            curve: Curves.ease);
+                      },
                       style: ButtonStyle(
                         backgroundColor:
                             WidgetStateProperty.all<Color>(Colors.red),
                         foregroundColor:
                             WidgetStateProperty.all<Color>(Colors.white),
                       ),
-                      child: Text("Manut"),
+                      child: Text("Tickets Pendentes"),
                     ),
                     ElevatedButton(
-                      onPressed: () {},
-                      style: ButtonStyle(
-                        backgroundColor:
-                            WidgetStateProperty.all<Color>(Colors.blue),
-                        foregroundColor:
-                            WidgetStateProperty.all<Color>(Colors.white),
-                      ),
-                      child: Text("Limp"),
-                    ),
-                    ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        _pageController.animateToPage(1,
+                            duration: const Duration(milliseconds: 500),
+                            curve: Curves.ease);
+                      },
                       style: ButtonStyle(
                         backgroundColor:
                             WidgetStateProperty.all<Color>(Colors.green),
                         foregroundColor:
                             WidgetStateProperty.all<Color>(Colors.white),
                       ),
-                      child: Text("Admin"),
+                      child: Text("Tickets Completados"),
                     ),
                   ],
                 ),
-              ]),
+              ),
               Expanded(
-                child: Consumer<TicketProvider>(
-                  builder: (context, ticketProvider, _) {
-                    final tickets = ticketProvider.tickets.where((ticket) {
-                      final lowerCaseSearchText = _searchText.toLowerCase();
-
-                      return ticket.titulo
-                              .toLowerCase()
-                              .contains(lowerCaseSearchText) ||
-                          ticket.descricao
-                              .toLowerCase()
-                              .contains(lowerCaseSearchText) ||
-                          ticket.horario
-                              .toLowerCase()
-                              .contains(lowerCaseSearchText) ||
-                          ticket.data
-                              .toLowerCase()
-                              .contains(lowerCaseSearchText);
-                    }).toList();
-
-                    return ListView.builder(
-                      itemCount: tickets.length,
-                      itemBuilder: (context, index) => CardMyListWidget(
-                        getIndex: index,
-                      ),
-                    );
+                child: PageView(
+                  controller: _pageController,
+                  onPageChanged: (index) {
+                    setState(() {
+                      _currentPageIndex = index;
+                    });
                   },
+                  children: [
+                    PendingTicketsScreen(),
+                    Container(
+                      color: MinhasCores.amarelo,
+                      child: CompletedTicketsScreen(),
+                    ),
+                  ],
                 ),
               ),
             ],
