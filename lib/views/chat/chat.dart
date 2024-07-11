@@ -29,10 +29,10 @@ class _ChatMsgState extends State<ChatMsg> {
       backgroundColor: MinhasCores.amareloBaixo,
       appBar: AppBar(
         backgroundColor: MinhasCores.amarelo,
-        title: Text("Mensagens"),
+        title: const Text("Mensagens"),
       ),
       body: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             image: DecorationImage(
               image: AssetImage("assets/images/fundoc_app.png"),
               fit: BoxFit.cover,
@@ -47,11 +47,11 @@ class _ChatMsgState extends State<ChatMsg> {
       stream: FirebaseFirestore.instance.collection("users").snapshots(),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
-          return Text('Erro ao carregar usuários');
+          return const Text('Erro ao carregar usuários');
         }
 
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Text('Carregando usuários...');
+          return const Text('Carregando usuários...');
         }
 
         // Lista atual de documentos de usuários
@@ -85,7 +85,7 @@ class _ChatMsgState extends State<ChatMsg> {
         String userName = userEmail.split('@').first;
 
         return Container(
-          margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+          margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
           decoration: BoxDecoration(
             color: MinhasCores.amarelo,
             borderRadius: BorderRadius.circular(12.0),
@@ -94,7 +94,7 @@ class _ChatMsgState extends State<ChatMsg> {
                 color: Colors.grey.withOpacity(0.5),
                 spreadRadius: 2,
                 blurRadius: 5,
-                offset: Offset(0, 3),
+                offset: const Offset(0, 3),
               ),
             ],
           ),
@@ -103,7 +103,7 @@ class _ChatMsgState extends State<ChatMsg> {
               padding: const EdgeInsets.all(12.0),
               child: Text(
                 userName,
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
               ),
             ),
             onTap: () {

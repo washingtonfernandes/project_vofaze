@@ -33,7 +33,7 @@ class MyCircle extends StatelessWidget {
 
         ),
 
-        child: Center(child: Text(child, style: TextStyle(fontSize: 16))),
+        child: Center(child: Text(child, style: const TextStyle(fontSize: 16))),
 
       ),
 

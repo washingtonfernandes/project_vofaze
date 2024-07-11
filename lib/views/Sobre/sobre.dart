@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:project_vofaze/common/cores_dia.dart';
 
 class SobrePage extends StatefulWidget {
+  const SobrePage({super.key});
+
   @override
   _SobrePageState createState() => _SobrePageState();
 }
@@ -53,24 +55,24 @@ class _SobrePageState extends State<SobrePage> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 IconButton(
-                  icon: Icon(Icons.arrow_back,
+                  icon: const Icon(Icons.arrow_back,
                       size: 40), 
                   onPressed: () {
                     if (_pageController.page != 0) {
                       _pageController.previousPage(
-                        duration: Duration(milliseconds: 300),
+                        duration: const Duration(milliseconds: 300),
                         curve: Curves.ease,
                       );
                     }
                   },
                 ),
                 IconButton(
-                  icon: Icon(Icons.arrow_forward,
+                  icon: const Icon(Icons.arrow_forward,
                       size: 40), 
                   onPressed: () {
                     if (_pageController.page != images.length - 1) {
                       _pageController.nextPage(
-                        duration: Duration(milliseconds: 300),
+                        duration: const Duration(milliseconds: 300),
                         curve: Curves.ease,
                       );
                     }

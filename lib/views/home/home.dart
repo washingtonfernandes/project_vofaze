@@ -7,22 +7,30 @@ import 'package:project_vofaze/views/home/completed_ticket_home.dart';
 import 'package:project_vofaze/views/home/pending_ticket_home.dart';
 
 class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+  const Home({super.key});
 
   @override
   _HomeState createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
-  late String _searchText;
   late PageController _pageController;
   int _currentPageIndex = 0;
 
   @override
   void initState() {
     super.initState();
-    _searchText = '';
     _pageController = PageController(initialPage: _currentPageIndex);
+    _reloadCurrentUser();
+  }
+
+  Future<void> _reloadCurrentUser() async {
+    try {
+      await FirebaseAuth.instance.currentUser!.reload();
+      setState(() {});
+    } catch (e) {
+      print('Erro ao recarregar usuário: $e');
+    }
   }
 
   @override
@@ -99,36 +107,103 @@ class _HomeState extends State<Home> {
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                child: Column(
                   children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        _pageController.animateToPage(0,
-                            duration: const Duration(milliseconds: 500),
-                            curve: Curves.ease);
-                      },
-                      style: ButtonStyle(
-                        backgroundColor:
-                            WidgetStateProperty.all<Color>(Colors.red),
-                        foregroundColor:
-                            WidgetStateProperty.all<Color>(Colors.white),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            border: Border.all(color: Colors.black, width: 1)),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 10, horizontal: 20),
+                                decoration: BoxDecoration(
+                                  color: Colors.red,
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: const Text(
+                                  "Manutenção",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 10,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(width: 10),
+                              Container(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 10, horizontal: 20),
+                                decoration: BoxDecoration(
+                                  color: Colors.blue,
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: const Text(
+                                  "Limpeza",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 10,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(width: 10),
+                              Container(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 10, horizontal: 20),
+                                decoration: BoxDecoration(
+                                  color: Colors.green,
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: const Text(
+                                  "Administrativo",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 10,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
-                      child: Text("Tickets Pendentes"),
                     ),
-                    ElevatedButton(
-                      onPressed: () {
-                        _pageController.animateToPage(1,
-                            duration: const Duration(milliseconds: 500),
-                            curve: Curves.ease);
-                      },
-                      style: ButtonStyle(
-                        backgroundColor:
-                            WidgetStateProperty.all<Color>(Colors.green),
-                        foregroundColor:
-                            WidgetStateProperty.all<Color>(Colors.white),
-                      ),
-                      child: Text("Tickets Completados"),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        ElevatedButton(
+                          onPressed: () {
+                            _pageController.animateToPage(0,
+                                duration: const Duration(milliseconds: 500),
+                                curve: Curves.ease);
+                          },
+                          style: ButtonStyle(
+                            backgroundColor: WidgetStateProperty.all<Color>(
+                                MinhasCores.amarelo),
+                            foregroundColor:
+                                WidgetStateProperty.all<Color>(Colors.black),
+                          ),
+                          child: const Text("Tickets Pendentes"),
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            _pageController.animateToPage(1,
+                                duration: const Duration(milliseconds: 500),
+                                curve: Curves.ease);
+                          },
+                          style: ButtonStyle(
+                            backgroundColor:
+                                WidgetStateProperty.all<Color>(Colors.black),
+                            foregroundColor: WidgetStateProperty.all<Color>(
+                                MinhasCores.amarelo),
+                          ),
+                          child: const Text("Tickets Concluídos"),
+                        ),
+                      ],
                     ),
                   ],
                 ),
@@ -142,10 +217,10 @@ class _HomeState extends State<Home> {
                     });
                   },
                   children: [
-                    PendingTicketsScreen(),
+                    const PendingTicketsScreen(),
                     Container(
                       color: MinhasCores.amarelo,
-                      child: CompletedTicketsScreen(),
+                      child: const CompletedTicketsScreen(),
                     ),
                   ],
                 ),

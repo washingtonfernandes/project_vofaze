@@ -6,10 +6,10 @@ import 'package:project_vofaze/services/chat/chat_service.dart';
 
 class ChatPage extends StatefulWidget {
   const ChatPage({
-    Key? key,
+    super.key,
     required this.receiverUserEmail,
     required this.receiverUserId,
-  }) : super(key: key);
+  });
 
   final String receiverUserEmail;
   final String receiverUserId;
@@ -39,9 +39,12 @@ class _ChatPageState extends State<ChatPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: MinhasCores.amarelo,
-        title: Text(widget.receiverUserEmail),
+        title: Text(
+          widget.receiverUserEmail,
+          style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+        ),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -82,7 +85,7 @@ class _ChatPageState extends State<ChatPage> {
         }
 
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         }
 
         List<QueryDocumentSnapshot> messages = snapshot.data!.docs;
@@ -100,17 +103,18 @@ class _ChatPageState extends State<ChatPage> {
 
             return Container(
               alignment: alignment,
-              margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+              margin:
+                  const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     data['senderEmail'],
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(height: 4.0),
+                  const SizedBox(height: 4.0),
                   Container(
-                    padding: EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(8.0),
                     decoration: BoxDecoration(
                       color: isCurrentUser
                           ? const Color.fromARGB(255, 143, 109, 0)
@@ -119,7 +123,7 @@ class _ChatPageState extends State<ChatPage> {
                     ),
                     child: Text(
                       data['message'],
-                      style: TextStyle(color: Colors.white),
+                      style: const TextStyle(color: Colors.white),
                     ),
                   ),
                 ],
@@ -133,7 +137,7 @@ class _ChatPageState extends State<ChatPage> {
 
   Widget _buildMessageInput() {
     return Padding(
-      padding: EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(16.0),
       child: Row(
         children: [
           Expanded(
@@ -150,14 +154,14 @@ class _ChatPageState extends State<ChatPage> {
               ),
             ),
           ),
-          SizedBox(width: 8.0),
+          const SizedBox(width: 8.0),
           Material(
             color: MinhasCores.amarelo,
             borderRadius: BorderRadius.circular(30.0),
             child: InkWell(
               onTap: sendMessage,
               borderRadius: BorderRadius.circular(30.0),
-              child: Padding(
+              child: const Padding(
                 padding: EdgeInsets.all(12.0),
                 child: Icon(
                   Icons.send,

@@ -6,7 +6,7 @@ import 'package:project_vofaze/views/Pdf/PDFGenerator_IsDone.dart';
 import 'package:project_vofaze/views/Pdf/PDFGenerator_isDoneNot.dart';
 
 class PdfScreen extends StatefulWidget {
-  const PdfScreen({Key? key}) : super(key: key);
+  const PdfScreen({super.key});
 
   @override
   _PdfScreenState createState() => _PdfScreenState();
@@ -30,7 +30,7 @@ class _PdfScreenState extends State<PdfScreen> {
         title: const Text('Relatórios'),
       ),
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage('assets/images/fundoa_app.png'),
             fit: BoxFit.cover,
@@ -101,7 +101,7 @@ class _PdfScreenState extends State<PdfScreen> {
               // Mostrar indicador de progresso
               if (_isGenerating) ...[
                 const SizedBox(height: 16.0),
-                Center(
+                const Center(
                   child: CircularProgressIndicator(),
                 ),
               ],
@@ -133,12 +133,12 @@ class _PdfScreenState extends State<PdfScreen> {
         );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Arquivo PDF não encontrado')),
+          const SnackBar(content: Text('Arquivo PDF não encontrado')),
         );
       }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Erro ao gerar o relatório')),
+        const SnackBar(content: Text('Erro ao gerar o relatório')),
       );
       print('Erro ao gerar o relatório: $e');
     } finally {

@@ -22,7 +22,7 @@ class _RecuperarSenhaState extends State<RecuperarSenha> {
     final String email = _emailcontroller.text.trim();
 
     try {
-      // ignore: deprecated_member_use
+
       await FirebaseAuth.instance.fetchSignInMethodsForEmail(email);
 
       await FirebaseAuth.instance.sendPasswordResetEmail(email: email);

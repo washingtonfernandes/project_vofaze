@@ -4,7 +4,7 @@ import 'package:project_vofaze/services/provider/auth_service_provider.dart';
 import 'package:project_vofaze/vofaze.dart';
 
 class UpdateProfileScreen extends StatefulWidget {
-  const UpdateProfileScreen({Key? key}) : super(key: key);
+  const UpdateProfileScreen({super.key});
 
   @override
   _UpdateProfileScreenState createState() => _UpdateProfileScreenState();
@@ -36,7 +36,6 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
       }
     } catch (e) {
       print('Erro ao carregar dados do usuário: $e');
-      // Tratar erro, exibir mensagem, etc.
     }
   }
 

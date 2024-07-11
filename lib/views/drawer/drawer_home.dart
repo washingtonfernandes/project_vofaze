@@ -133,7 +133,7 @@ class _DrawerHomeState extends State<DrawerHome> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => PdfScreen()));
+                                        builder: (context) => const PdfScreen()));
                               }
                             : showNoPermissionMessage,
                         style: ElevatedButton.styleFrom(
@@ -191,7 +191,7 @@ class _DrawerHomeState extends State<DrawerHome> {
               ElevatedButton(
                 onPressed: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => ChatMsg()));
+                      MaterialPageRoute(builder: (context) => const ChatMsg()));
                 },
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white,
@@ -306,10 +306,10 @@ class _DrawerHomeState extends State<DrawerHome> {
               style: TextStyle(fontWeight: FontWeight.w500),
             ),
           ),
-          content: Column(
+          content: const Column(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
+            children: [
               Column(
                 children: [
                   Text('Sem permissão!'),

@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:typed_data';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
@@ -39,8 +38,7 @@ class PDFGeneratorIsDone {
     // Informações do usuário
     final User? user = FirebaseAuth.instance.currentUser;
     final String userName = user?.displayName ?? "Nome do Usuário";
-    final String currentDate =
-        DateFormat('dd/MM/yyyy').format(DateTime.now());
+    final String currentDate = DateFormat('dd/MM/yyyy').format(DateTime.now());
 
     // Dados da tabela apenas com tickets concluídos
     List<List<dynamic>> tableData = [];
@@ -48,10 +46,8 @@ class PDFGeneratorIsDone {
     for (var ticket in ticketsData.docs) {
       bool isDone = ticket['isDone'] ?? false;
       if (isDone) {
-        String ambienteNome =
-            await _getAmbienteNome(ticket['ambienteId']);
-        String userName =
-            await _getUserName(ticket['userId']);
+        String ambienteNome = await _getAmbienteNome(ticket['ambienteId']);
+        String userName = await _getUserName(ticket['userId']);
 
         tableData.add([
           ticket['data'] as String,
@@ -107,13 +103,13 @@ class PDFGeneratorIsDone {
                   child: pw.Table(
                     border: pw.TableBorder.all(),
                     columnWidths: {
-                      0: pw.FixedColumnWidth(70), 
-                      1: pw.FixedColumnWidth(100), 
-                      2: pw.FixedColumnWidth(120), 
-                      3: pw.FixedColumnWidth(120), 
-                      4: pw.FixedColumnWidth(150), 
-                      5: pw.FixedColumnWidth(100), 
-                      6: pw.FixedColumnWidth(70), 
+                      0: const pw.FixedColumnWidth(70),
+                      1: const pw.FixedColumnWidth(100),
+                      2: const pw.FixedColumnWidth(120),
+                      3: const pw.FixedColumnWidth(120),
+                      4: const pw.FixedColumnWidth(150),
+                      5: const pw.FixedColumnWidth(100),
+                      6: const pw.FixedColumnWidth(70),
                     },
                     children: [
                       // Títulos das colunas
@@ -183,10 +179,8 @@ class PDFGeneratorIsDone {
   }
 
   static Future<String> _getUserName(String userId) async {
-    var snapshot = await FirebaseFirestore.instance
-        .collection('users')
-        .doc(userId)
-        .get();
+    var snapshot =
+        await FirebaseFirestore.instance.collection('users').doc(userId).get();
     return snapshot.exists ? snapshot['nome'] : 'Nome não encontrado';
   }
 }

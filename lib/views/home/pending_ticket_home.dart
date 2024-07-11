@@ -5,15 +5,20 @@ import 'package:provider/provider.dart';
 import 'package:project_vofaze/services/provider/ticket_provider.dart';
 
 class PendingTicketsScreen extends StatelessWidget {
+  const PendingTicketsScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: MinhasCores.amareloBaixo,
-        title: const Center(
-          child: Text(
-            'Tickets Pendentes',
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(20.0),
+        child: AppBar(
+          backgroundColor: MinhasCores.amareloBaixo,
+          title: const Center(
+            child: Text(
+              'Tickets Pendentes',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+            ),
           ),
         ),
       ),
@@ -26,7 +31,7 @@ class PendingTicketsScreen extends StatelessWidget {
                 .toList();
 
             if (tickets.isEmpty) {
-              return Center(child: Text('Nenhum ticket pendente.'));
+              return const Center(child: Text('Nenhum ticket pendente.'));
             }
 
             return ListView.builder(

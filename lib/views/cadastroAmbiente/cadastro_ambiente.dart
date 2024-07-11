@@ -71,12 +71,10 @@ class _CadastroAmbienteState extends State<CadastroAmbiente> {
                     },
                   );
                 } else {
-                  return Center(
-                    child: Container(
-                      child: const Text(
-                        "Sem ambiente...",
-                        style: TextStyle(fontSize: 16),
-                      ),
+                  return const Center(
+                    child: Text(
+                      "Sem ambiente...",
+                      style: TextStyle(fontSize: 16),
                     ),
                   );
                 }

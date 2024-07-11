@@ -72,12 +72,10 @@ class _CadastroUsuarioState extends State<CadastroUsuario> {
                     },
                   );
                 } else {
-                  return Center(
-                    child: Container(
-                      child: const Text(
-                        "Sem usuário...",
-                        style: TextStyle(fontSize: 16),
-                      ),
+                  return const Center(
+                    child: Text(
+                      "Sem usuário...",
+                      style: TextStyle(fontSize: 16),
                     ),
                   );
                 }

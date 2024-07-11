@@ -45,13 +45,11 @@ class CardMyListWidget extends StatelessWidget {
             return const Text('Erro ao carregar dados do usuário');
           }
 
-          final userData =
-              userSnapshot.data?.data() as Map<String, dynamic>?;
+          final userData = userSnapshot.data?.data() as Map<String, dynamic>?;
 
           final userName = userData != null
               ? userData['nome'] != null
-                  ? (userData['nome'] as String).length >
-                          10 
+                  ? (userData['nome'] as String).length > 10
                       ? userData['nome'].toString().substring(0, 10)
                       : userData['nome'].toString()
                   : 'Todos'
@@ -60,8 +58,7 @@ class CardMyListWidget extends StatelessWidget {
           return FutureBuilder<DocumentSnapshot>(
             future: _fetchAmbienteData(ticket.ambienteId),
             builder: (context, ambienteSnapshot) {
-              if (ambienteSnapshot.connectionState ==
-                  ConnectionState.waiting) {
+              if (ambienteSnapshot.connectionState == ConnectionState.waiting) {
                 return const CircularProgressIndicator(
                   value: null,
                   strokeWidth: 2,
@@ -77,17 +74,14 @@ class CardMyListWidget extends StatelessWidget {
 
               final ambienteName = ambienteData != null
                   ? ambienteData['ambiente'] != null
-                      ? (ambienteData['ambiente'] as String).length >
-                              10 
-                          ? ambienteData['ambiente']
-                              .toString()
-                              .substring(0, 10)
+                      ? (ambienteData['ambiente'] as String).length > 10
+                          ? ambienteData['ambiente'].toString().substring(0, 10)
                           : ambienteData['ambiente'].toString()
                       : 'Todos'
                   : 'Todos';
 
-              return _buildMyTicketCard(context, userName,
-                  ambienteName, ticket);
+              return _buildMyTicketCard(
+                  context, userName, ambienteName, ticket);
             },
           );
         },
@@ -109,8 +103,8 @@ class CardMyListWidget extends StatelessWidget {
         .get();
   }
 
-  Widget _buildMyTicketCard(BuildContext context,
-      String userName, String ambienteName, TicketModel ticket) {
+  Widget _buildMyTicketCard(BuildContext context, String userName,
+      String ambienteName, TicketModel ticket) {
     Color setorColor = _getSetorColor(ticket.setor);
 
     return Padding(
@@ -137,65 +131,59 @@ class CardMyListWidget extends StatelessWidget {
             Expanded(
               child: Column(
                 children: [
-                  Container(
-                    child: Row(
-                      children: [
-                        // Nome do usuário
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: Column(
-                              children: [
-                                const Text("Usuário",
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                    )),
-                                Container(
-                                  child: Column(
-                                    children: [
-                                      const Gap(12),
-                                      Text(
-                                        userName,
-                                        style: const TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w800),
-                                      ),
-                                    ],
+                  Row(
+                    children: [
+                      // Nome do usuário
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Column(
+                            children: [
+                              const Text("Usuário",
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                  )),
+                              Column(
+                                children: [
+                                  const Gap(12),
+                                  Text(
+                                    userName,
+                                    style: const TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w800),
                                   ),
-                                ),
-                              ],
-                            ),
+                                ],
+                              ),
+                            ],
                           ),
                         ),
-                        // Nome do ambiente
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: Column(
-                              children: [
-                                const Text("Ambiente",
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                    )),
-                                Container(
-                                  child: Column(
-                                    children: [
-                                      const Gap(12),
-                                      Text(
-                                        ambienteName,
-                                        style: const TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w800),
-                                      ),
-                                    ],
+                      ),
+                      // Nome do ambiente
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Column(
+                            children: [
+                              const Text("Ambiente",
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                  )),
+                              Column(
+                                children: [
+                                  const Gap(12),
+                                  Text(
+                                    ambienteName,
+                                    style: const TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w800),
                                   ),
-                                ),
-                              ],
-                            ),
+                                ],
+                              ),
+                            ],
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                   const Divider(),
                   ListTile(
@@ -242,42 +230,43 @@ class CardMyListWidget extends StatelessWidget {
                           ),
                       ],
                     ),
-                    trailing: Switch(
-                      value: ticket.isDone,
-                      onChanged: (value) {
-                        Provider.of<TicketProvider>(context, listen: false).updateTicketStatus(ticket, value);
-                      },
-                      activeColor: Colors.black,
-                      inactiveTrackColor: MinhasCores.amarelo,
+                    trailing: Transform.scale(
+                      scale: 0.8,
+                      child: Switch(
+                        value: ticket.isDone,
+                        onChanged: (value) {
+                          Provider.of<TicketProvider>(context, listen: false)
+                              .updateTicketStatus(ticket, value);
+                        },
+                        activeColor: const Color.fromARGB(255, 124, 91, 0),
+                        inactiveTrackColor: MinhasCores.amarelo,
+                      ),
                     ),
                   ),
                   Transform.translate(
                     offset: const Offset(0, -12),
-                    child: Container(
-                      child: Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: MinhasCores.amareloBaixo,
-                                borderRadius: BorderRadius.circular(16),
-                              ),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  const Gap(12),
-                                  Text(ticket.data),
-                                  const Gap(12),
-                                  Text(ticket.horario),
-                                  const Gap(12),
-                                ],
-                              ),
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: MinhasCores.amareloBaixo,
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                const Gap(12),
+                                Text(ticket.data),
+                                const Gap(12),
+                                Text(ticket.horario),
+                                const Gap(12),
+                              ],
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
                 ],

@@ -60,7 +60,7 @@ class ChatService extends ChangeNotifier {
     } catch (e) {
       print('Erro ao obter mensagens: $e');
      
-      return Stream.empty();
+      return const Stream.empty();
     }
   }
 }
