@@ -25,7 +25,7 @@ class AmbienteDialog extends StatelessWidget {
       actions: [
         ElevatedButton(
           onPressed: () {
-            Navigator.pop(context); 
+            Navigator.pop(context);
           },
           style: ElevatedButton.styleFrom(
             foregroundColor: Colors.white,

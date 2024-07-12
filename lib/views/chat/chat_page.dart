@@ -39,10 +39,7 @@ class _ChatPageState extends State<ChatPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: MinhasCores.amarelo,
-        title: Text(
-          widget.receiverUserEmail,
-          style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
-        ),
+        title: Text(widget.receiverUserEmail),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {

@@ -5,7 +5,7 @@ import 'package:project_vofaze/model/ticket_model.dart';
 import 'package:project_vofaze/services/provider/date_time_provider.dart';
 import 'package:project_vofaze/services/provider/radio_provider.dart';
 import 'package:project_vofaze/services/provider/ticket_provider.dart';
-import 'package:project_vofaze/widget/ambiente_selected.dart';
+import 'package:project_vofaze/widget/ambient_selected.dart';
 import 'package:project_vofaze/widget/date_time_widget.dart';
 import 'package:project_vofaze/widget/radio_widget.dart';
 import 'package:project_vofaze/widget/user_selected.dart';

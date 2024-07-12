@@ -6,7 +6,7 @@ import 'package:gap/gap.dart';
 
 import 'package:project_vofaze/widget/alert_dialog_ticket_widget.dart';
 
-import 'package:project_vofaze/widget/ambiente_selected.dart';
+import 'package:project_vofaze/widget/ambient_selected.dart';
 
 import 'package:project_vofaze/widget/date_time_widget.dart';
 

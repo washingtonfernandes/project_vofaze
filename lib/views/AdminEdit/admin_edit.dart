@@ -4,7 +4,7 @@ import 'package:dots_indicator/dots_indicator.dart';
 
 import 'package:project_vofaze/common/cores_dia.dart';
 
-import 'package:project_vofaze/views/cadastroAmbiente/cadastro_ambiente.dart';
+import 'package:project_vofaze/views/registerAmbient/register_ambient.dart';
 
 import 'package:project_vofaze/views/cadastroUsuario/cadastro_usuario.dart';
 

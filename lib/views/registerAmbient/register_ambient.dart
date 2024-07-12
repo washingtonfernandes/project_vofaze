@@ -2,9 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:project_vofaze/common/cores_dia.dart';
 import 'package:project_vofaze/services/firestore_services.dart';
-import 'package:project_vofaze/views/cadastroAmbiente/ambiente_dialog.dart';
-import 'package:project_vofaze/views/cadastroAmbiente/ambiente_item.dart';
-import 'package:project_vofaze/views/cadastroAmbiente/confirm_delete_ambiente.dart';
+import 'package:project_vofaze/views/registerAmbient/ambient_dialog.dart';
+import 'package:project_vofaze/views/registerAmbient/ambient_item.dart';
+import 'package:project_vofaze/views/registerAmbient/confirm_delete_ambient.dart';
 
 class CadastroAmbiente extends StatefulWidget {
   const CadastroAmbiente({super.key});
