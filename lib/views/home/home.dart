@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:project_vofaze/common/cores_dia.dart';
 import 'package:project_vofaze/services/provider/auth_service_provider.dart';
 import 'package:project_vofaze/views/drawer/drawer_home.dart';
-import 'package:project_vofaze/views/home/completed_ticket_home.dart';
-import 'package:project_vofaze/views/home/pending_ticket_home.dart';
+import 'package:project_vofaze/views/home/homepagestickets/completed_ticket_home.dart';
+import 'package:project_vofaze/views/home/homepagestickets/pending_ticket_home.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});

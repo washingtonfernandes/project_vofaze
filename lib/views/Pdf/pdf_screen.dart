@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:project_vofaze/common/cores_dia.dart';
-import 'package:project_vofaze/views/Pdf/PDFGeneratorAll.dart';
-import 'package:project_vofaze/views/Pdf/PDFGenerator_IsDone.dart';
-import 'package:project_vofaze/views/Pdf/PDFGenerator_isDoneNot.dart';
+import 'package:project_vofaze/views/Pdf/pdfGenerators/PDFGeneratorAll.dart';
+import 'package:project_vofaze/views/Pdf/pdfGenerators/PDFGenerator_IsDone.dart';
+import 'package:project_vofaze/views/Pdf/pdfGenerators/PDFGenerator_isDoneNot.dart';
+import 'PDFViewerScreen.dart'; // Importar a nova tela de visualização de PDF
 
 class PdfScreen extends StatefulWidget {
   const PdfScreen({super.key});
@@ -126,9 +126,7 @@ class _PdfScreenState extends State<PdfScreen> {
         // Aguardar a conclusão do PDF para poder abrir
         await Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => PDFView(
-              filePath: filePath,
-            ),
+            builder: (context) => PDFViewerScreen(filePath: filePath),
           ),
         );
       } else {
