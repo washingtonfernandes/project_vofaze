@@ -14,7 +14,7 @@ class AuthCheck extends StatefulWidget {
 class _AuthCheckState extends State<AuthCheck> {
   @override
   Widget build(BuildContext context) {
-    AutenticacaoServico auth = Provider.of<AutenticacaoServico>(context);
+    AuthService auth = Provider.of<AuthService>(context);
     
 
     if (auth.isLoading) {

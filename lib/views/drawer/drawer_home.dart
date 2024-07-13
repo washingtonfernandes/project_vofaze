@@ -221,7 +221,7 @@ class _DrawerHomeState extends State<DrawerHome> {
               ElevatedButton(
                 onPressed: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => SobrePage()));
+                      MaterialPageRoute(builder: (context) => AboutPage()));
                 },
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white,
@@ -260,7 +260,7 @@ class _DrawerHomeState extends State<DrawerHome> {
                       color: MinhasCores.amarelo,
                     ),
                     onTap: () {
-                      AutenticacaoServico().deslogar();
+                      AuthService().deslogar();
                     },
                   ),
                 ),

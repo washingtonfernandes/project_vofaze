@@ -18,7 +18,7 @@ class _ChatMsgState extends State<ChatMsg> {
 
   void deslogar() {
     final authService =
-        Provider.of<AutenticacaoServico>(context, listen: false);
+        Provider.of<AuthService>(context, listen: false);
 
     authService.deslogar();
   }

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:project_vofaze/common/cores_dia.dart';
 
-class ConfirmDeleteDialogAmbiente extends StatelessWidget {
+class ConfirmDeleteDialogAmbient extends StatelessWidget {
   final VoidCallback onDelete;
 
-  const ConfirmDeleteDialogAmbiente({super.key, required this.onDelete});
+  const ConfirmDeleteDialogAmbient({super.key, required this.onDelete});
 
   @override
   Widget build(BuildContext context) {

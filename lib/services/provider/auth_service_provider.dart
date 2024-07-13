@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 
-class AutenticacaoServico with ChangeNotifier {
+class AuthService with ChangeNotifier {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
@@ -12,7 +12,7 @@ class AutenticacaoServico with ChangeNotifier {
 
   bool isLoading = true;
 
-  AutenticacaoServico() {
+  AuthService() {
     _firebaseAuth.authStateChanges().listen((user) {
       _usuario = user;
       isLoading = false;
@@ -117,6 +117,7 @@ class AutenticacaoServico with ChangeNotifier {
       if (user != null) {
         // Atualizar nome e email no Firebase Auth
         await user.updateDisplayName(novoNome);
+        // ignore: deprecated_member_use
         await user.updateEmail(novoEmail);
 
         // Atualizar senha apenas se uma nova senha for fornecida

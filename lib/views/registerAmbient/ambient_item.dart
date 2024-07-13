@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class AmbienteItem extends StatelessWidget {
-  final String ambienteText;
+class AmbientItem extends StatelessWidget {
+  final String ambientText;
   final VoidCallback onEdit;
   final VoidCallback onDelete;
 
-  const AmbienteItem({
+  const AmbientItem({
     super.key,
-    required this.ambienteText,
+    required this.ambientText,
     required this.onEdit,
     required this.onDelete,
   });
@@ -24,7 +24,7 @@ class AmbienteItem extends StatelessWidget {
           ),
           child: ListTile(
             title: Text(
-              ambienteText,
+              ambientText,
               style: const TextStyle(fontSize: 18),
             ),
             trailing: Row(

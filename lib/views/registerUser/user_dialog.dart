@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:project_vofaze/common/cores_dia.dart';
 
-class UsuarioDialog extends StatelessWidget {
+class UserDialog extends StatelessWidget {
   final TextEditingController textController;
   final VoidCallback onSave;
 
-  const UsuarioDialog({
+  const UserDialog({
     super.key,
     required this.textController,
     required this.onSave,

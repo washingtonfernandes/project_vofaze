@@ -4,14 +4,14 @@ import 'package:project_vofaze/common/snackbar_login.dart';
 import 'package:project_vofaze/services/provider/auth_service_provider.dart';
 import 'package:project_vofaze/views/recoverPassword/recover_password.dart';
 
-class AutenticacaoTela extends StatefulWidget {
-  const AutenticacaoTela({super.key});
+class AuthScreen extends StatefulWidget {
+  const AuthScreen({super.key});
 
   @override
-  State<AutenticacaoTela> createState() => _AutenticacaoTelaState();
+  State<AuthScreen> createState() => _AuthScreenState();
 }
 
-class _AutenticacaoTelaState extends State<AutenticacaoTela> {
+class _AuthScreenState extends State<AuthScreen> {
   bool queroEntrar = true;
 
   final _formKey = GlobalKey<FormState>();
@@ -20,7 +20,7 @@ class _AutenticacaoTelaState extends State<AutenticacaoTela> {
   final TextEditingController _nomeController = TextEditingController();
   final TextEditingController _codigoAcessoController = TextEditingController();
 
-  final AutenticacaoServico _autenticaServico = AutenticacaoServico();
+  final AuthService _autenticaServico = AuthService();
 
   bool _obscureText = true;
 
@@ -218,7 +218,7 @@ class _AutenticacaoTelaState extends State<AutenticacaoTela> {
                           onPressed: () {
                             Navigator.push(context,
                                 MaterialPageRoute(builder: (context) {
-                              return const RecuperarSenha();
+                              return const RecoverPass();
                             }));
                           },
                           child: const Text(

@@ -90,7 +90,7 @@ class _HomeState extends State<Home> {
           trailing: IconButton(
             icon: const Icon(Icons.exit_to_app_sharp),
             onPressed: () {
-              AutenticacaoServico().deslogar();
+              AuthService().deslogar();
             },
           ),
         ),

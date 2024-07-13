@@ -9,7 +9,7 @@ import 'package:project_vofaze/services/provider/date_time_provider.dart';
 MultiProvider getAppProviders(BuildContext context, Widget child) {
   return MultiProvider(
     providers: [
-      ChangeNotifierProvider(create: (context) => AutenticacaoServico()),
+      ChangeNotifierProvider(create: (context) => AuthService()),
       ChangeNotifierProvider(create: (context) => RadioProvider()),
       ChangeNotifierProvider(create: (context) => DateTimeProvider()),
       ChangeNotifierProvider(create: (context) => TicketProvider()),

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:project_vofaze/common/cores_dia.dart';
 
-class AmbienteDialog extends StatelessWidget {
+class AmbientDialog extends StatelessWidget {
   final TextEditingController textController;
   final VoidCallback onSave;
 
-  const AmbienteDialog({
+  const AmbientDialog({
     super.key,
     required this.textController,
     required this.onSave,

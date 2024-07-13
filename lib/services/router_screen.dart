@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:project_vofaze/views/home/home.dart';
 import 'package:project_vofaze/views/login/login.dart';
 
-class RoteadorTela extends StatelessWidget {
-  const RoteadorTela({super.key});
+class RouterScreen extends StatelessWidget {
+  const RouterScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +14,7 @@ class RoteadorTela extends StatelessWidget {
         if (snapshot.hasData) {
           return const Home();
         } else {
-          return const AutenticacaoTela();
+          return const AuthScreen();
         }
       },
     );

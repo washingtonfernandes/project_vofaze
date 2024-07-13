@@ -2,14 +2,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:project_vofaze/common/cores_dia.dart';
 
-class RecuperarSenha extends StatefulWidget {
-  const RecuperarSenha({super.key});
+class RecoverPass extends StatefulWidget {
+  const RecoverPass({super.key});
 
   @override
-  State<RecuperarSenha> createState() => _RecuperarSenhaState();
+  State<RecoverPass> createState() => _RecoverPassState();
 }
 
-class _RecuperarSenhaState extends State<RecuperarSenha> {
+class _RecoverPassState extends State<RecoverPass> {
   final _emailcontroller = TextEditingController();
 
   @override

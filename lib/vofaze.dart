@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project_vofaze/services/roteador_tela.dart';
+import 'package:project_vofaze/services/router_screen.dart';
 import 'package:project_vofaze/views/splash-screen/splash-screen.dart';
 
 class Vofaze extends StatelessWidget {
@@ -15,7 +15,7 @@ class Vofaze extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const SplashScreen();
           } else {
-            return const RoteadorTela();
+            return const RouterScreen();
           }
         },
       ),

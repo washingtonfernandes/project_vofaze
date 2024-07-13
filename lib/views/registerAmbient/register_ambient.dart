@@ -6,14 +6,14 @@ import 'package:project_vofaze/views/registerAmbient/ambient_dialog.dart';
 import 'package:project_vofaze/views/registerAmbient/ambient_item.dart';
 import 'package:project_vofaze/views/registerAmbient/confirm_delete_ambient.dart';
 
-class CadastroAmbiente extends StatefulWidget {
-  const CadastroAmbiente({super.key});
+class RegisterAmbient extends StatefulWidget {
+  const RegisterAmbient({super.key});
 
   @override
-  State<CadastroAmbiente> createState() => _CadastroAmbienteState();
+  State<RegisterAmbient> createState() => _RegisterAmbientState();
 }
 
-class _CadastroAmbienteState extends State<CadastroAmbiente> {
+class _RegisterAmbientState extends State<RegisterAmbient> {
   final FirestoreService firestoreService = FirestoreService();
   final TextEditingController textController = TextEditingController();
 
@@ -30,7 +30,7 @@ class _CadastroAmbienteState extends State<CadastroAmbiente> {
           children: [
             const Text("Ambientes"),
             FloatingActionButton(
-              mini: true, 
+              mini: true,
               backgroundColor: Colors.black,
               foregroundColor: MinhasCores.amarelo,
               onPressed: openboxAmbiente,
@@ -60,11 +60,11 @@ class _CadastroAmbienteState extends State<CadastroAmbiente> {
                       String docID = document.id;
                       Map<String, dynamic> data =
                           document.data() as Map<String, dynamic>;
-                      String ambienteText = data["ambiente"];
-                      return AmbienteItem(
-                        ambienteText: ambienteText,
+                      String ambientText = data["ambiente"];
+                      return AmbientItem(
+                        ambientText: ambientText,
                         onEdit: () => openboxAmbiente(
-                            docID: docID, ambienteText: ambienteText),
+                            docID: docID, ambientText: ambientText),
                         onDelete: () =>
                             confirmDelete(docID: docID, context: context),
                       );
@@ -86,13 +86,13 @@ class _CadastroAmbienteState extends State<CadastroAmbiente> {
     );
   }
 
-  void openboxAmbiente({String? docID, String? ambienteText}) {
-    textController.text = ambienteText ?? '';
+  void openboxAmbiente({String? docID, String? ambientText}) {
+    textController.text = ambientText ?? '';
 
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (context) => AmbienteDialog(
+      builder: (context) => AmbientDialog(
         textController: textController,
         onSave: (docID == null)
             ? () => firestoreService.addAmbiente(textController.text)
@@ -105,7 +105,7 @@ class _CadastroAmbienteState extends State<CadastroAmbiente> {
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (context) => ConfirmDeleteDialogAmbiente(
+      builder: (context) => ConfirmDeleteDialogAmbient(
         onDelete: () {
           firestoreService.deleteAmbiente(docID);
           Navigator.pop(context);

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class UsuarioItem extends StatelessWidget {
+class UserItem extends StatelessWidget {
   final String usuarioText;
   final String emailText;
   final VoidCallback? onDelete;
   final bool isDeletable;
 
-  const UsuarioItem({
+  const UserItem({
     super.key,
     required this.usuarioText,
     required this.emailText,

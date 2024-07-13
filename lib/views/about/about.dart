@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:project_vofaze/common/cores_dia.dart';
 
-class SobrePage extends StatefulWidget {
-  const SobrePage({super.key});
+class AboutPage extends StatefulWidget {
+  const AboutPage({super.key});
 
   @override
-  _SobrePageState createState() => _SobrePageState();
+  _AboutPageState createState() => _AboutPageState();
 }
 
-class _SobrePageState extends State<SobrePage> {
+class _AboutPageState extends State<AboutPage> {
   final PageController _pageController = PageController();
   final List<String> images = [
     'assets/images/sobrea_vofaze.png',
@@ -55,8 +55,7 @@ class _SobrePageState extends State<SobrePage> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 IconButton(
-                  icon: const Icon(Icons.arrow_back,
-                      size: 40), 
+                  icon: const Icon(Icons.arrow_back, size: 40),
                   onPressed: () {
                     if (_pageController.page != 0) {
                       _pageController.previousPage(
@@ -67,8 +66,7 @@ class _SobrePageState extends State<SobrePage> {
                   },
                 ),
                 IconButton(
-                  icon: const Icon(Icons.arrow_forward,
-                      size: 40), 
+                  icon: const Icon(Icons.arrow_forward, size: 40),
                   onPressed: () {
                     if (_pageController.page != images.length - 1) {
                       _pageController.nextPage(

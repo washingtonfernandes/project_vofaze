@@ -110,8 +110,8 @@ class _AdminEditPageState extends State<AdminEditPage> {
                 });
               },
               children: [
-                buildCard(const CadastroUsuario()),
-                buildCard(const CadastroAmbiente())
+                buildCard(const RegisterUser()),
+                buildCard(const RegisterAmbient())
               ],
             ),
           ),

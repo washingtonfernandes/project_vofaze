@@ -5,14 +5,14 @@ import 'package:project_vofaze/services/firestore_services.dart';
 import 'package:project_vofaze/views/registerUser/confirm_delete_user.dart';
 import 'package:project_vofaze/views/registerUser/user_item.dart';
 
-class CadastroUsuario extends StatefulWidget {
-  const CadastroUsuario({super.key});
+class RegisterUser extends StatefulWidget {
+  const RegisterUser({super.key});
 
   @override
-  State<CadastroUsuario> createState() => _CadastroUsuarioState();
+  State<RegisterUser> createState() => _RegisterUserState();
 }
 
-class _CadastroUsuarioState extends State<CadastroUsuario> {
+class _RegisterUserState extends State<RegisterUser> {
   final FirestoreService firestoreService = FirestoreService();
   final TextEditingController textController = TextEditingController();
 
@@ -59,11 +59,10 @@ class _CadastroUsuarioState extends State<CadastroUsuario> {
                       // Verifica se o nome do usuário é "Todos"
                       bool isTodos = usuarioText == "Todos";
 
-                      return UsuarioItem(
+                      return UserItem(
                         usuarioText: usuarioText,
                         emailText: emailText,
-                        isDeletable:
-                            !isTodos, 
+                        isDeletable: !isTodos,
                         onDelete: isTodos
                             ? null
                             : () =>
