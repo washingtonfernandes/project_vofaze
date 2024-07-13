@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:project_vofaze/common/cores_dia.dart';
 import 'package:project_vofaze/services/firestore_services.dart';
-import 'package:project_vofaze/views/cadastroUsuario/confirm_delete_user.dart';
-import 'package:project_vofaze/views/cadastroUsuario/usuario_item.dart';
+import 'package:project_vofaze/views/registerUser/confirm_delete_user.dart';
+import 'package:project_vofaze/views/registerUser/user_item.dart';
 
 class CadastroUsuario extends StatefulWidget {
   const CadastroUsuario({super.key});

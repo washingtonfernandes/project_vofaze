@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:project_vofaze/common/cores_dia.dart';
 import 'package:project_vofaze/common/snackbar_login.dart';
 import 'package:project_vofaze/services/provider/auth_service_provider.dart';
-import 'package:project_vofaze/views/recoverPassword/recuperar_senha.dart';
+import 'package:project_vofaze/views/recoverPassword/recover_password.dart';
 
 class AutenticacaoTela extends StatefulWidget {
   const AutenticacaoTela({super.key});
