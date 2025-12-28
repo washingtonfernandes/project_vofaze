@@ -1,16 +1,22 @@
-# project_vofaze
+Vofaze
+Sistema de Gestão de Ordens de Serviço desenvolvido como Trabalho de Conclusão de Curso (TCC) em Análise e Desenvolvimento de Sistemas. Focado na automação de processos para hotéis e pousadas.
 
-A new Flutter project.
+Funcionalidades
+Ordens de Serviço: Abertura e acompanhamento de chamados.
 
-## Getting Started
+Gestão de Ambientes: Cadastro e controle de setores do estabelecimento.
 
-This project is a starting point for a Flutter application.
+Níveis de Acesso: Verificação automática de perfil administrativo (isAdmin).
 
-A few resources to get you started if this is your first Flutter project:
+Autenticação: Sistema de login seguro com Firebase Auth.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Sincronização: Banco de dados NoSQL em tempo real.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Tecnologias
+Frontend: Flutter (Dart)
+
+Backend: Firebase (Auth & Firestore)
+
+Estado: Provider
+
+Arquitetura: Clean (Services, Providers e Views)
